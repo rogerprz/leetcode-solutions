@@ -5,19 +5,15 @@
  */
 var addSpaces = function(s, spaces) {
     let str = ''
-//      EnjoyY
-    for (let i = 0; i < s.length;i++) {
-        // s = "EnjoyYourCoffee" and 
-        //      0123456789    
-        // spaces = [5, 9]
-        let char = s[i]
-        if (spaces.length > 0 && spaces[0] === i) {
-            spaces.shift()
-            str += ` ${char}`
-        }
-         else {
-            str += char
-         }
+    //      EnjoyY
+    let prev = 0
+
+    for (const space of spaces) {
+        const firstHalf = s.substring(0,space - prev)
+        const secondHalf = s.substring(space - prev)
+        s = secondHalf
+        str += `${firstHalf} `
+        prev = space
     }
-    return str
+    return str + s
 };
