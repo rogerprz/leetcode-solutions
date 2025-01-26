@@ -11,13 +11,19 @@
  * @return {boolean}
  */
 var isBalanced = function(root) {
-    if (!root) return !root
+    const checkHeight = (node) => {
+        if (!node) return 0
+        
+        const leftHeight = checkHeight(node.left)
+        if (leftHeight === -1) return -1
+        
+        const rightHeight = checkHeight(node.right)
+        if (rightHeight === -1) return -1
 
-    const height = (root) => {
-        if (!root) return -1 
+        if (Math.abs(leftHeight - rightHeight) > 1) return -1
 
-        return 1 + Math.max(height(root.left), height( root.right))
+        return Math.max(leftHeight, rightHeight) + 1
     }
 
-    return Math.abs(height(root.left) - height(root.right)) < 2 && isBalanced(root.left) && isBalanced(root.right)
+    return checkHeight(root) !== -1
  };
