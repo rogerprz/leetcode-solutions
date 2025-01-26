@@ -19,20 +19,19 @@ var addBoldTag = function (s, words) {
         }
     }
     const res = [];
-
+    const openTag = '<b>';
+    const closeTag = '</b>'
     for (let i = 0; i < s.length;i++) {
-        if (i === 0 && bold[i]) {
-            res.push('<b>')
-        }
-        else if (bold[i] && !bold[i-1]) {
-            res.push('<b>')
+        if (bold[i]){
+            if (i === 0 || !bold[i-1]) {
+                res.push(openTag)
+            }
         }
         res.push(s[i])
-        if (bold[i] && i === s.length -1){
-            res.push('</b>')
-        }
-        else if (bold[i] && !bold[i+1]) {
-            res.push('</b>')
+        if (bold[i]){
+            if (i === s.length -1 || !bold[i+1]){
+                res.push(closeTag)
+            }
         }
     }
     return res.join("")
