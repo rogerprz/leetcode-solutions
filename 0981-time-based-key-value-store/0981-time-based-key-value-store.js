@@ -22,17 +22,24 @@ TimeMap.prototype.set = function(key, value, timestamp) {
  * @return {string}
  */
 TimeMap.prototype.get = function(key, timestamp) {
-    if (!this.map.has(key)) {
-            return "";
-        }
+    if (!this.map.has(key)) return ''
+    const items = this.map.get(key)
 
-        const list = this.map.get(key);
-        for (let i = list.length - 1; i >= 0; i--) {
-            if (list[i][0] <= timestamp) {
-                return list[i][1];
-            }
+    let l = 0;
+    let r = items.length - 1
+    let result = ''
+    while (l <= r) {
+        const mid = Math.floor((l + r) / 2)
+
+        if (items[mid][0] <= timestamp) {
+            result = items[mid][1]
+            l = mid + 1
         }
-        return "";
+        else {
+            r = mid - 1
+        }
+    }
+    return result
 };
 
 /** 
