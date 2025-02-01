@@ -48,13 +48,13 @@ var orangesRotting = function(grid) {
             if (nextCol < 0 || nextCol > grid[0].length - 1) continue
 
             const nextOrange = grid[nextRow][nextCol]
-            
+
             let pos = `${nextRow},${nextCol}`
             if (visited.has(pos)) {
                 continue
             }
             if (nextOrange=== 1) {
-
+                visited.add(pos)
                 queue.push([nextRow, nextCol, mins + 1])
             }
         }
