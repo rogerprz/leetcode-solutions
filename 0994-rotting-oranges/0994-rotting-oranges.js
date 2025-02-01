@@ -29,6 +29,7 @@ var orangesRotting = function(grid) {
     // orangs 6 
     // [0,0,0]
     let time = 0
+    const visited = new Set()
     const deltas = [[0,1],[1,0],[0,-1],[-1,0]] // N,W,S,E
     while (queue.length > 0) {
         const [row, col, mins] = queue.shift()
@@ -42,9 +43,18 @@ var orangesRotting = function(grid) {
             const nextRow = row + r;
             const nextCol = col + c
             // we may need to check outbounds 
+
             if (nextRow < 0 || nextRow > grid.length -1) continue
             if (nextCol < 0 || nextCol > grid[0].length - 1) continue
-            if (grid[nextRow][nextCol]=== 1) {
+
+            const nextOrange = grid[nextRow][nextCol]
+            
+            let pos = `${nextRow},${nextCol}`
+            if (visited.has(pos)) {
+                continue
+            }
+            if (nextOrange=== 1) {
+
                 queue.push([nextRow, nextCol, mins + 1])
             }
         }
