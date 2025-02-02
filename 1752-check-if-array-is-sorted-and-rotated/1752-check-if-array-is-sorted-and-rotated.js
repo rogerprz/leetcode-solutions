@@ -5,6 +5,10 @@
 var check = function(nums) {
     let n = nums.length - 1
     let count = 0;
+    // preemptively count an increasing start
+    // this ensures that we are increasing, if for ex
+    // the array was not sorted
+    // the loop below would not a regularly sorted array.
     if (nums[0] < nums[n]) {
         count++;
     }
