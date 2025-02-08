@@ -1,129 +1,56 @@
-class NumberContainers {
-    constructor() {
-        this.indexToNumber = new Map();
-        this.numberToIndices = new Map(); 
-    }
 
-    change(index, number) {
-        if (this.indexToNumber.has(index)) {
-            const oldNumber = this.indexToNumber.get(index);
-            const oldIndices = this.numberToIndices.get(oldNumber);
-            if (oldIndices) {
-                oldIndices.delete(index); 
-                if (oldIndices.size === 0) {
-                    this.numberToIndices.delete(oldNumber);
-                }
-            }
-        }
+var NumberContainers = function() {
+    this.num_map = {};
+    this.num_map_cache = {};
+    this.idx_map = {};
+};
 
-        this.indexToNumber.set(index, number);
-        if (!this.numberToIndices.has(number)) {
-            this.numberToIndices.set(number, new MinHeap()); 
-        }
-        this.numberToIndices.get(number).insert(index);
-    }
-
-    find(number) {
-        if (!this.numberToIndices.has(number)) {
-            return -1;
-        }
-
-        const minHeap = this.numberToIndices.get(number);
-        return minHeap.size() > 0 ? minHeap.peek() : -1; 
-    }
-}
-
-class MinHeap {
-    constructor() {
-        this.heap = [];
-        this.indexMap = new Map(); 
-    }
-
-    insert(value) {
-        this.heap.push(value);
-        this.indexMap.set(value, this.heap.length - 1); 
-        this.bubbleUp(this.heap.length - 1);
-    }
-
-    extractMin() {
-        if (this.heap.length === 0) {
-            return null;
-        }
-
-        const min = this.heap[0];
-        this.swap(0, this.heap.length - 1);
-        this.indexMap.delete(min); 
-        this.heap.pop();
-        this.heapifyDown(0);
-        return min;
-    }
-
-    peek() {
-        if (this.heap.length === 0) {
-            return null;
-        }
-        return this.heap[0]; 
-    }
-
-    delete(value) {
-        const index = this.indexMap.get(value);
-        if (index === undefined) {
-            return; // Element not found in the heap
-        }
-
-        this.swap(index, this.heap.length - 1);
-        this.indexMap.delete(value); 
-        this.heap.pop();
-
-        this.heapifyDown(index); 
-        this.bubbleUp(index); 
-    }
-
-    size() {
-        return this.heap.length;
-    }
-
-    swap(i, j) {
-        [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
-        this.indexMap.set(this.heap[i], i);
-        this.indexMap.set(this.heap[j], j);
-    }
-
-    parent(i) {
-        return Math.floor((i - 1) / 2);
-    }
-
-    left(i) {
-        return 2 * i + 1;
-    }
-
-    right(i) {
-        return 2 * i + 2;
-    }
-
-    bubbleUp(i) {
-        while (i > 0 && this.heap[i] < this.heap[this.parent(i)]) {
-            this.swap(i, this.parent(i));
-            i = this.parent(i);
+/** 
+ * @param {number} index 
+ * @param {number} number
+ * @return {void}
+ */
+NumberContainers.prototype.change = function(index, number) {
+    if (index in this.idx_map) {
+        const old_num = this.idx_map[index];
+        if (old_num == number) return;
+        const set = this.num_map[old_num];
+        set.delete(index);
+        if (old_num in this.num_map_cache && 
+            index == this.num_map_cache[old_num]) {
+            delete this.num_map_cache[old_num];
         }
     }
+    this.idx_map[index] = number;
+    this.num_map[number] ||= new Set();
+    this.num_map[number].add(index);
+    if (number in this.num_map_cache) {
+        this.num_map_cache[number] = Math.min(index, this.num_map_cache[number]);
+    } 
+    // else {
+    //     this.num_map_cache[number] = index;
+    // }
+};
 
-    heapifyDown(i) {
-        let smallest = i;
-        const left = this.left(i);
-        const right = this.right(i);
-
-        if (left < this.heap.length && this.heap[left] < this.heap[smallest]) {
-            smallest = left;
-        }
-
-        if (right < this.heap.length && this.heap[right] < this.heap[smallest]) {
-            smallest = right;
-        }
-
-        if (smallest !== i) {
-            this.swap(i, smallest);
-            this.heapifyDown(smallest);
-        }
+/** 
+ * @param {number} number
+ * @return {number}
+ */
+NumberContainers.prototype.find = function(number) {
+    if (!this.num_map[number] || this.num_map[number].size <= 0) {
+        return -1;
     }
-}
+    if (number in this.num_map_cache) {
+        return this.num_map_cache[number];
+    }
+    const arr = [...this.num_map[number].values()].sort((a,b) => a-b);
+    this.num_map_cache[number] = arr[0];
+    return arr[0];
+};
+
+/** 
+ * Your NumberContainers object will be instantiated and called as such:
+ * var obj = new NumberContainers()
+ * obj.change(index,number)
+ * var param_2 = obj.find(number)
+ */
