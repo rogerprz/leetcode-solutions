@@ -1,8 +1,8 @@
 
 var NumberContainers = function() {
-    this.num_map = {};
-    this.num_map_cache = {};
-    this.idx_map = {};
+    this.nums = {};
+    this.numCache = {};
+    this.idx = {};
 };
 
 /** 
@@ -11,25 +11,22 @@ var NumberContainers = function() {
  * @return {void}
  */
 NumberContainers.prototype.change = function(index, number) {
-    if (index in this.idx_map) {
-        const old_num = this.idx_map[index];
+    if (index in this.idx) {
+        const old_num = this.idx[index];
         if (old_num == number) return;
-        const set = this.num_map[old_num];
+        const set = this.nums[old_num];
         set.delete(index);
-        if (old_num in this.num_map_cache && 
-            index == this.num_map_cache[old_num]) {
-            delete this.num_map_cache[old_num];
+        if (old_num in this.numCache && 
+            index == this.numCache[old_num]) {
+            delete this.numCache[old_num];
         }
     }
-    this.idx_map[index] = number;
-    this.num_map[number] ||= new Set();
-    this.num_map[number].add(index);
-    if (number in this.num_map_cache) {
-        this.num_map_cache[number] = Math.min(index, this.num_map_cache[number]);
+    this.idx[index] = number;
+    this.nums[number] ||= new Set();
+    this.nums[number].add(index);
+    if (number in this.numCache) {
+        this.numCache[number] = Math.min(index, this.numCache[number]);
     } 
-    // else {
-    //     this.num_map_cache[number] = index;
-    // }
 };
 
 /** 
@@ -37,14 +34,14 @@ NumberContainers.prototype.change = function(index, number) {
  * @return {number}
  */
 NumberContainers.prototype.find = function(number) {
-    if (!this.num_map[number] || this.num_map[number].size <= 0) {
+    if (!this.nums[number] || this.nums[number].size <= 0) {
         return -1;
     }
-    if (number in this.num_map_cache) {
-        return this.num_map_cache[number];
+    if (number in this.numCache) {
+        return this.numCache[number];
     }
-    const arr = [...this.num_map[number].values()].sort((a,b) => a-b);
-    this.num_map_cache[number] = arr[0];
+    const arr = [...this.nums[number].values()].sort((a,b) => a-b);
+    this.numCache[number] = arr[0];
     return arr[0];
 };
 
