@@ -3,61 +3,49 @@
  * @return {number}
  */
 var orangesRotting = function(grid) {
+    let oranges = 0
+    const queue = []
+    for (let row = 0; row < grid.length; row++) {
+        for (let col = 0; col < grid[0].length; col++) {
+            const curr = grid[row][col]
+            if (curr === 1) {
+                oranges++
+            } else if (curr === 2) {
+                queue.push({row, col, min: 0})
+            }
+        }
+    }
     /**
-    0 = empty 
-    1 = orange 
-    2 = rotten
+    o: 6
+    r: 2
     [2,1,1],
     [1,1,0],
-    [0,1,1]
+    [0,1,1]]
      */
-    //  we want to track fresh oranges 
-    // BFS to make orange rotten. 
-    const queue = []
-    let oranges = 0
-    for (let row = 0; row < grid.length;row++) {
-        for (let col = 0; col < grid[0].length; col++) {
-            const value = grid[row][col]
-
-            if (value === 1) {
-                oranges++
-            } else if (value === 2) {
-                queue.push([row, col, 0])
-            }
-        }
-    }
-    // orangs 6 
-    // [0,0,0]
-    let time = 0
-    const visited = new Set()
-    const deltas = [[0,1],[1,0],[0,-1],[-1,0]] // N,W,S,E
+    const deltas = [[0,1],[1,0],[-1, 0],[0,-1]]
+    let max = 0
     while (queue.length > 0) {
-        const [row, col, mins] = queue.shift()
-        const currValue = grid[row][col]
-        if (currValue === 1) {
+        const {row, col, min} = queue.shift()
+        const curr = grid[row][col]
+        if (curr === 1) {
             grid[row][col] = 2
             oranges--
-            time = Math.max(mins, time)
+            max = Math.max(min, max)
         }
-        for (const [r, c] of deltas) {
-            const nextRow = row + r;
-            const nextCol = col + c
-            // we may need to check outbounds 
+        for (const [currRow, currCol] of deltas) {
+            const nextRow = currRow + row
+            const nextCol = currCol + col
 
-            if (nextRow < 0 || nextRow > grid.length -1) continue
-            if (nextCol < 0 || nextCol > grid[0].length - 1) continue
-
-            const nextOrange = grid[nextRow][nextCol]
-
-            let pos = `${nextRow},${nextCol}`
-            if (visited.has(pos)) {
+            const rowInbounds = nextRow >= 0 && nextRow < grid.length;
+            const colInbounds = nextCol >= 0 && nextCol < grid[0].length;
+            if (!rowInbounds || !colInbounds) {
                 continue
             }
-            if (nextOrange=== 1) {
-                visited.add(pos)
-                queue.push([nextRow, nextCol, mins + 1])
+            if (grid[nextRow][nextCol] === 1) {
+                queue.push({row: nextRow, col: nextCol, min: min + 1})
             }
         }
     }
-    return oranges === 0 ? time : -1
+
+    return oranges === 0 ? max : -1
 };
