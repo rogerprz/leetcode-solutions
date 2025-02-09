@@ -14,10 +14,14 @@ var findKthLargest = function(nums, k) {
     }
 
     for (let i = array.length-1; i>=0; i--) {
-        while (array[i] > 0){
-            array[i]--
-            k--
+        if (array[i] > 0) {
+            k -= array[i]
+            array[i] = 0
         }
+        // while (array[i] > 0){
+        //     array[i]--
+        //     k--
+        // }
         if (k <=0) return i + min
     }
 };
