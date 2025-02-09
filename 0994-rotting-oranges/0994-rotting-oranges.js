@@ -38,9 +38,7 @@ var orangesRotting = function(grid) {
 
             const rowInbounds = nextRow >= 0 && nextRow < grid.length;
             const colInbounds = nextCol >= 0 && nextCol < grid[0].length;
-            if (!rowInbounds || !colInbounds) {
-                continue
-            }
+            if (!rowInbounds || !colInbounds) continue
             if (grid[nextRow][nextCol] === 1) {
                 queue.push({row: nextRow, col: nextCol, min: min + 1})
             }
