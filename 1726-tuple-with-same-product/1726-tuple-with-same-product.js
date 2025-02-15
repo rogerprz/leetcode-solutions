@@ -11,10 +11,11 @@ var tupleSameProduct = function(nums) {
         
         for (let j = i + 1; j < nums.length; j++) {
             let inner = nums[j]
-            const total = outer * inner; 
+            
+            const total = outer * inner 
 
-            const prev = products.get(total) || 0
-            result += 8 * prev
+            const prev = products.get(total) || 0;
+            result += 8 * prev 
             products.set(total, prev + 1)
         }
     }
