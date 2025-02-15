@@ -10,10 +10,10 @@ var TimeMap = function() {
  * @return {void}
  */
 TimeMap.prototype.set = function(key, value, timestamp) {
-    if (!this.items.has(key)) {
+    if (!this.items.has(key)){
         this.items.set(key, [])
     }
-    this.items.get(key).push({value, timestamp})
+    this.items.get(key).push({prevTime: timestamp, value})
 };
 
 /** 
@@ -22,22 +22,25 @@ TimeMap.prototype.set = function(key, value, timestamp) {
  * @return {string}
  */
 TimeMap.prototype.get = function(key, timestamp) {
-    if (!(this.items.has(key))) return ''
+    if (!this.items.has(key)) return ''
 
     const items = this.items.get(key)
-    let l = 0;
-    let r = items.length - 1
-    let res = "";
+    let l = 0, r = items.length - 1
+    // timestamp_prev <= timestamp
+    // [{bar, 1}, ]
+    let res = ''
     while (l <= r) {
-        const mid = Math.floor((l+r)/ 2)
-        const curr = items[mid]
-        // t: 3
-        // [1, 4]
-        if (curr.timestamp === timestamp) return curr.value
-        if (curr.timestamp <= timestamp) {
-            res = curr.value 
+        const mid = Math.floor((l+ r)/ 2)
+        const { prevTime, value} = items[mid]
+        if (prevTime === timestamp) return value
+        /**
+        [{1,}]
+         */
+        if (prevTime <= timestamp){
             l = mid + 1
-        } else {
+            res = value
+        }
+        else {
             r = mid - 1
         }
     }
