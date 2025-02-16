@@ -11,15 +11,15 @@
  * @return {ListNode}
  */
 var detectCycle = function(head) {
-    if (!head) return head
     const set = new Set()
-    let list = head 
-    while (list) {
-
-       if (set.has(list)) return list
-        set.add(list)
-        list = list.next
+    let count = 0;
+    while (head && head.next) {
+        if (set.has(head)) {
+            return head
+        }
+        count++
+        set.add(head)
+        head = head.next
     }
-
     return null
 };
