@@ -4,28 +4,21 @@
  * @return {boolean}
  */
 var wordBreak = function (s, wordDict) {
-    const memo = new Array(s.length).fill(-1);
-    
-    function isValid(i) {
-        if (i < 0) {
-            return true;
-        }
-        if (memo[i] != -1) {
-            return memo[i] === 1;
-        }
+    let dp = new Array(s.length).fill(false);
+    for (let i = 0; i < s.length; i++) {
         for (let word of wordDict) {
-            let wordLen = word.length;
-            if (i - wordLen + 1 < 0) continue;
-
-            const isValidSub = s.substring(i - wordLen + 1, i + 1) === word
-            
-            if (isValidSub && isValid(i - wordLen)) {
-                memo[i] = 1;
-                return true;
+            const len = word.length
+            // Handle out of bounds case
+            if (i < word.length - 1) {
+                continue;
+            }
+            if (i == len - 1 || dp[i - len]) {
+                if (s.substring(i - len + 1, i + 1) == word) {
+                    dp[i] = true;
+                    break;
+                }
             }
         }
-        memo[i] = 0;
-        return false;
     }
-    return isValid(s.length - 1);
+    return dp[s.length - 1];
 };
