@@ -4,16 +4,14 @@
  * @return {boolean}
  */
 var wordBreak = function (s, wordDict) {
-    let dp = new Array(s.length).fill(false);
+    const dp = new Array(s.length).fill(false);
+
     for (let i = 0; i < s.length; i++) {
-        for (let word of wordDict) {
+        for (const word of wordDict) {
             const len = word.length
-            // Handle out of bounds case
-            if (i < word.length - 1) {
-                continue;
-            }
-            if (i == len - 1 || dp[i - len]) {
-                if (s.substring(i - len + 1, i + 1) == word) {
+            if (i === len - 1 || dp[i - len]) {
+                const subStr = s.substring(i - len + 1, i + 1)
+                if (subStr == word) {
                     dp[i] = true;
                     break;
                 }
