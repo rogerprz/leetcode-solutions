@@ -12,16 +12,17 @@ var combinationSum3 = function(k, total) {
         }
         if (arr.length === k) {
             if (sum=== total) {
-                res.push(arr)
+                res.push([...arr])
             }
             return 
         }
 
         for (let i = start; i < 10; i++) {
-            const newArr = [...arr, i]
+            arr.push(i)
             const newSum = sum + i
             const newStart = i + 1
-            backtrack(newArr, newStart, newSum)
+            backtrack(arr, newStart, newSum)
+            arr.pop()
         }
     }
     backtrack([], 1, 0)
