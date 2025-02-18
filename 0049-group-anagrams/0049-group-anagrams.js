@@ -3,21 +3,30 @@
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
-    // sort each element
-    // then we save them in hash or new Map. 
-    // for each that we find, we add it to the values of the array 
+    /**
+    time: O (n * m * n log n * m * v)
+    a = 97
+    abc
+    abd
+    bde
+    [ 3 , 3 ,1 , d]
+      a.  b. c.  d. e 
+     */
     const map = {}
-    // ["eat","tea","tan","ate","nat","bat"]
-    for (const word of strs) {
-        // ["eat" -> aet, 
-        //  tea -> aet
-        const sorted = word.split("").sort()
 
-        if (!(sorted in map)) {
-            map[sorted] = []
+    for (const word of strs) {
+        const arr = new Array(26).fill(0)
+
+        const chars = word.split("")
+        for (const char of chars) {
+            const code = char.charCodeAt(0) - 'a'.charCodeAt(0)
+            arr[code]++
         }
-        
-        map[sorted].push(word)
+        // const digits = arr.join("-")
+        if (!(arr in map)) {
+            map[arr] = []
+        }
+        map[arr].push(word)
     }
 
     return Object.values(map)
