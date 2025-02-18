@@ -3,35 +3,57 @@
  * @return {boolean}
  */
 var isValidSudoku = function(board) {
-  let row = new Set(),
-        col = new Set(),
-        box = new Set();
+    // we need to create a set to find if row has repeating value
+    // we need to create a set to save column values
+    // we need to get a set so we can detect box. 
 
-  for (let i = 0; i < 9; i++) {
-   
+    // loop through first array
+    for (let i = 0; i< board.length;i++) {
+        const row = new Set();
+        const col = new Set();
+        const box = new Set();
 
-    for (let j = 0; j < 9; j++) {
-      let _row = board[i][j];
-      let _col = board[j][i];
-      let _box = board[3*Math.floor(i/3)+Math.floor(j/3)][3*(i%3)+(j%3)]
-      
-      if (_row != '.') {
-        if (row.has(_row)) return false;
-        row.add(_row);
-      }
-      if (_col != '.') {
-        if (col.has(_col)) return false;
-        col.add(_col);
-      }
-      
-      if (_box != '.') {
-        if (box.has(_box)) return false;
-        box.add(_box);
-      } 
+        for (let j = 0; j < board[i].length; j++) {
+            const currRow = board[i][j]
+            const currCol = board[j][i]
+
+            const xIdx = 3 * Math.floor(i / 3) + Math.floor(j / 3)
+            const yIdx = ((i * 3) % 9) + (j % 3)
+            const currBox = board[xIdx][yIdx]
+
+            if (row.has(currRow)) return false 
+            if (col.has(currCol)) return false 
+            if (box.has(currBox)) return false 
+
+            if (currRow != '.') row.add(currRow)
+            if (currCol != '.') col.add(currCol)
+            if (currBox != '.') box.add(currBox)
+        }
     }
-    row.clear();
-    col.clear();
-    box.clear()
-  }
-  return true
+    return true
 };
+
+/**
+
+ for (let i = 0; i< board.length; i++) {
+        const row = new Set()
+        const col = new Set();
+        const box = new Set();
+        for (let j=0; j< board[i].length; j++) {
+            const currRowElem = board[i][j]
+            const currColElem = board[j][i]
+
+            const xIndex = 3 * Math.floor(i / 3) + Math.floor(j / 3)
+            const yIndex = ((i * 3) % 9) + (j % 3)
+            const currBoxElem = board[xIndex][yIndex];
+
+            if (row.has(currRowElem)) return false 
+            if (col.has(currColElem)) return false 
+            if (box.has(currBoxElem)) return false
+
+            if (currRowElem != ".") row.add(currRowElem)
+            if (currColElem != ".") col.add(currColElem)
+            if (currBoxElem != '.') box.add(currBoxElem)
+        }
+    }
+    return true */
