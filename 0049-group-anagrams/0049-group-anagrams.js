@@ -22,11 +22,11 @@ var groupAnagrams = function(strs) {
             const code = char.charCodeAt(0) - 'a'.charCodeAt(0)
             arr[code]++
         }
-        // const digits = arr.join("-")
-        if (!(arr in map)) {
-            map[arr] = []
+        const digits = arr.join("-")
+        if (!(digits in map)) {
+            map[digits] = []
         }
-        map[arr].push(word)
+        map[digits].push(word)
     }
 
     return Object.values(map)
