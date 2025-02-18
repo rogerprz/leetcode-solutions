@@ -11,7 +11,7 @@ var groupAnagrams = function(strs) {
     for (const word of strs) {
         // ["eat" -> aet, 
         //  tea -> aet
-        const sorted = word.split("").sort()
+        const sorted = word.split("").sort().join("")
         console.log('S:', sorted)
 
         if (!(sorted in map)) {
