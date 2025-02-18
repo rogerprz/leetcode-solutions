@@ -3,23 +3,23 @@
  * @return {string[][]}
  */
 var groupAnagrams = function(strs) {
-    if (strs.length <=1) return [strs]
-    const hash = {}
+    // sort each element
+    // then we save them in hash or new Map. 
+    // for each that we find, we add it to the values of the array 
+    const map = {}
+    // ["eat","tea","tan","ate","nat","bat"]
+    for (const word of strs) {
+        // ["eat" -> aet, 
+        //  tea -> aet
+        const sorted = word.split("").sort()
+        console.log('S:', sorted)
 
-    for (let i = 0; i <strs.length; i++) {
-        const currElem = strs[i]
-    
-        const sortedElem = currElem.split("").sort()
-        const joinElem = sortedElem.join('')
-
-        if (joinElem in hash){
-            hash[joinElem].push(currElem)
-        }  else {
-            hash[joinElem] = [currElem]
+        if (!(sorted in map)) {
+            map[sorted] = []
         }
-        // }
-      
+        
+        map[sorted].push(word)
     }
-    console.log("VAL:", Object.values(hash))
-    return Object.values(hash)
+
+    return Object.values(map)
 };
