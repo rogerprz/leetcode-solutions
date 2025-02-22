@@ -4,31 +4,31 @@
  * @return {string}
  */
 var addBoldTag = function(s, words) {
-    const mark = new Array(s.length).fill(false)
+    const mark = Array.from({length: s.length}, ()=> false)
 
     for (const word of words) {
-        // word = abc
-        let startIndex = s.indexOf(word)
-        // "abcxyz123"
-        // 0 
-        while (startIndex > -1) {
-            const len = startIndex + word.length;
-            for (let i = startIndex; i < len; i++) {
-                mark[i] = true 
+        let startIdx = s.indexOf(word)
+        while (startIdx > -1) {
+            let end = startIdx + word.length;
+            for (let i = startIdx; i < end; i++) {
+                mark[i] = true
             }
-            startIndex = s.indexOf(word, startIndex + 1)
+            startIdx = s.indexOf(word, startIdx + 1)
+        }
+    }
+    
+    const result = []
+    const openTag = '<b>', closeTag = '</b>'
+
+    for (let i = 0; i < s.length;i++) {
+        if (mark[i] && (i === 0 || !mark[i - 1])) {
+            result.push(openTag)
+        }
+        result.push(s[i])
+        if (mark[i] && (i === s.length-1 || !mark[i + 1])) {
+            result.push(closeTag)
         }
     }
 
-    const stack = []
-    for (let i = 0; i < s.length; i++) {
-        if (mark[i] && (i === 0 || !mark[i - 1])) {
-            stack.push('<b>')
-        }
-        stack.push(s[i])
-        if (mark[i] &&  (i === s.length - 1 || !mark[i + 1])) {
-            stack.push('</b>')
-        }
-    }
-    return stack.join("")
+    return result.join("")
 };
