@@ -9,8 +9,8 @@ var numOfSubarrays = function(arr) {
 
     for (let i = 0;i < arr.length;i++) {
         sum += arr[i]
-        odd += Number(sum % 2 === 1)
-        even += Number(sum % 2 === 0)   
+        odd += sum % 2 === 1
+        even += sum % 2 === 0
     }
     
     return(odd * even + odd) % (1e9+7)
