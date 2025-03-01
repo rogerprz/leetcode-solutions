@@ -16,29 +16,19 @@ var applyOperations = function(nums) {
         }
     }
     
-    let l = 0; 
-    let r = 1
-    // while (r < nums.length) {
-    //     const start = nums[l];
-    //     const end = nums[r]
-    //     // [1,0,2,0,0,1]
-    //     //    l r 
-    //     if (end === 0) {
-    //         r++
-    //     }      
-    //     else if (start === 0) {
-    //         [nums[l],nums[r]] = [nums[r],nums[l]]
-    //         l++
-    //         r++
-    //     } 
-    //     else {
-    //         l++
-    //     }
-    // }
+    let j = 0;
+    for(let i = 0; i < nums.length; i++){
+        if(nums[i] != 0){
+            let temp = nums[j]
+            nums[j] = nums[i]
+            nums[i] = temp
+            j++
+        }
+    }
     const len = nums.length 
     const less = nums.filter((num) => {
         if (num > 0) return num
     })
-
-    return [...less, ...(new Array(len - less.length).fill(0))]
+    const result = [...less, ...(new Array(len - less.length).fill(0))]
+    return nums
 };
