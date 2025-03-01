@@ -5,13 +5,8 @@
 var applyOperations = function(nums) {
     // only positive numbers
     for (let i = 1; i < nums.length;i++) {
-        const curr = nums[i]
-        const prev = nums[i-1]
-
-    // If nums[i] == nums[i + 1], then multiply nums[i] by 2
-        if (curr === prev) {
+        if (nums[i] === nums[i-1]) {
             nums[i-1] *= 2
-            // set nums[i + 1] to 0
             nums[i] = 0
         }
     }
