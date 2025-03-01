@@ -4,7 +4,7 @@
  * @return {number}
  */
 var videoStitching = function(clips, time) {
-    const sorted = clips.sort((a,b) => {
+    clips.sort((a,b) => {
         if (a[0] !== b[0]) {
             return a[0] - b[0];
         } else {
