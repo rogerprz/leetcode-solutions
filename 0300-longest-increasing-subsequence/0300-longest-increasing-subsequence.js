@@ -5,42 +5,34 @@
 var lengthOfLIS = function(nums) {
     const stack = []
 
-    for (const currNum of nums) {
-        let left = 0             // 0  0
-        let right = stack.length // 0  0 0
+    for (const num of nums) {
+        // 
+        if (stack.length === 0) {
+            stack.push(num)
+            continue
+        }
+        // []
+        // [4,10,4,3,8,9]
+        // 
+        let left = 0;
+        let right = stack.length;
+        
         while (left < right) {
-            const mid = Math.floor((left + right)/ 2)
+            const mid = Math.floor((left + right)/ 2);
             const midStack = stack[mid]
 
-            if (currNum > midStack) {
-                left  = mid + 1
+            if (num > midStack) {
+                left = mid + 1
             } else {
                 right = mid
             }
-        }
-        if (left === stack.length) {
-            stack.push(currNum)
+        }                   
+        if (left == stack.length) {
+            stack.push(num)
         } else {
-            stack[right] = currNum
+            stack[right] = num
         }
     }
+    console.log("S:", stack)
     return stack.length
 };
-
-/*
-var lengthOfLIS = function(nums) {
-
-    const dp = new Array(nums.length).fill(1)
-
-    for (let i = 1; i<nums.length;i++) {
-        const currNum = nums[i]
-        for (let j = 0; j < i; j++) {
-            if (nums[j]< currNum) {
-                dp[i] = Math.max(dp[j]+1, dp[i])
-            }
-        }
-    }
-
-    return Math.max(...dp)
-};
- */
