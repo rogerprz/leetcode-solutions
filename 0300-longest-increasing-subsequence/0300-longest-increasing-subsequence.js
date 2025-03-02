@@ -25,6 +25,5 @@ var lengthOfLIS = function(nums) {
             stack[right] = num
         }
     }
-    console.log("S:", stack)
     return stack.length
 };
