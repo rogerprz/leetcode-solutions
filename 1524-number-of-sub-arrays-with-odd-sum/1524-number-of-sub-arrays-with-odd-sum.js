@@ -7,8 +7,8 @@ var numOfSubarrays = function(arr) {
     let sum = 0;
     let even = 0;
 
-    for (let i = 0;i < arr.length;i++) {
-        sum += arr[i]
+    for (const num of arr) {
+        sum += num
         odd += sum % 2 === 1
         even += sum % 2 === 0
     }
