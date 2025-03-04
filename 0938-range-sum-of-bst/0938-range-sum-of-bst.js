@@ -19,8 +19,5 @@ var rangeSumBST = function(root, low, high) {
         sum = root.val
     }
 
-    sum += rangeSumBST(root.left, low, high)
-    sum += rangeSumBST(root.right, low, high)
-
-    return sum
+    return sum + rangeSumBST(root.left, low, high) + rangeSumBST(root.right, low, high)
 };
