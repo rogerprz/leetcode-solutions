@@ -33,7 +33,6 @@ var pivotArray = function(nums, pivot) {
         i++
         pos++
     }
-    const result = less.concat(new Array(count).fill(pivot), great)
 
-    return result
+    return less.concat(new Array(count).fill(pivot), great)
 };
