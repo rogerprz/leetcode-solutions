@@ -13,7 +13,6 @@ var videoStitching = function(clips, time) {
     })
     if (clips[0][0] !== 0) return -1
     // [[0,2],[1,5],[1,9],[4,6],[5,9],[8,10]]
-    console.log("C:", clips)
     let maxReachable = 0;
     let currMax = 0;
     let numClips = 0;
