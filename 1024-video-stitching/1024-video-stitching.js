@@ -5,11 +5,11 @@
  */
 var videoStitching = function(clips, time) {
     clips.sort((a,b) => {
-        if (a[0] !== b[0]) {
+        // if (a[0] !== b[0]) {
             return a[0] - b[0];
-        } else {
-            return a[1] - b[1];
-        }
+        // } else {
+        //     return a[1] - b[1];
+        // }
     })
     if (clips[0][0] !== 0) return -1
     // [[0,2],[1,5],[1,9],[4,6],[5,9],[8,10]]
@@ -17,9 +17,7 @@ var videoStitching = function(clips, time) {
     let maxReachable = 0;
     let currMax = 0;
     let numClips = 0;
-    // cMax = 2
-    // maxR = 
-    // numC = 
+
     for (let [start, end] of clips) {
         console.log('S', start, end)
         if (start > maxReachable) {
