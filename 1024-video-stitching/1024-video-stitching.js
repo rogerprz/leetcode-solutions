@@ -23,9 +23,14 @@ var videoStitching = function(clips, time) {
         if (start > maxReachable) {
             maxReachable = currMax;
             numClips++;
+            // if we reach this condition we've checked too many
+            // and we haven't found our clips
             if (start > maxReachable) return -1;
-        } 
+        }
+
         currMax = Math.max(currMax, end)
+        // once we've found our currMax to be >= time we found a match
+        // we return numClips + 1 for final loop
         if (currMax >= time) {
             return numClips + 1;
         }
