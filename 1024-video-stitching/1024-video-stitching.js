@@ -18,7 +18,6 @@ var videoStitching = function(clips, time) {
     let numClips = 0;
 
     for (let [start, end] of clips) {
-        console.log('S', start, end)
         if (start > maxReachable) {
             maxReachable = currMax;
             if (start > maxReachable) {
