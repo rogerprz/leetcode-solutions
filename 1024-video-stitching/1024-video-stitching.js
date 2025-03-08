@@ -13,17 +13,17 @@ var videoStitching = function(clips, time) {
     })
     if (clips[0][0] !== 0) return -1
     // [[0,2],[1,5],[1,9],[4,6],[5,9],[8,10]]
-    let maxReachable = 0;
-    let currMax = 0;
-    let numClips = 0;
+                    // start:  0 1 1 4
+    let maxReachable = 0;   // 0 2 2 9
+    let currMax = 0;        // 2 5 9 
+    let numClips = 0;       // 0 0 1 2
+                    //  end :  2 5 9 6
 
     for (let [start, end] of clips) {
         if (start > maxReachable) {
             maxReachable = currMax;
-            if (start > maxReachable) {
-                return -1;
-            }
             numClips++;
+            if (start > maxReachable) return -1;
         } 
         currMax = Math.max(currMax, end)
         if (currMax >= time) {
