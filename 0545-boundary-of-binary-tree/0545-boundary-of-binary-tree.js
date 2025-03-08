@@ -14,23 +14,23 @@ var boundaryOfBinaryTree = function(root)  {
     if (!root) return null
     const result = []
 
-    const leftBorder = (node, result) =>{
+    const leftBorder = (node) => {
         while (node) {
             if (node.left || node.right) result.push(node.val) 
             node = node.left || node.right
         }
     }
-    const bottomBorder = (node, result) =>{
+    const bottomBorder = (node) => {
     if (!node) return 
     if (!node.left && !node.right) { 
         result.push(node.val) 
         return
         }
-    bottomBorder(node.left, result) 
-    bottomBorder(node.right, result) 
+    bottomBorder(node.left) 
+    bottomBorder(node.right) 
     }
 
-    const rightBorder = (node, result) =>{
+    const rightBorder = (node) => {
     let stack = []
     while (node) {
         if (node.left || node.right) stack.push(node.val) 
@@ -44,9 +44,9 @@ var boundaryOfBinaryTree = function(root)  {
 
     if (root.left || root.right) result.push(root.val) 
 
-    leftBorder(root.left, result) 
-    bottomBorder(root, result) 
-    rightBorder(root.right, result) 
+    leftBorder(root.left) 
+    bottomBorder(root) 
+    rightBorder(root.right) 
 
     return result
 };
