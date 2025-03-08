@@ -12,6 +12,7 @@
  */
 var boundaryOfBinaryTree = function(root)  {
     if (!root) return null
+    const result = []
 
     const leftBorder = (node, result) =>{
         while (node) {
@@ -40,12 +41,10 @@ var boundaryOfBinaryTree = function(root)  {
     }
     }
 
-    const result = []
 
     if (root.left || root.right) result.push(root.val) 
 
     leftBorder(root.left, result) 
-
     bottomBorder(root, result) 
     rightBorder(root.right, result) 
 
