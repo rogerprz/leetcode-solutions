@@ -3,26 +3,21 @@
  * @return {string}
  */
 var simplifyPath = function(path) {
+    const result = []
+    // double 
+    // /// ['','','']
     
-    // .. 
-    // multi ////
-    // .... are dir names 
-    /**
-    split the array by /
-    -> 
-     */
-     const paths = path.split("/")
-     const stack = [];
+    // consecutive
+    for (const val of path.split('/')) {
+    // single
+        if (val === '' || val === '.') continue 
 
-     for (const subPath of paths) {
-        if (subPath === '' || subPath === ".") continue 
-
-        if (subPath === "..") {
-            stack.pop()
-            continue
+        if (val === '..') {
+            result.pop()
+        } else {
+            result.push(val)
         }
-        stack.push(subPath)
-     }
-     
-     return '/' + stack.join("/")
+    }
+
+    return `/${result.join('/')}`
 };
