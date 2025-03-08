@@ -1,41 +1,55 @@
 /**
  * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
+ * function TreeNode (val, left, right)  {
+ *     this.val = (val===undefined ? 0 : val) 
+ *     this.left = (left===undefined ? null : left) 
+ *     this.right = (right===undefined ? null : right) 
  * }
  */
 /**
  * @param {TreeNode} root
  * @return {number[]}
  */
-var boundaryOfBinaryTree = function(root) {
-    const boundary = [root.val];
+var boundaryOfBinaryTree = function(root)  {
+   if (!root) {
+        return null
+     }
 
-    root.left && dfsLeft(root.left, boundary);
-    (root.left ?? root.right) && dfsLeaves(root, boundary);
-    root.right && dfsRight(root.right, boundary);
-    return boundary;
+     const leftBorder=(node, result) =>{
+        while (node) {
+            if (node.left || node.right) result.push(node.val) 
+            node = node.left || node.right
+        }
+     }
+     const bottomBorder = (node, result) =>{
+        if (!node) return 
+        if (!node.left && !node.right) { 
+            result.push(node.val) 
+            return
+            }
+        bottomBorder(node.left, result) 
+        bottomBorder(node.right, result) 
+     }
+
+     const rightBorder = (node, result) =>{
+        let stack = []
+        while (node) {
+            if (node.left || node.right) stack.push(node.val) 
+            node= node.right || node.left
+        }
+        while (stack.length>0) {
+            result.push(stack.pop() ) 
+        }
+     }
+
+     let result =[]
+
+     if (root.left || root.right) result.push(root.val) 
+     
+     leftBorder(root.left, result) 
+
+     bottomBorder(root, result) 
+     rightBorder(root.right, result) 
+
+     return result
 };
-
-function dfsLeft(root, boundary) {
-  if (!root.left && !root.right) return;
-  boundary.push(root.val);
-  if (root.left) dfsLeft(root.left, boundary);
-  else if (root.right) dfsLeft(root.right, boundary);
-}
-
-function dfsLeaves(root, boundary) {
-  if (!root.left && !root.right)
-    return boundary.push(root.val);
-  root.left && dfsLeaves(root.left, boundary);
-  root.right && dfsLeaves(root.right, boundary);
-}
-
-function dfsRight(root, boundary) {
-  if (!root.left && !root.right) return;
-  if (root.right) dfsRight(root.right, boundary);
-  else if (root.left) dfsRight(root.left, boundary);
-  boundary.push(root.val);
-}
