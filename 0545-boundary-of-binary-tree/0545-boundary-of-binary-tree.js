@@ -11,45 +11,43 @@
  * @return {number[]}
  */
 var boundaryOfBinaryTree = function(root)  {
-   if (!root) {
-        return null
-     }
+    if (!root) return null
 
-     const leftBorder=(node, result) =>{
+    const leftBorder = (node, result) =>{
         while (node) {
             if (node.left || node.right) result.push(node.val) 
             node = node.left || node.right
         }
-     }
-     const bottomBorder = (node, result) =>{
-        if (!node) return 
-        if (!node.left && !node.right) { 
-            result.push(node.val) 
-            return
-            }
-        bottomBorder(node.left, result) 
-        bottomBorder(node.right, result) 
-     }
-
-     const rightBorder = (node, result) =>{
-        let stack = []
-        while (node) {
-            if (node.left || node.right) stack.push(node.val) 
-            node= node.right || node.left
+    }
+    const bottomBorder = (node, result) =>{
+    if (!node) return 
+    if (!node.left && !node.right) { 
+        result.push(node.val) 
+        return
         }
-        while (stack.length>0) {
-            result.push(stack.pop() ) 
-        }
-     }
+    bottomBorder(node.left, result) 
+    bottomBorder(node.right, result) 
+    }
 
-     let result =[]
+    const rightBorder = (node, result) =>{
+    let stack = []
+    while (node) {
+        if (node.left || node.right) stack.push(node.val) 
+        node= node.right || node.left
+    }
+    while (stack.length>0) {
+        result.push(stack.pop() ) 
+    }
+    }
 
-     if (root.left || root.right) result.push(root.val) 
-     
-     leftBorder(root.left, result) 
+    const result = []
 
-     bottomBorder(root, result) 
-     rightBorder(root.right, result) 
+    if (root.left || root.right) result.push(root.val) 
 
-     return result
+    leftBorder(root.left, result) 
+
+    bottomBorder(root, result) 
+    rightBorder(root.right, result) 
+
+    return result
 };
