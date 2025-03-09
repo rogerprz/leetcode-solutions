@@ -14,19 +14,17 @@
  * @return {_Node}
  */
 var lowestCommonAncestor = function(p, q) {
-    const ancestors = new Set();
+    const seen = new Set()
 
     while (p) {
-        ancestors.add(p);
-        p = p.parent;
+        seen.add(p)
+        p = p.parent 
     }
-
     while (q) {
-        if (ancestors.has(q)){
+        if (seen.has(q)) {
             return q
         }
-        q = q.parent;
+        q = q.parent
     }
-
-    return null;
+    return null
 };
