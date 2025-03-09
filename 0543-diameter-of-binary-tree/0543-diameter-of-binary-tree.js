@@ -11,18 +11,32 @@
  * @return {number}
  */
 var diameterOfBinaryTree = function(root) {
-    if (!root) return 0
-    let max = 0
-    const dfs = (node) => {
-        if (!node) return 0
+    if (!root) return 0;
 
-        const left = dfs(node.left)
-        const right = dfs(node.right) 
+    let max = 0;
+    let nodeToDepth = new Map(); // Stores computed depths of nodes
+    let stack = [[root, false]]; // [node, visited]
 
-        max = Math.max(left + right, max)
+    while (stack.length) {
+        let [node, visited] = stack.pop();
 
-        return 1 + Math.max(left, right)
+        if (!node) continue;
+
+        if (visited) {
+            // Process node after visiting children (Postorder)
+            let leftDepth = nodeToDepth.get(node.left) || 0;
+            let rightDepth = nodeToDepth.get(node.right) || 0;
+
+            max = Math.max(max, leftDepth + rightDepth); // Update diameter
+
+            nodeToDepth.set(node, 1 + Math.max(leftDepth, rightDepth)); // Store depth
+        } else {
+            // Postorder: Push current node back after pushing children
+            stack.push([node, true]); // Push current node as visited
+            stack.push([node.right, false]); // Push right child
+            stack.push([node.left, false]); // Push left child
+        }
     }
-    dfs(root)
-    return max
+
+    return max;
 };
