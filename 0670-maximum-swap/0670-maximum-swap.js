@@ -3,23 +3,27 @@
  * @return {number}
  */
 var maximumSwap = function(num) {
-    const nums = num.toString().split("").map(char => Number(char))
-    const max = Math.max(...nums)
-    const largeIdx = nums.indexOf(max)
-    console.log('M:', max, nums)
-    let firstNum = Infinity
-    let firstIdx = 0
-    for (let i = 0; i < nums.length;i++) {
-        const num = nums[i]
-        if (num < max) {
-            firstNum = num
-            firstIdx = i
-            break;
+    // Convert the number to a string array
+    let numArr = num.toString().split('');
+    
+    // Track the last occurrence of each digit
+    let last = new Array(10).fill(-1);
+    for (let i = 0; i < numArr.length; i++) {
+        last[parseInt(numArr[i])] = i;
+    }
+
+    // Traverse the digits from left to right
+    for (let i = 0; i < numArr.length; i++) {
+        // Check if a larger digit can be swapped later
+        for (let d = 9; d > numArr[i]; d--) {
+            if (last[d] > i) {
+                // Swap the digits and return the new number
+                [numArr[i], numArr[last[d]]] = [numArr[last[d]], numArr[i]];
+                return parseInt(numArr.join(''));
+            }
         }
     }
-    if (num === Number(nums.join("")) && max === nums[0]) return num
-    nums[firstIdx] = max 
-    nums[largeIdx] = firstNum
-    console.log("N:", nums)
-    return Number(nums.join(""))
+    
+    // Return the original number if no swap was performed
+    return num;
 };
