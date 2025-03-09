@@ -14,18 +14,18 @@ var verticalOrder = function(root) {
     if (!root) return []
 
     const stack = [[root, 0]]
-    const hash = {}
-    let min = Infinity
-    let max = -Infinity
+    const columns = new Map()
+    let min = 0
+    let max = 0
     while (stack.length > 0) {
         const [node, index] = stack.shift()
 
-        max = Math.max(max, index)
         min = Math.min(min, index)
-        if (!(index in hash)) {
-            hash[index] = []
+        max = Math.max(max, index)
+        if (!(columns.has(index))) {
+            columns.set(index, [])
         }
-        hash[index].push(node.val)
+        columns.get(index).push(node.val)
 
         if (node.left) {
             stack.push([node.left, index - 1])
@@ -36,7 +36,7 @@ var verticalOrder = function(root) {
     }
     const result = []
     for (let i = min; i<= max;i++) {
-        result.push(hash[i])
+        result.push(columns.get(i))
     }
     return result
 };
