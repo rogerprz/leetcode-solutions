@@ -15,9 +15,7 @@ SparseVector.prototype.dotProduct = function(vec) {
     let prod = 0;
     const nums2 = vec.nums
     for (let i = 0; i < this.nums.length; i++) {
-        const num = this.nums[i]
-        const num2 = nums2[i]
-        prod += num * num2
+        prod += this.nums[i] * nums2[i]
     }
     return prod
 };
