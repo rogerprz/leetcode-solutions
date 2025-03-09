@@ -15,9 +15,13 @@ var verticalOrder = function(root) {
 
     const stack = [[root, 0]]
     const hash = {}
+    let min = Infinity
+    let max = -Infinity
     while (stack.length > 0) {
         const [node, index] = stack.shift()
 
+        max = Math.max(max, index)
+        min = Math.min(min, index)
         if (!(index in hash)) {
             hash[index] = []
         }
@@ -30,7 +34,9 @@ var verticalOrder = function(root) {
             stack.push([node.right, index + 1])
         }
     }
-    const array = Object.entries(hash).sort((a,b) => a[0] - b[0]).map(([key,value]) => value)
-
-    return array
+    const result = []
+    for (let i = min; i<= max;i++) {
+        result.push(hash[i])
+    }
+    return result
 };
