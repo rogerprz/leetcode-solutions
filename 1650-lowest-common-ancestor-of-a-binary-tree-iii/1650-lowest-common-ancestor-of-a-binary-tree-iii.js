@@ -14,30 +14,19 @@
  * @return {_Node}
  */
 var lowestCommonAncestor = function(p, q) {
-    let pDepth = findDepth(p)
-    let qDepth = findDepth(q)
-   
-    while (pDepth !== qDepth) {
-        if (pDepth > qDepth) {
-            p = p.parent 
-            pDepth--
-        } else {
-            q = q.parent 
-            qDepth--
-        }
-    }
-    while (p !== q) {
-        p = p.parent 
-        q = q.parent
-    }
-    return p
-};
+    let ancestors = new Set();
 
-const findDepth = (node) =>{
-    let depth = 0;
-    while (node) {
-        node = node.parent 
-        depth++
+    while (p) {
+        ancestors.add(p);
+        p = p.parent;
     }
-    return depth
-}
+
+    while (q) {
+        if (ancestors.has(q)){
+            return q
+        }
+        q = q.parent;
+    }
+
+    return null;
+};
