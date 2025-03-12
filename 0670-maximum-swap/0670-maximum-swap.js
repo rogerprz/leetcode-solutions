@@ -3,21 +3,22 @@
  * @return {number}
  */
 var maximumSwap = function(num) {
-    const nums = num.toString().split("")
+    const arr = num.toString().split('');
 
     const digits = new Array(10).fill(-1)
-    for (let i = 0; i < nums.length;i++) {
-        const n = parseInt(nums[i])
-        digits[n] = i
+    //  2 7 3 6
+    // [-1,-1, 0, 2, -1,-1,3, 1]
+    for (let i = 0; i < arr.length;i++) {
+        const n = parseInt(arr[i])
+        digits[n] = i // 0 , 1, 2
     }
 
-    for (let i = 0; i < nums.length; i++) {
-        for (let d = 9; d > nums[i]; d--) {
-            const numFromEnd = digits[d]
-
-            if (numFromEnd > i) {
-                [nums[i], nums[numFromEnd]] = [nums[numFromEnd], nums[i]]
-                return parseInt(nums.join(""))
+    for (let i = 0; i < arr.length; i++) {
+        for (let d = 9; d > 0; d--) {
+            const numIdx = digits[d]
+            if (numIdx > i) {
+                [arr[i], arr[numIdx]] = [arr[numIdx], arr[i]]
+                return parseInt(arr.join(''))
             }
         }
     }
