@@ -31,14 +31,14 @@ var boundaryOfBinaryTree = function(root)  {
     }
 
     const rightBorder = (node) => {
-    let stack = []
-    while (node) {
-        if (node.left || node.right) stack.push(node.val) 
-        node= node.right || node.left
-    }
-    while (stack.length>0) {
-        result.push(stack.pop() ) 
-    }
+        const stack = []
+        while (node) {
+            if (node.left || node.right) stack.push(node.val) 
+            node = node.right || node.left
+        }
+        while (stack.length > 0) {
+            result.push(stack.pop() ) 
+        }
     }
 
 
