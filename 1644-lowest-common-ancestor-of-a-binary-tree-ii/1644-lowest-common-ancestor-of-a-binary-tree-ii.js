@@ -12,46 +12,16 @@
  * @return {TreeNode}
  */
 var lowestCommonAncestor = function(root, p, q) {
-    // Variables to check if both nodes are found
-    let pFound = false;
-    let qFound = false;
+   if (!root || !q || !p) return null;
 
-    // Helper function for DFS traversal
-    function dfs(node) {
-        if (!node) {
-            return null;
-        }
+   if (root.val === p.val || root.val == q.val) {
+    return root 
+   }
 
-        // Traverse the left and right subtree
-        let left = dfs(node.left);
-        let right = dfs(node.right);
+    const left = lowestCommonAncestor(root.left, p, q)
+    const right = lowestCommonAncestor(root.right, p, q)
 
-        // If current node is p or q
-        if (node === p) {
-            pFound = true;
-            return node;
-        }
-        if (node === q) {
-            qFound = true;
-            return node;
-        }
+    if (left && right) return root 
 
-        // If both left and right are not null, current node is the LCA
-        if (left && right) {
-            return node;
-        }
-
-        // Return non-null value
-        return left || right;
-    }
-
-    // Call dfs and get the result
-    let lca = dfs(root);
-
-    // Return LCA only if both nodes were found
-    if (pFound && qFound) {
-        return lca;
-    } else {
-        return null;
-    }
+    return (left || right)
 };
