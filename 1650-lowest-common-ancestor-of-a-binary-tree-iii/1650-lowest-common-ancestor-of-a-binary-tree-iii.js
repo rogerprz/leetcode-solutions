@@ -18,13 +18,14 @@ var lowestCommonAncestor = function(p, q) {
 
     while (p) {
         seen.add(p)
-        p = p.parent 
+        p = p.parent
     }
+
     while (q) {
         if (seen.has(q)) {
             return q
         }
         q = q.parent
     }
-    return null
+    return null;
 };
