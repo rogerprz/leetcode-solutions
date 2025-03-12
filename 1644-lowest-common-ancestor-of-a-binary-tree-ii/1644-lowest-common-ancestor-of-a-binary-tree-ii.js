@@ -23,5 +23,5 @@ var lowestCommonAncestor = function(root, p, q) {
 
     if (left && right) return root 
 
-    return (left || right)
+    return left || right
 };
