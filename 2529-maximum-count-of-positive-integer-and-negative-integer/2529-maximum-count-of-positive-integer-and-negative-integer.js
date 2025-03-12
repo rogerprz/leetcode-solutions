@@ -9,7 +9,9 @@ var maximumCount = function(nums) {
 };
 
 var binarySearch = function(nums, target) {
-    let left = 0, right = nums.length - 1, result = nums.length;
+    let left = 0
+    let right = nums.length - 1
+    let result = nums.length;
     
     while (left <= right) {
         let mid = Math.floor((left + right) / 2);
