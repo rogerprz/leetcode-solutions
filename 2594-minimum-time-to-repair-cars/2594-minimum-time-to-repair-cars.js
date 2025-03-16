@@ -9,7 +9,7 @@ var repairCars = function(ranks, cars) {
     let freq = new Array(maxRank+1).fill(0)
 
     for (const rank of ranks) {
-        minRank = Math.min(minRank, rank)
+        // minRank = Math.min(minRank, rank)
         freq[rank]++
     }
 
