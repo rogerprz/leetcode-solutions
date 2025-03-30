@@ -4,22 +4,20 @@
  * @return {number}
  */
 var minimumRecolors = function(blocks, k) {
-    let black = 0;
-    let size = blocks.length
-    // WBBWWBBWBW"
-    // 0123456789
+    let black = 0
+    let size = Infinity
+
     for (let i = 0; i < blocks.length; i++) {
-        // we dont hit this condition until we've reached k len 
-        // when we do then we check that the first char is B so remove it from 
-        // the blacks estimates
-        const startChar = blocks[i - k]
-        const isValidLen = i - k >= 0
-        if (isValidLen && startChar === 'B') {
+        
+        const startOfWin = blocks[i - k];
+
+        const isValidWin = i - k >= 0;
+        if (isValidWin && startOfWin === "B") {
             black--
         }
         if (blocks[i] === "B") black++
-        const minWhites = k - black
-        size = Math.min(size, minWhites)
+        const minNeeded = k - black 
+        size = Math.min(size, minNeeded)
     }
     return size
 };
