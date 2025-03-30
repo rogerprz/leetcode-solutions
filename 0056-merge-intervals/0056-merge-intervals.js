@@ -12,6 +12,7 @@ var merge = function(intervals) {
     for (let i = 1; i < intervals.length; i++) {
         const curr = intervals[i]
         const [start, end] = curr
+        
         if (prev[1] >= start) {
             prev[1] = Math.max(prev[1], end)
         } else {
