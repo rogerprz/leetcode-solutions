@@ -14,17 +14,16 @@ var mostPoints = function(questions) {
 
         // Option 1: Skip this question
         const skipPoints = dp[i + 1];
-        
         // Option 2: Solve this question
         // If solving puts us beyond the array, we just get the points
         // Otherwise, we add the maximum possible points from where we can resume
-        const nextQuestion = i + skip + 1;
-        const solvePoints = points + (nextQuestion < N ? dp[nextQuestion] : 0);
+        const prevQuestion = i + skip + 1;
+        const prevPoints = (prevQuestion < N ? dp[prevQuestion] : 0)
+        const solvePoints = points + prevPoints;
         
         // Take the maximum of the two options
         dp[i] = Math.max(skipPoints, solvePoints);
     }
     
-    // The maximum points possible starting from the first question
     return dp[0];
 };
