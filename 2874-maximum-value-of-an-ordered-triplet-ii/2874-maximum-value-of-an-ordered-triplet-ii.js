@@ -3,17 +3,14 @@
  * @return {number}
  */
 var maximumTripletValue = function(nums) {
-    let maxi = Number.MIN_SAFE_INTEGER;
-    let diff = 0;
-    let res = 0;
-    
-    for (let i = 0; i < nums.length; i++) {
-        maxi = Math.max(maxi, nums[i]);
-        if (i >= 2)
-            res = Math.max(res, diff * nums[i]);
-        if (i >= 1)
-            diff = Math.max(diff, maxi - nums[i]);
+  const n = nums.length;
+    let res = 0,
+        imax = 0,
+        dmax = 0;
+    for (let k = 0; k < n; k++) {
+        res = Math.max(res, dmax * nums[k]);
+        dmax = Math.max(dmax, imax - nums[k]);
+        imax = Math.max(imax, nums[k]);
     }
-    
     return res;
 };
