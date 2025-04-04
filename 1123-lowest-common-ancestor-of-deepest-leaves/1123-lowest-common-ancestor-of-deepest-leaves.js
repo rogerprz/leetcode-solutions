@@ -12,23 +12,25 @@
  */
 var lcaDeepestLeaves = function(root) {
     if (!root) return root 
-    const max = 0;
-    const currentNode = null;
+    let max = 0;
+    let lca = null;
     const explore = (node, level = 0) => {
-        if (!node) return [null, 0]
+        if (!node) return level - 1;
 
-        const [leftNode, leftLevel] = explore(node.left, level + 1)
-        const [rightNode, rightLevel] = explore(node.right, level + 1)
+        const leftDepth = explore(node.left, level + 1)
+        const rightDepth = explore(node.right, level + 1)
 
 
-        if (leftLevel === rightLevel) {
-            return [node, leftLevel + 1]
-        } else if (leftLevel > rightLevel) {
-            return [leftNode, leftLevel + 1]
-        } else {
-            return [rightNode, rightLevel + 1]
-        }
+        if (level > max) {
+            max = level
+        } 
+        
+        if (leftDepth === rightDepth && leftDepth === max) {
+            lca = node;
+        } 
+        
+        return Math.max(leftDepth, rightDepth)
     }
-    
-    return explore(root)[0] 
+    explore(root, 0)
+    return lca
 };
