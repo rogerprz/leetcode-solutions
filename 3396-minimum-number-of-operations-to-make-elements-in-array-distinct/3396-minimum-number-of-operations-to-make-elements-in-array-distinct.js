@@ -14,8 +14,5 @@ var minimumOperations = function(nums) {
         set.add(num)
     }
 
-    if (index === 0) {
-        return index
-    }
-    return Math.ceil(index/3)
+    return index
 };
