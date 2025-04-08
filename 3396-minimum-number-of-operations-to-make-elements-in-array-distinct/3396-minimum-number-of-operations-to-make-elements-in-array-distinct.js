@@ -9,8 +9,7 @@ var minimumOperations = function(nums) {
     for (let i = nums.length - 1; i >= 0; i--) {
         const num = nums[i]
         if (set.has(num)) {
-            index = i + 1
-            break;
+            return Math.ceil((i+ 1)/3)
         }
         set.add(num)
     }
