@@ -6,12 +6,8 @@
 var minOperations = function(nums, k) {
     const set = new Set();
     for (const x of nums) {
-        if (x < k) {
-            return -1;
-        } 
-        if (x > k) {
-            set.add(x);
-        }
+        if (x < k) return -1;
+        if (x > k) set.add(x);
     }
     return set.size;
 };
