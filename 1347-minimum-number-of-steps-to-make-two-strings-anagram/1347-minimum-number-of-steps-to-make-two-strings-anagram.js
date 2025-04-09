@@ -5,13 +5,11 @@
  */
 var minSteps = function(s, t) {
     const freq = new Array(26).fill(0)
-    const arrT = t.split("").sort((a,b) => a.localeCompare(b))
-    const arrS = s.split("").sort((a,b) => a.localeCompare(b))
 
     let count = 0;
 
-    console.log(arrT.join(""))
-    console.log(arrS.join(""))
+    // console.log(arrT.join(""))
+    // console.log(arrS.join(""))
 
     // 
     // 
@@ -24,8 +22,8 @@ var minSteps = function(s, t) {
         freq[idx]++
     }
 
-    for (let i  = 0; i < arrT.length; i++) {
-        const one = arrT[i];
+    for (let i  = 0; i < t.length; i++) {
+        const one = t[i];
          const idx = one.charCodeAt(0) - 'a'.charCodeAt(0)
          if (freq[idx] > 0) {
             freq[idx]--
