@@ -11,26 +11,27 @@
  * @return {TreeNode}
  */
 var lcaDeepestLeaves = function(root) {
-    if (!root) return root 
-    let max = 0;
+    if (!root) return root; 
+
+    let maxDepth = 0; 
     let lca = null;
-    const explore = (node, level = 0) => {
-        if (!node) return level - 1;
+    const dfs = (node, depth) => {
+        if (!node) return depth - 1
 
-        const leftDepth = explore(node.left, level + 1)
-        const rightDepth = explore(node.right, level + 1)
+        const leftDepth = dfs(node.left, depth + 1);
+        const rightDepth = dfs(node.right, depth + 1);
 
-
-        if (level > max) {
-            max = level
+        if (depth > maxDepth) {
+            maxDepth = depth
         } 
-        
-        if (leftDepth === rightDepth && leftDepth === max) {
-            lca = node;
-        } 
-        
+
+        if (leftDepth === rightDepth && leftDepth === maxDepth) {
+            lca = node
+        }
+
         return Math.max(leftDepth, rightDepth)
     }
-    explore(root, 0)
+
+    dfs(root, 0)
     return lca
 };
