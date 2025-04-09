@@ -8,7 +8,8 @@ var minOperations = function(nums, k) {
     for (const x of nums) {
         if (x < k) {
             return -1;
-        } else if (x > k) {
+        } 
+        if (x > k) {
             set.add(x);
         }
     }
