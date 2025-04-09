@@ -4,20 +4,21 @@
  * @return {number}
  */
 var minimumRecolors = function(blocks, k) {
-    let black = 0
-    let size = Infinity
-
+    
+    // blocks = "WBBWWBBWBW", 
+    // k = 7
+    let black = 0; 
+    let size = Infinity;
     for (let i = 0; i < blocks.length; i++) {
-        
-        const startOfWin = blocks[i - k];
+        const block = blocks[i]
 
-        const isValidWin = i - k >= 0;
-        if (isValidWin && startOfWin === "B") {
+        const startElem = blocks[i - k]
+        if (i - k >= 0 && startElem === "B") {
             black--
         }
-        if (blocks[i] === "B") black++
+        if (block === "B") black++
         const minNeeded = k - black 
         size = Math.min(size, minNeeded)
     }
-    return size
+    return size;
 };
