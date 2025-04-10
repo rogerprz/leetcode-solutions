@@ -3,8 +3,7 @@
  * @return {number}
  */
 var rob = function(nums) {
-    let max = 0;
-    let memo = []
+    let memo = new Array(nums.length)
     // [1,2,3,1]
     //  0,1,2,3,
     // [4,3,,]
@@ -12,7 +11,7 @@ var rob = function(nums) {
         if (index >= nums.length) {
             return 0
         }
-        if (memo[index] != null) {
+        if (index in memo) {
             return memo[index]
         }
         const curr = nums[index]
