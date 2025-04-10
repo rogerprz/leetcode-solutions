@@ -3,39 +3,23 @@
  * @return {number}
  */
 var rob = function(nums) {
-  const memo = [];
-
-  const dp = (i) => {
-    if (i >= nums.length) {
-        return 0
-    }
-    if (memo[i] != null) {
-        return memo[i]
-    }
-    const next = dp(i + 1)
-    const oneAfter = dp (i + 2)
-    memo[i] = Math.max(nums[i] + oneAfter, next)
-
-    return memo[i]
-  } 
-
-  return dp(0) 
-};
-
-
-/**
- let memo = []
-    const dp = (i) => {
-        if (i >=nums.length) {
+    let max = 0;
+    let memo = []
+    // [1,2,3,1]
+    //  0,1,2,3,
+    // [4,3,,]
+    const dp = (index) => {
+        if (index >= nums.length) {
             return 0
         }
-        if (memo[i] != null) {
-            return memo[i]
+        if (memo[index] != null) {
+            return memo[index]
         }
+        const curr = nums[index]
+        memo[index] = Math.max(curr +  dp(index + 2), dp(index + 1))
 
-        memo[i] = Math.max(dp(i+2) + nums[i], dp(i+1))
-
-        return memo[i]
+        return memo[index]
     }
+
     return dp(0)
-     */
+};
