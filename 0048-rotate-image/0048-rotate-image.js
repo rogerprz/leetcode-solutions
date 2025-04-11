@@ -12,6 +12,6 @@ var rotate = function(matrix) {
         }
     }
 
-    matrix.forEach(row => row.reverse());
+    matrix.map(row => row.reverse());
     return matrix
 };
