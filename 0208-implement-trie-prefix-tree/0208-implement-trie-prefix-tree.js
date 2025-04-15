@@ -16,7 +16,7 @@ Trie.prototype.insert = function(word) {
         }
         node = node[char]
     }
-    node.isWord = true
+    node.isWord = true;
 };
 
 /** 
@@ -32,7 +32,7 @@ Trie.prototype.search = function(word) {
         }
         node = node[char]
     }
-    return node.isWord == true
+    return node.isWord === true;
 };
 
 /** 
@@ -44,11 +44,11 @@ Trie.prototype.startsWith = function(prefix) {
 
     for (const char of prefix) {
         if (!(char in node)) {
-            return false 
+            return false
         }
-        node = node[char]
+        node = node[char];
     }
-    return true;
+    return true
 };
 
 /** 
