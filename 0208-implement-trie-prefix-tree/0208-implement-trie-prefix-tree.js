@@ -32,7 +32,7 @@ Trie.prototype.search = function(word) {
         }
         node = node[char]
     }
-    return !!node.isWord
+    return node.isWord == true
 };
 
 /** 
