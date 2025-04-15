@@ -68,12 +68,12 @@ Trie.prototype.countWordsStartingWith = function(prefix) {
  * @return {void}
  */
 Trie.prototype.erase = function(word) {
-    let node = this.root
+    let node = this.root;
 
     for (const char of word) {
         if (!(char in node)) {
-            return
-        }
+            return false;
+        } 
         node[char].count--
         if (node[char] === 0) {
             delete node[char]
