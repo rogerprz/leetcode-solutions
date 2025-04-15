@@ -78,9 +78,8 @@ Trie.prototype.erase = function(word) {
 
     }
     node.wordCount--
-    if (node.wordCount === 0) {
-        node.isWord = false
-    }
+    node.isWord = false;
+
 };
 
 /** 
