@@ -8,21 +8,16 @@ var Trie = function() {
  * @return {void}
  */
 Trie.prototype.insert = function(word) {
-    let node = this.root;
-
+    let node = this.root
     for (const char of word) {
         if (!(char in node)) {
-            node[char] = { count: 0 }
+            node[char] = {count: 0}
         }
         node = node[char]
         node.count++
     }
-    if (node.wordCount) {
-        node.wordCount++
-    } else {
-        node.wordCount = 1
-    }
-    node.isWord = true
+    node.isWord = true 
+    node.wordCount = (node.wordCount || 0) + 1 
 };
 
 /** 
@@ -58,7 +53,7 @@ Trie.prototype.countWordsStartingWith = function(prefix) {
         node = node[char]
     }
     if (node.count !== undefined) {
-        return node.count
+        return node.count;
     }
     return 0
 };
@@ -72,16 +67,18 @@ Trie.prototype.erase = function(word) {
 
     for (const char of word) {
         if (!(char in node)) {
-            return false;
-        } 
-        node[char].count--
+            return false
+        }
+        node[char].count-- 
         if (node[char] === 0) {
             delete node[char]
             return
         }
         node = node[char]
+
     }
     node.wordCount--
+    node.isWord = false;
     if (node.wordCount === 0) {
         node.isWord = false
     }
