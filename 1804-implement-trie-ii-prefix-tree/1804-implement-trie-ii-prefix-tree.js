@@ -8,7 +8,7 @@ var Trie = function() {
  * @return {void}
  */
 Trie.prototype.insert = function(word) {
-    let node = this.root
+    let node = this.root;
 
     for (const char of word) {
         if (!(char in node)) {
@@ -17,7 +17,11 @@ Trie.prototype.insert = function(word) {
         node = node[char]
         node.count++
     }
-    node.wordCount = (node.wordCount || 0) + 1; 
+    if (node.wordCount) {
+        node.wordCount++
+    } else {
+        node.wordCount = 1
+    }
     node.isWord = true
 };
 
@@ -26,14 +30,18 @@ Trie.prototype.insert = function(word) {
  * @return {number}
  */
 Trie.prototype.countWordsEqualTo = function(word) {
-    let node = this.root
+    let node = this.root;
+
     for (const char of word) {
         if (!(char in node)) {
             return 0
         }
         node = node[char]
     }
-    return !!node.isWord ? node.wordCount : 0
+    if (node.isWord !== undefined) {
+        return node.wordCount;
+    }
+    return 0
 };
 
 /** 
@@ -41,7 +49,7 @@ Trie.prototype.countWordsEqualTo = function(word) {
  * @return {number}
  */
 Trie.prototype.countWordsStartingWith = function(prefix) {
-    let node = this.root
+    let node = this.root;
 
     for (const char of prefix) {
         if (!(char in node)) {
@@ -49,21 +57,12 @@ Trie.prototype.countWordsStartingWith = function(prefix) {
         }
         node = node[char]
     }
-    return node.count || 0
+    if (node.count !== undefined) {
+        return node.count
+    }
+    return 0
 };
-/* 
-["Trie",                    null 
-"insert",                   null apple
-"insert",                   null apple
-"countWordsEqualTo",        2    apple
-"countWordsStartingWith",   2    app
-"erase",                    null apple
-"countWordsEqualTo",        1    apple
-"countWordsStartingWith",   1    app
-"erase",                    null apple
-"countWordsStartingWith"    0    app
-]
-*/
+
 /** 
  * @param {string} word
  * @return {void}
