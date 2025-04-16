@@ -8,6 +8,9 @@ var HitCounter = function() {
  * @return {void}
  */
 HitCounter.prototype.hit = function(timestamp) {
+    while(this.queue[0] <= timestamp - 300) {
+        this.queue.shift();
+    }
     this.queue.push(timestamp)
 };
 
@@ -16,7 +19,10 @@ HitCounter.prototype.hit = function(timestamp) {
  * @return {number}
  */
 HitCounter.prototype.getHits = function(timestamp) {
-    return this.queue.reduce((acc, ts) => acc + (ts > timestamp - 300 ? 1 : 0) ,0);
+    while (this.queue[0] <= timestamp - 300) {
+        this.queue.shift();
+    }
+    return this.queue.length;
 };
 
 /** 
