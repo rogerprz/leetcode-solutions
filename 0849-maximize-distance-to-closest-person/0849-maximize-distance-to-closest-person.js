@@ -28,9 +28,7 @@ var maxDistToClosest = function(seats) {
         }
     }
 
-    if (right != seats.length - 1) {
-        max = Math.max(max, seats.length - 1 - right);
-    }
+
 
     return max
 };
