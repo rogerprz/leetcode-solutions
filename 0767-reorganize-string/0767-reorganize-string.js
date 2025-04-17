@@ -7,33 +7,36 @@ var reorganizeString = function(s) {
 
     for (const char of s) {
         if (!(char in freqHash)) {
-            freqHash[char] = 0
+            freqHash[char] = 0;
         }
         freqHash[char]++
     }
-
-    const freqArr = [...Object.keys(freqHash).sort((a,b) => freqHash[b]- freqHash[a])]
+    //  "aab"
+    //  hash = {a: 2, b: 1}
+    let freq = [...Object.keys(freqHash).sort((a,b) => freqHash[b] - freqHash[a])]
+    // [a,b]
     let res = ""
 
-    while (freqArr.length >= 2) {
-        const one = freqArr.shift()
-        const two = freqArr.shift()
+    while (freq.length >= 2) {
+        const one = freq.shift();
+        const two = freq.shift();
 
-        res+= one 
-        res+= two
 
-        if (--freqHash[one] > 0) freqArr.push(one)
-        if (--freqHash[two] > 0) freqArr.push(two)
+        res += one;
+        res += two;
 
-        freqArr.sort((a,b) => freqHash[b]- freqHash[a])
+        if (--freqHash[one] > 0) freq.push(one);
+        if (--freqHash[two] > 0) freq.push(two);
+
+        freq.sort((a,b) => freqHash[b] - freqHash[a])
     }
-
-    if (freqArr.length > 0) {
-        if (freqHash[freqArr[0]] > 1) {
+    if (freq.length > 0) {
+        const val = freq.shift()
+        if (freqHash[val] > 1) {
             return ""
         }
-        res += freqArr[0]
+        res += val
     }
 
-    return res
+    return res;
 };
