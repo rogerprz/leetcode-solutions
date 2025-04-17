@@ -3,12 +3,28 @@
  * @return {number}
  */
 var maxDistToClosest = function(seats) {
-    const zeros = seats.join('').split('1');
-    const firstSec= zeros.shift().length;
-    const lastSec = zeros.pop().length;
-    return Math.max(firstSec, lastSec,
-    ...zeros.map(i => {
-        return i.length > 0 ? Math.floor((i.length + 1) / 2) : 0
-    })
-  );
+    let max = 0;
+    let left = 0; 
+    let right = 0;
+
+    for (let i = 0; i < seats.length; i++) {
+        const seat = seats[i];
+
+        if (seat === 1) {
+            right = i;
+            const firstSeat = left === 0 && seats[0] === 0
+            if (firstSeat) {
+                max = Math.max(right - left, max)
+            } else {
+                max = Math.max(Math.floor((right - left)/ 2), max);
+            }
+            left = right;
+        }
+    }
+
+    if (right != seats.length - 1) {
+        max = Math.max(max, seats.length - 1 - right);
+    }
+
+    return max
 };
