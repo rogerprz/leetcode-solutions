@@ -6,38 +6,38 @@
 var colorTheArray = function(n, queries) {
     let pairs = 0
     let colors = new Array(n).fill(0)
-    let ret = []
+    let result = []
 
-    // when changing, check if changing into/out of a pair and update tally accordingly
     for (let i = 0; i < queries.length; i++) {
-        let target = queries[i][0]
-        let color = queries[i][1]
-
-        // console.log(colors)
-
-        if (colors[target] == 0) {
+        const [currIdx, qColor] = queries[i]
+        let color = qColor
+        // Remove old pairs if not zero
+        if (colors[currIdx] !== 0) {
             // was uncolored, cant have been a pair
-        } else {
             // was a color, could be pair
-            if (target - 1 >= 0 &&  colors[target] == colors[target-1]) {
+            const prevIdx = currIdx - 1;
+            const nextIdx = currIdx + 1;
+            // edge case to be >= 0 
+            if (prevIdx >= 0 &&  colors[currIdx] == colors[prevIdx]) {
                 pairs--
             }
-            if (target + 1 < colors.length &&  colors[target] == colors[target+1]) {
+            // edge case to < colors.length;
+            if (nextIdx < colors.length &&  colors[currIdx] == colors[nextIdx]) {
                 pairs--
             } 
         }
 
-        colors[target] = color
+        colors[currIdx] = color
 
-        if (target - 1 >= 0 &&  colors[target] == colors[target-1]) {
+        if (currIdx - 1 >= 0 &&  colors[currIdx] == colors[currIdx-1]) {
             pairs++
         }
-        if (target + 1 < colors.length &&  colors[target] == colors[target+1]) {
+        if (currIdx + 1 < colors.length &&  colors[currIdx] == colors[currIdx+1]) {
             pairs++
         } 
 
-        ret.push(pairs)
+        result.push(pairs)
     }
 
-    return ret
+    return result
 };
