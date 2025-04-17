@@ -16,6 +16,7 @@ var leastInterval = function(tasks, n) {
     let idle = chunk * n;
 
     for (let i = 1; i < 26; i++) {
+        if (freq[i] === 0) break;
         idle -= Math.min(chunk, freq[i]);
     }
 
