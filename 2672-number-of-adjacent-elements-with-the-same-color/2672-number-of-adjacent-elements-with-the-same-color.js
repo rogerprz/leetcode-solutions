@@ -9,8 +9,7 @@ var colorTheArray = function(n, queries) {
     let result = []
 
     for (let i = 0; i < queries.length; i++) {
-        const [currIdx, qColor] = queries[i]
-        let color = qColor
+        const [currIdx, color] = queries[i]
         // Remove old pairs if not zero
         if (colors[currIdx] !== 0) {
             // was uncolored, cant have been a pair
