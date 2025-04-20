@@ -3,27 +3,17 @@
  * @return {number}
  */
 var numRabbits = function(answers) {
-    /*
-    1: 3 = 4
-    2: 1 = 3
-    3: 1 = 4
-    */
+    const freq = {};
+    const nums = new Set()
+    for (let num of answers) {
+        freq[num] = (freq[num] || 0) + 1;
+        nums.add(num)
+    }
     let count = 0;
-    const map = new Map()
+    for (let num of nums) {
+        const groups = Math.ceil(freq[num] / (num+1));
+        count += groups * (num + 1);
+    }
 
-    answers.forEach((ans)=> {
-        if (!(map.has(ans))) {
-            map.set(ans, 0)
-        }
-        map.set(ans, map.get(ans) + 1)
-    })
-    map.entries().forEach(([key, value]) => {
-        const k = parseInt(key)
-
-        const groupSize = k + 1;
-        const groups = Math.ceil(value / groupSize);
-        count += groups * groupSize;
-    })
-
-    return count
+    return count;
 };
