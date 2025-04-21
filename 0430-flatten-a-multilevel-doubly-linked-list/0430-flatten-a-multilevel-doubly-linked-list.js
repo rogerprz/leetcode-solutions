@@ -14,25 +14,34 @@
  */
 var flatten = function(head) {
    if (!head) return null;
+   let node = head;
+   const stack = [];
 
-    const stack = [head];
-
-    while (stack.length > 0) {
-        let node = stack.pop();
-
-        if (node.next) stack.push(node.next);
+    while (node) {
+        // if a child, we need to push next
         if (node.child) {
-            stack.push(node.child);
+            // send next to stack while we re-assign next
+            if (node.next) stack.push(node.next)
+            // assign next to the child 
             node.next = node.child;
+            // assign child prev to the curr node,
+            // bc child prev is null;
             node.child.prev = node;
+            // remove the child by null;
             node.child = null;
         }
-
-        if (stack.length > 0) {
-            node.next = stack[stack.length - 1];
-            stack[stack.length - 1].prev = node;
+        // if no node.next & stack.len > 0
+        // we need grab from stack to continue flatten
+        if (!node.next && stack.length > 0) {
+            // get prev node level list
+            let nextNode = stack.pop();
+            // assign next null to popped node
+            node.next = nextNode;
+            // let nextNode know it's prev is node
+            nextNode.prev = node
         }
+        node = node.next;
     }
 
-    return head;
+    return head
 };
