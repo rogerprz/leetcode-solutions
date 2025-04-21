@@ -13,7 +13,8 @@ var asteroidCollision = function(asteroids) {
             stack.push(curr)
         } else if (-curr === top) {
             stack.pop()
-        } else if (-top > curr) {
+        } 
+        else if (-top > curr) {
             stack.pop()
             i--
         }
