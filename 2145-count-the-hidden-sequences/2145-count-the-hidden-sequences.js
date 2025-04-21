@@ -5,24 +5,14 @@
  * @return {number}
  */
 var numberOfArrays = function(differences, lower, upper) {
-    let dp = new Array(differences.length+1)
-    
-    dp[0] = 0
-    let min = dp[0]
-    let max = dp[0]
-    for(let i = 1; i <= differences.length; i++){
-        dp[i] = dp[i-1] + differences[i-1]
-        min = Math.min(dp[i], min)
-        max = Math.max(dp[i], max)
+    let x = 0, y = 0, cur = 0;
+    for (let d of differences) {
+        cur += d;
+        x = Math.min(x, cur);
+        y = Math.max(y, cur);
+        if (y - x > upper - lower) {
+            return 0;
+        }
     }
-    
-    let shift = min - lower
-    max = max - shift
-    
-    let count = upper - max + 1
-    if(count <= 0){
-        return 0
-    }
-
-    return count
+    return upper - lower - (y - x) + 1;
 };
