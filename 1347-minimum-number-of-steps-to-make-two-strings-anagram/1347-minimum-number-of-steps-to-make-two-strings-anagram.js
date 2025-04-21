@@ -4,32 +4,23 @@
  * @return {number}
  */
 var minSteps = function(s, t) {
-    const freq = new Array(26).fill(0)
-
+    const hash = {}
     let count = 0;
-
-    // console.log(arrT.join(""))
-    // console.log(arrS.join(""))
-
-    // 
-    // 
-    // acilr
-    for (let i = 0; i < s.length;i++) {
-        const one = s[i];
-
-        const idx = one.charCodeAt(0) - 'a'.charCodeAt(0)
-
-        freq[idx]++
+    for (const char of s) {
+        if (!(char in hash)) {
+            hash[char] = 0
+        }
+        hash[char]++
     }
 
-    for (let i  = 0; i < t.length; i++) {
-        const one = t[i];
-         const idx = one.charCodeAt(0) - 'a'.charCodeAt(0)
-         if (freq[idx] > 0) {
-            freq[idx]--
-         } else {
+    for (let i = 0; i < t.length; i++) {
+        const char = t[i];
+
+        if (!(char in hash) || hash[char] === 0) {
             count++
-         }
+        } else {
+            hash[char]--
+        }
     }
     return count
 };
