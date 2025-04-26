@@ -18,5 +18,5 @@ var leastInterval = function(tasks, n) {
         idle -= Math.min(chunk, freq[i])
     }
     
-    return idle < 0 ? tLen : tLen + idle
+    return Math.max(tLen, tLen + idle)
 };
