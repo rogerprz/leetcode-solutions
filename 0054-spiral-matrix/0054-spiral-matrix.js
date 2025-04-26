@@ -13,7 +13,11 @@ var spiralOrder = function(matrix) {
    let right = matrix[0].length - 1;
 
    while (top <= bot && left <= right) {
-    // traverse l to r
+    // traverse l to r 
+    // traverse top to bot 
+    // Check if we still have rows and columns to process
+    // 3. Traverse left (bottom row)
+    // 4. Traverse up (leftmost column)
     for (let i = left; i <= right; i++) {
         result.push(matrix[top][i])
     }
