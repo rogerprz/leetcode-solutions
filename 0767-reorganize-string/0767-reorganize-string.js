@@ -11,10 +11,7 @@ var reorganizeString = function(s) {
         }
         freqHash[char]++
     }
-    //  "aab"
-    //  hash = {a: 2, b: 1}
     let freq = [...Object.keys(freqHash).sort((a,b) => freqHash[b] - freqHash[a])]
-    // [a,b]
     let res = ""
 
     while (freq.length >= 2) {
