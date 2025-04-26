@@ -3,42 +3,44 @@
  * @return {number[]}
  */
 var spiralOrder = function(matrix) {
-   const result = [];
+    const res = []
+    if (matrix.length === 0) return res;
 
-   if (matrix.length === 0) return result;
+    let top = 0, left = 0;
+    let bot = matrix.length - 1;
+    let right = matrix[0].length - 1;
 
-   let top = 0;
-   let bot = matrix.length - 1;
-   let left = 0;
-   let right = matrix[0].length - 1;
 
-   while (top <= bot && left <= right) {
-    // traverse l to r 
-    // traverse top to bot 
-    // Check if we still have rows and columns to process
-    // 3. Traverse left (bottom row)
-    // 4. Traverse up (leftmost column)
-    for (let i = left; i <= right; i++) {
-        result.push(matrix[top][i])
-    }
-    top++
-    for (let i = top; i <= bot; i++) {
-        result.push(matrix[i][right])
-    }
-    right--;
-
-    if (top <= bot) {
-        for (let i = right; i >= left; i--) {
-            result.push(matrix[bot][i])
+    while (top <= bot && left <= right) {
+        // traverse l to r 
+        for (let i = left; i <= right; i++) {
+            res.push(matrix[top][i])
         }
-        bot--;
-    }
-    if (left <= right) {
-        for (let i = bot; i >= top; i--) {
-            result.push(matrix[i][left])
+        top++
+        // traverse top to bot 
+        for (let i = top; i <= bot; i++) {
+            res.push(matrix[i][right])
         }
-        left++
+        right--
+        // Check if we still have rows and columns to process
+        if (top <= bot) {
+            for (let i = right; i >= left; i--) {
+                res.push(matrix[bot][i])
+            }
+            bot--
+        }
+        // 3. Traverse left (bottom row)
+
+        if (left <= right) {
+            for (let i = bot; i >= top; i--) {
+                res.push(matrix[i][left])
+            }
+            left++
+        }
+        // 4. Traverse up (leftmost column)
     }
-   }
-   return result;
+
+    
+
+    return res;
 };
