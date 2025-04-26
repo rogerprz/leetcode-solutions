@@ -13,14 +13,15 @@ var romanToInt = function(s) {
         'D': 500,
         'M': 1000
     };
+    for (let i = 0; i < s.length;i++) {
+        const curr = s[i];
+        const next = s[i+1]
 
-    for (let i = 0; i < s.length - 1; i++) {
-        if (roman[s[i]] < roman[s[i + 1]]) {
-            res -= roman[s[i]];
+        if (roman[curr] < roman[next]) {
+            res -= roman[curr]
         } else {
-            res += roman[s[i]];
+            res += roman[curr]
         }
     }
-
-    return res + roman[s[s.length - 1]];    
+    return res
 };
