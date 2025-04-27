@@ -3,8 +3,8 @@
  * @return {character[][]}
  */
 var rotateTheBox = function(box) {
-    const cols = box[0].length;
     const rows = box.length;
+    const cols = box[0].length;
     const res = Array.from({length: cols}, ()=> 0)
                     .map(()=> new Array(rows).fill('.'))
     const STONE = "#";
