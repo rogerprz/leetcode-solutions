@@ -10,7 +10,7 @@ var trap = function(height) {
     let sum = 0;
     while (l < r){
         if(leftMax <= rightMax){
-            sum += (leftMax - height[l]);
+            sum += leftMax - height[l];
             l++;
            leftMax = Math.max(leftMax, height[l]);
 
