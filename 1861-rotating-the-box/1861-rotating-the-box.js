@@ -7,18 +7,35 @@ var rotateTheBox = function(box) {
     const rows = box.length;
     const res = Array.from({length: cols}, ()=> 0)
                     .map(()=> new Array(rows).fill('.'))
-    console.log('R:', res)
-
+    const STONE = "#";
+    const WALL = "*"
+    /**
+    [
+        ['#', '#', '*', '.', '*', '.'], 
+        ['#', '#', '#', '*', '.', '.'], 
+        ['#', '#', '#', '.', '#', '.']
+        ]
+    [
+        ['.', '.', '.'], 
+        ['.', '.', '.'], 
+        ['.', '.', '.'], 
+        ['.', '.', '.'], 
+        ['.', '.', '.'], 
+        ['.', '.', '.']
+        ]
+     */
     for (let row = 0; row < rows;row++) {
-        let i = cols - 1;
+        let resColIdx = cols - 1;
 
         for (let col = cols - 1; col >= 0; col--) {
-            if (box[row][col] === "#") {
-                res[i][rows - row - 1] = "#";
-                i--
-            } else if (box[row][col] === "*") {
-                res[col][rows - row - 1] = "*";
-                i = col - 1;
+            const currPos = box[row][col]
+            const resRowIdx = rows - row - 1
+            if (currPos === STONE) {
+                res[resColIdx][resRowIdx] = STONE;
+                resColIdx--
+            } else if (currPos === WALL) {
+                res[col][resRowIdx] = WALL;
+                resColIdx = col - 1;
             }
         }
     }
