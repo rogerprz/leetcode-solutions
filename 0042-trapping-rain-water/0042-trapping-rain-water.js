@@ -3,27 +3,24 @@
  * @return {number}
  */
 var trap = function(height) {
-    if (height == null || height.length === 0) return 0;
-    let res = 0;
-    let l = height.length;
-    let lMax = {};
-    let rMax = {};
+    let l = 0;
+    let r = height.length - 1;
+    let leftMax = height[0];
+    let rightMax = height[r];
+    let sum = 0;
+    while (l < r){
+        if(leftMax <= rightMax){
+            sum += (leftMax - height[l]);
+            l++;
+           leftMax = Math.max(leftMax, height[l]);
 
-    lMax[0] = height[0];
-    for (let i = 1; i < l; i++) {
-        lMax[i] = Math.max(height[i], lMax[i - 1]);
+        }else{
+            sum += (rightMax - height[r] );
+            r--;
+            rightMax = Math.max(rightMax, height[r])
+        }
     }
-
-    rMax[l - 1] = height[l - 1];
-    for (let i = l - 2; i >= 0; i--) {
-        rMax[i] = Math.max(height[i], rMax[i + 1]);
-    }
-
-    for (let i = 0; i < height.length; i++) {
-        res += Math.min(lMax[i], rMax[i]) - height[i];
-    }
-
-    return res;
+    return sum
 };
 // ALT SOLUTIONS
 // https://leetcode.com/problems/trapping-rain-water/solutions/400555/clean-javascript-solutions-brute-force-dynamic-programming-stack-two-pointers/?envType=daily-question&envId=2024-04-12
