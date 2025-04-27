@@ -11,11 +11,10 @@ var leastInterval = function(tasks, n) {
         freq[idx]++
     }
 
-    freq.sort((a,b) => b-a)
+    freq.sort((a,b) => b - a)
 
-    // A B _ A B _ A B _
     const chunk = freq[0] - 1;
-    let idle = chunk * n; // 2 * 2
+    let idle = chunk * n; 
 
     for (let i = 1; i < freq.length;i++) {
         idle -= Math.min(freq[i], chunk)
