@@ -10,8 +10,8 @@ var taskSchedulerII = function(tasks, space) {
         if (task in map) {
             days = Math.max(days, map[task])
         }
-        map[task] = days + space + 1;
         days++
+        map[task] = days + space
     }
     return days;
 };
