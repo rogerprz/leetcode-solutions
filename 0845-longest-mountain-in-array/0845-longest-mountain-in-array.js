@@ -7,16 +7,16 @@ var longestMountain = function(arr) {
     // [2,1,4,7,3,2,5]
     let base = 0;
     let ans = 0; 
-    const N = arr.length;
+    const N = arr.length - 1
     
     while (base < N) {
         let end = base;
         if (end + 1 < N && arr[end] < arr[end + 1]) {
-            while (end + 1 < N && arr[end] < arr[end + 1]) {
+            while (end < N && arr[end] < arr[end + 1]) {
                 end++
             }
 
-            if ( end + 1 < N && arr[end] > arr[end + 1]) {
+            if ( end < N && arr[end] > arr[end + 1]) {
                 while (end + 1 < N && arr[end] > arr[end +1]) {
                     end++
                 }
