@@ -17,7 +17,7 @@ var longestMountain = function(arr) {
             }
 
             if ( end < N && arr[end] > arr[end + 1]) {
-                while (end + 1 < N && arr[end] > arr[end +1]) {
+                while (end < N && arr[end] > arr[end +1]) {
                     end++
                 }
                 ans = Math.max(ans, end - base + 1)
