@@ -12,12 +12,13 @@ var ExamRoom = function (n) {
 ExamRoom.prototype.seat = function () {
     const seats = this.seats;
     const total = this.total;
-    if (seats.length === 0) {
+    const N = seats.length;
+    if (N === 0) {
         seats.push(0)
         return 0
     }
-    let distance = Math.max(seats[0], total - 1 - seats[seats.length - 1])
-    for (let i = 0; i < seats.length - 1; i++) {
+    let distance = Math.max(seats[0], total - 1 - seats[N - 1])
+    for (let i = 0; i < N - 1; i++) {
         distance = Math.max(distance, Math.floor((seats[i + 1] - seats[i]) / 2))
     }
 
@@ -26,7 +27,7 @@ ExamRoom.prototype.seat = function () {
         return 0
     }
 
-    for (let i = 0; i < seats.length - 1; i++) {
+    for (let i = 0; i < N - 1; i++) {
         const currentDistance = Math.floor((seats[i + 1] - seats[i]) / 2)
         if (distance === currentDistance) {
             seats.splice(i + 1, 0, Math.floor((seats[i + 1] + seats[i]) / 2))
@@ -45,7 +46,9 @@ ExamRoom.prototype.seat = function () {
  */
 ExamRoom.prototype.leave = function (p) {
     const seats = this.seats
-    for (let i = 0; i < seats.length; i++) {
+    const N = seats.length;
+
+    for (let i = 0; i < N; i++) {
         if (seats[i] === p) {
             seats.splice(i, 1)
         }
