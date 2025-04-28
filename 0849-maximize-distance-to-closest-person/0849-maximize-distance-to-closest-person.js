@@ -21,7 +21,9 @@ var maxDistToClosest = function(seats) {
                  max = Math.max(max, midDiff)
             }
             left = i
-        } else if (i === N - 1 && seats[N-1] === 0) {
+        }
+        
+        if (i === N - 1 && seats[N-1] === 0) {
             // [1,0,0,0]
             const diff = i - left;
             max = Math.max(max, diff)
