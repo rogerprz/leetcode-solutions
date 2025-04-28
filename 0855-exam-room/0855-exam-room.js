@@ -2,39 +2,40 @@
  * @param {number} n
  */
 var ExamRoom = function (n) {
-    this.totalSeats = n
-    this.occupiedSeats = []
+    this.total = n
+    this.seats = []
 };
 
 /**
  * @return {number}
  */
 ExamRoom.prototype.seat = function () {
-    if (!this.occupiedSeats.length) {
-        this.occupiedSeats.push(0)
+    const seats = this.seats;
+    const total = this.total;
+    if (seats.length === 0) {
+        seats.push(0)
+        return 0
+    }
+    let distance = Math.max(seats[0], total - 1 - seats[seats.length - 1])
+    for (let i = 0; i < seats.length - 1; i++) {
+        distance = Math.max(distance, Math.floor((seats[i + 1] - seats[i]) / 2))
+    }
+
+    if (distance === seats[0]) {
+        seats.splice(0, 0, 0)
         return 0
     }
 
-    let distance = Math.max(this.occupiedSeats[0], this.totalSeats - 1 - this.occupiedSeats[this.occupiedSeats.length - 1])
-    for (let i = 0; i < this.occupiedSeats.length - 1; i++) {
-        distance = Math.max(distance, Math.floor((this.occupiedSeats[i + 1] - this.occupiedSeats[i]) / 2))
-    }
-
-    if (distance === this.occupiedSeats[0]) {
-        this.occupiedSeats.splice(0, 0, 0)
-        return 0
-    }
-
-    for (let i = 0; i < this.occupiedSeats.length - 1; i++) {
-        const currentDistance = Math.floor((this.occupiedSeats[i + 1] - this.occupiedSeats[i]) / 2)
+    for (let i = 0; i < seats.length - 1; i++) {
+        const currentDistance = Math.floor((seats[i + 1] - seats[i]) / 2)
         if (distance === currentDistance) {
-            this.occupiedSeats.splice(i + 1, 0, Math.floor((this.occupiedSeats[i + 1] + this.occupiedSeats[i]) / 2))
-            return this.occupiedSeats[i + 1]
+            seats.splice(i + 1, 0, Math.floor((seats[i + 1] + seats[i]) / 2))
+            return seats[i + 1]
         }
     }
 
-    this.occupiedSeats.push(this.totalSeats - 1)
-    return this.totalSeats - 1
+    seats.push(total - 1)
+    return total - 1
 
 };
 
@@ -43,9 +44,10 @@ ExamRoom.prototype.seat = function () {
  * @return {void}
  */
 ExamRoom.prototype.leave = function (p) {
-    for (let i = 0; i < this.occupiedSeats.length; i++) {
-        if (this.occupiedSeats[i] === p) {
-            this.occupiedSeats.splice(i, 1)
+    const seats = this.seats
+    for (let i = 0; i < seats.length; i++) {
+        if (seats[i] === p) {
+            seats.splice(i, 1)
         }
     }
 };
