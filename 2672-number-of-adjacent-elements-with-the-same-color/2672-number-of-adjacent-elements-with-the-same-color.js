@@ -4,31 +4,26 @@
  * @return {number[]}
  */
 var colorTheArray = function(n, queries) {
-    let pairs = 0;
-    let colors = new Array(n).fill(0)
+    const colors = new Array(n).fill(0);
+
     let res = [];
-    const N = colors.length
+    let pairs= 0;
+    const N = colors.length;
     for (let i = 0; i < queries.length;i++) {
         const [idx, color] = queries[i];
-        const prevIdx = idx - 1;
-        const nextIdx = idx + 1;
 
+        let prevIdx = idx - 1;
+        let nextIdx = idx + 1;
+        
         if (colors[idx] !== 0) {
-            if (prevIdx >= 0 && colors[idx] === colors[prevIdx]) {
-                pairs--
-            }
-            if (nextIdx < N && colors[idx] === colors[nextIdx]) {
-                pairs--
-            }
+            if (prevIdx >= 0 && colors[idx] === colors[prevIdx]) pairs--
+            if (nextIdx < N && colors[idx] === colors[nextIdx]) pairs--
         }
-        colors[idx] = color
 
-        if (prevIdx >= 0 && colors[idx] === colors[prevIdx]) {
-            pairs++
-        }
-        if (nextIdx <= N && colors[idx] === colors[nextIdx]) {
-            pairs++
-        }
+        colors[idx] = color;
+
+        if (prevIdx >= 0 && colors[idx] === colors[prevIdx]) pairs++
+        if (nextIdx < N && colors[idx] === colors[nextIdx]) pairs++
         res.push(pairs)
     }
 
