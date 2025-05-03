@@ -50,6 +50,5 @@ var minDominoRotations = function(tops, bottoms) {
         }
     }
     if (arrRes.length == 0) return res
-    if (countB > countT) return countT
-    else return countB
+    return Math.min(countB, countT)
 };
