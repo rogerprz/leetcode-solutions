@@ -42,12 +42,8 @@ var minDominoRotations = function(tops, bottoms) {
     let countT = 0
     let countB = 0
     for (const char of arrRes) {
-        if (char === 't') {
-            countT++
-        }
-        if (char === 'b') {
-            countB++
-        }
+        if (char === 't') countT++
+        if (char === 'b') countB++
     }
     if (arrRes.length == 0) return res
     return Math.min(countB, countT)
