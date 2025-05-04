@@ -11,12 +11,12 @@ var numEquivDominoPairs = function(dominoes) {
 
         if (!map.has(key)) {
             map.set(key, 0);
-            continue;
         }
-
-        let current = map.get(key) + 1;
-        map.set(key, current);
-        count += current;
+        else {
+            const current = map.get(key) + 1;
+            map.set(key, current);
+            count += current;
+        }
     }
 
     return count;
