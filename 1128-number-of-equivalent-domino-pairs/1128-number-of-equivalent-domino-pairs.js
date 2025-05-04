@@ -3,18 +3,21 @@
  * @return {number}
  */
 var numEquivDominoPairs = function(dominoes) {
-    const cantorPair = (a, b) => {
-        let x = Math.min(a, b), y = Math.max(a, b);
-        let sum = x + y;
-        return (sum * (sum + 1)) / 2 + y;
-    };
-
     let count = 0;
-    let freq = new Map();
+    let map = new Map();
+
     for (let [a, b] of dominoes) {
-        let pairValue = cantorPair(a, b);
-        count += (freq.get(pairValue) || 0);
-        freq.set(pairValue, (freq.get(pairValue) || 0) + 1);
+        let key = a < b ? `${a}${b}` : `${b}${a}`;
+
+        if (!map.has(key)) {
+            map.set(key, 0);
+            continue;
+        }
+
+        let current = map.get(key) + 1;
+        map.set(key, current);
+        count += current;
     }
+
     return count;
 };
