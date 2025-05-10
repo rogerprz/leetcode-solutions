@@ -5,33 +5,33 @@
  */
 const findAnagrams = (s, p) => {
     const output = [];
-    const neededChars = {};
+    const charsHash = {};
     for (let char of p) {
-        if (!(char in neededChars)) {
-            neededChars[char] = 0
+        if (!(char in charsHash)) {
+            charsHash[char] = 0
         }
-        neededChars[char]++
+        charsHash[char]++
     }
 
-    let left = 0;
-    let right = 0; 
+    let start = 0;
+    let end = 0; 
     let P = p.length
 
-    while (right < s.length) {
-        const rChar = s[right]
-        if (neededChars[rChar] > 0) P--;
+    while (end < s.length) {
+        const endChar = s[end]
+        if (charsHash[endChar] > 0) P--;
     
-        neededChars[rChar]--;
-        right++;
-    
-        if (P === 0) output.push(left);
-    
-        if (right - left == p.length) {
-            const lChar = s[left]
+        charsHash[endChar]--;
+        end++;
+        // found a successful anagram
+        if (P === 0) output.push(start);
+        // check if diff of end - start = P.len
+        if (end - start == p.length) {
+            const startChar = s[start]
             
-            if (neededChars[lChar] >= 0) P++;
-            neededChars[lChar]++;
-            left++;
+            if (charsHash[startChar] >= 0) P++;
+            charsHash[startChar]++;
+            start++;
         }
     }
     return output;
