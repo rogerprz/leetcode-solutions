@@ -13,21 +13,29 @@
  * @return {string}
  */
 var getDirections = function(root, startValue, destValue) {
-    function getPath(node, val, path) {
-        if (!node) return false;
-        if (node.val === val) return true;
-        path.push('L');
-        if (getPath(node.left, val, path)) return true;
-        path.pop();
-        path.push('R');
-        if (getPath(node.right, val, path)) return true;
-        path.pop();
-        return false;
+    const sPath = findPath(root, startValue)
+    const ePath = findPath(root, destValue)
+    while(sPath.length > 0 && ePath.length > 0 && sPath[sPath.length-1] === ePath[ePath.length-1]){
+        sPath.pop()
+        ePath.pop()
     }
-    let path1 = [], path2 = [];
-    getPath(root, startValue, path1);
-    getPath(root, destValue, path2);
-    let i = 0;
-    while (i < path1.length && i < path2.length && path1[i] === path2[i]) i++;
-    return 'U'.repeat(path1.length - i) + path2.slice(i).join('');
+    return 'U'.repeat(sPath.length) + ePath.reverse().join('')
+
 };
+
+const findPath = (root, val) => {
+    if(root === null) return null
+    if(root.val === val) return []
+    
+    const leftFind = findPath(root.left, val)
+    if(leftFind !== null){
+        leftFind.push('L')
+        return leftFind
+    } 
+    const rightFind = findPath(root.right, val)
+    if(rightFind !== null){
+        rightFind.push('R')
+        return rightFind
+    }
+    return null
+}
