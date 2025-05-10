@@ -22,7 +22,7 @@ var getDirections = function(root, startValue, destValue) {
 };
 
 function findLCA(node, s, d) {
-    if (!node) return null;
+    if (!node) return node;
     if (node.val === s || node.val === d) return node
 
     const left = findLCA(node.left, s, d)
