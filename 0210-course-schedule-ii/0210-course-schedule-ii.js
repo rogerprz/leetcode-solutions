@@ -23,11 +23,10 @@ var findOrder = function(numCourses, prerequisites) {
     while (queue.length > 0) {
         const curr = queue.shift();
         res.push(curr);
-        if (curr in graph) {
-            for (const neighbor of graph[curr]) {
-                inDegree[neighbor]--
-                if (inDegree[neighbor] === 0) queue.push(neighbor)
-            }
+        if (!(curr in graph)) continue
+        for (const neighbor of graph[curr]) {
+            inDegree[neighbor]--
+            if (inDegree[neighbor] === 0) queue.push(neighbor)
         }
     }
 
