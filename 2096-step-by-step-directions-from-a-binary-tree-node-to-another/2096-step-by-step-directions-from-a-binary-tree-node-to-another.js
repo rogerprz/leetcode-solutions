@@ -13,41 +13,21 @@
  * @return {string}
  */
 var getDirections = function(root, startValue, destValue) {
-    // find the least common ancestor LCA
-    const lca = findLCA(root, startValue, destValue)
-    const depth = findDepth(lca, startValue)
-    const path = findPath(lca, destValue)
-
-    return "U".repeat(depth).concat(path)
+    function getPath(node, val, path) {
+        if (!node) return false;
+        if (node.val === val) return true;
+        path.push('L');
+        if (getPath(node.left, val, path)) return true;
+        path.pop();
+        path.push('R');
+        if (getPath(node.right, val, path)) return true;
+        path.pop();
+        return false;
+    }
+    let path1 = [], path2 = [];
+    getPath(root, startValue, path1);
+    getPath(root, destValue, path2);
+    let i = 0;
+    while (i < path1.length && i < path2.length && path1[i] === path2[i]) i++;
+    return 'U'.repeat(path1.length - i) + path2.slice(i).join('');
 };
-
-function findLCA(node, s, d) {
-    if (!node) return node;
-    if (node.val === s || node.val === d) return node
-
-    const left = findLCA(node.left, s, d)
-    const right = findLCA(node.right, s, d)
-
-    if (left && right) return node
-
-    return left || right
-}
-
-function findDepth(node, start, count = 0) {
-    if (!node) return 0;
-    if (node.val === start) return count;
-    count++
-    const left = findDepth(node.left, start, count)
-    const right = findDepth(node.right, start, count)
-    return left || right;
-}
-
-function findPath(node, dest, str = "") {
-  if (!node) return '';
-  if (node.val === dest) return str;
-
-  const left = findPath(node.left, dest, str + 'L')
-  const right = findPath(node.right, dest, str + 'R')
-
-  return left || right;
-}
