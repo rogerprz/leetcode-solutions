@@ -12,25 +12,25 @@ const findAnagrams = (s, p) => {
         }
         neededChars[char]++
     }
+
     let left = 0;
     let right = 0; 
-    let count = p.length
+    let P = p.length
+
     while (right < s.length) {
+        const rChar = s[right]
+        if (neededChars[rChar] > 0) P--;
     
-        if (neededChars[s[right]] > 0) count--;
-    
-        neededChars[s[right]]--;
+        neededChars[rChar]--;
         right++;
     
-        if (count === 0) output.push(left);
+        if (P === 0) output.push(left);
     
         if (right - left == p.length) {
+            const lChar = s[left]
             
-            if (neededChars[s[left]] >= 0) count++;
-        
-
-
-            neededChars[s[left]]++;
+            if (neededChars[lChar] >= 0) P++;
+            neededChars[lChar]++;
             left++;
         }
     }
