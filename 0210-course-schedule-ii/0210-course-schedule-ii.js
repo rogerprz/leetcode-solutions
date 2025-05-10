@@ -8,9 +8,8 @@ var findOrder = function(numCourses, prerequisites) {
     let inDegree = new Array(numCourses).fill(0)
 
     for (const [course, pre] of prerequisites) {
-        if (!(pre in graph)) {
-            graph[pre] = []
-        }
+        if (!(pre in graph)) graph[pre] = []
+        
         graph[pre].push(course)
         inDegree[course]++
     }
