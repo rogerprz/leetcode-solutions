@@ -4,10 +4,6 @@
  * @return {number[]}
  */
 var findOrder = function(numCourses, prerequisites) {
-    // numCourses = 4, 
-    // prerequisites = [[1,0],[2,0],[3,1],[3,2]]
-    // 0 = 1
-    //   <- 2 <- 2
     let graph = {}
     let inDegree = new Array(numCourses).fill(0)
 
