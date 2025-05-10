@@ -6,7 +6,7 @@ var calculate = function(s) {
     let sign = 1, sum = 0;
     
     const stack = []; 
-    for (let i = 0; i < s.length; i += 1) {
+    for (let i = 0; i < s.length; i++) {
         if (s[i] >= '0' && s[i] <= '9') {
             let num = 0
 			// num can be multiple digits, iterate to build full num.
