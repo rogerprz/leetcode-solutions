@@ -36,14 +36,18 @@ function findLCA(node, s, d) {
 function findDepth(node, start, count = 0) {
     if (!node) return 0;
     if (node.val === start) return count;
-     return findDepth(node.left, start, count + 1) ||
-        findDepth(node.right, start, count + 1)
+    count++
+    const left = findDepth(node.left, start, count)
+    const right = findDepth(node.right, start, count)
+    return left || right;
 }
 
 function findPath(node, dest, str = "") {
   if (!node) return '';
   if (node.val === dest) return str;
 
-  return findPath(node.left, dest, str + 'L') || findPath(node.right, dest, str + 'R')
+  const left = findPath(node.left, dest, str + 'L')
+  const right = findPath(node.right, dest, str + 'R')
 
+  return left || right;
 }
