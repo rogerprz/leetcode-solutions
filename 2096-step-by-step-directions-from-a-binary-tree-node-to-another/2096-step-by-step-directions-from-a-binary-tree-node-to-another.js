@@ -27,15 +27,15 @@ const findPath = (root, val) => {
     if(root === null) return null
     if(root.val === val) return []
     
-    const leftFind = findPath(root.left, val)
-    if(leftFind !== null){
-        leftFind.push('L')
-        return leftFind
+    const left = findPath(root.left, val)
+    if(left){
+        left.push('L')
+        return left
     } 
-    const rightFind = findPath(root.right, val)
-    if(rightFind !== null){
-        rightFind.push('R')
-        return rightFind
+    const right = findPath(root.right, val)
+    if(right){
+        right.push('R')
+        return right
     }
     return null
 }
