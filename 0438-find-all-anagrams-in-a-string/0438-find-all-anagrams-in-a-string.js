@@ -3,36 +3,37 @@
  * @param {string} p
  * @return {number[]}
  */
-const findAnagrams = (s, p) => {
-    const output = [];
-    const charsHash = {};
+var findAnagrams = function(s, p) {
+    let anagram = {}
+
     for (let char of p) {
-        if (!(char in charsHash)) {
-            charsHash[char] = 0
+        if (!(char in anagram)) {
+            anagram[char] = 0
         }
-        charsHash[char]++
+        anagram[char]++
     }
 
+    let P = p.length;
+    let res = []
     let start = 0;
-    let end = 0; 
-    let P = p.length
-
+    let end = 0;
+    // s = "cbaebabacd", 
+    // p = "abc"
     while (end < s.length) {
         const endChar = s[end]
-        if (charsHash[endChar] > 0) P--;
-    
-        charsHash[endChar]--;
-        end++;
-        // found a successful anagram
-        if (P === 0) output.push(start);
-        // check if diff of end - start = P.len
-        if (end - start == p.length) {
+        if (anagram[endChar] > 0) P--;
+        anagram[endChar]--
+        end++
+        if (P === 0) res.push(start)
+
+        if (end - start === p.length) {
             const startChar = s[start]
-            
-            if (charsHash[startChar] >= 0) P++;
-            charsHash[startChar]++;
-            start++;
+
+            if (anagram[startChar] >= 0) P++;
+            anagram[startChar]++
+            start++
         }
+
     }
-    return output;
+    return res;
 };
