@@ -4,8 +4,8 @@
  * @return {number[]}
  */
 var findOrder = function(numCourses, prerequisites) {
-    let graph = {}
-    let inDegree = new Array(numCourses).fill(0) // remaining PreReqs
+    const graph = {}
+    const inDegree = new Array(numCourses).fill(0)
 
     for (const [course, pre] of prerequisites) {
         if (!(pre in graph)) graph[pre] = []
@@ -13,24 +13,24 @@ var findOrder = function(numCourses, prerequisites) {
         inDegree[course]++
     }
 
-    const queue = []
+    let res = []
+    let queue = []
+
     for (let i = 0; i < numCourses; i++) {
         if (inDegree[i] === 0) queue.push(i)
     }
-    const res = []
 
     while (queue.length > 0) {
-        const curr = queue.shift();
+        const curr = queue.shift()
 
         res.push(curr)
 
-        if (!(curr in graph)) continue;
+        if (!(curr in graph)) continue
 
         for (const neighbor of graph[curr]) {
             inDegree[neighbor]--
             if (inDegree[neighbor] === 0) queue.push(neighbor)
         }
     }
-
-    return res.length === numCourses ? res : [];
+    return res.length === numCourses ? res : []
 };
