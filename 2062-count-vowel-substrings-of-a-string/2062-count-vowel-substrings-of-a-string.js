@@ -14,8 +14,8 @@ var countVowelSubstrings = function(word) {
             const subChar = word[j];
 
             if (!vowels.has(subChar)) break
-            const count = (map.get(subChar) || 0) + 1
-            map.set(subChar, 1)
+            
+            map.set(subChar, true)
             if (map.size === 5) total++
         }
     }
