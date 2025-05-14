@@ -3,20 +3,21 @@
  * @return {boolean}
  */
 var isHappy = function(n) {
-  let count = 0
-    while (count < 15 ) {
-      console.log('N:',n, 'Count:', count)
-
-      const array = Array.from(String(n), Number)
-      let squaredSum = 0
-      for (digit in array){
-        squaredSum = squaredSum + Math.pow(array[digit], 2)
-      }
-      n = squaredSum
-      
-      if(n === 1) return true
-      count++
-      
+    let seen = new Set();
+    while(n!==1) {
+        if(seen.has(n)) return false;
+        seen.add(n);
+        n=sumSqDigits(n);
     }
-  return false
+    return true;
 };
+
+const sumSqDigits=(n)=>{
+    let sum=0;
+    while(n>0){
+        let num=n%10;
+        sum=sum+num*num;
+        n=Math.floor(n/10);
+    }
+    return sum;
+}
