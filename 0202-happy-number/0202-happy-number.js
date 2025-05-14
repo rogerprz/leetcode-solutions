@@ -14,9 +14,9 @@ var isHappy = function(n) {
 
 const sumSqDigits=(n)=>{
     let sum = 0;
-    while(n>0){
-        const num = n%10;
-        sum += num*num;
+    while(n > 0){
+        const num = n % 10;
+        sum += num * num;
         n = Math.floor(n/10);
     }
     return sum;
