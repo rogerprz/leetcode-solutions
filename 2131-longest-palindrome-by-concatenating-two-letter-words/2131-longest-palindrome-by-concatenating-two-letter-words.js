@@ -5,7 +5,8 @@
 var longestPalindrome = function(words) {
     const freq = {};
     for (let word of words) {
-        freq[word] = (freq[word] || 0) + 1;
+        if (!(word in freq)) freq[word] = 0
+        freq[word]++
     }
 
     let ans = 0;
@@ -18,13 +19,13 @@ var longestPalindrome = function(words) {
         if (word === rev) {
             ans += Math.floor(count / 2) * 4;
             if (count % 2 === 1) hasCenter = true;
-        } else if (freq[rev]) {
+        } else if (rev in freq) {
             const pairs = Math.min(count, freq[rev]);
             ans += pairs * 4;
-            freq[rev] = 0; // mark reverse as used
+            freq[rev] = 0;
         }
 
-        freq[word] = 0; // mark as used
+        freq[word] = 0;
     }
 
     if (hasCenter) ans += 2;
