@@ -3,8 +3,6 @@
  * @param {number} numFriends
  * @return {string}
  */
-
-
 var answerString = function (word, numFriends) {
     if (numFriends === 1) {
         return word;
@@ -14,7 +12,8 @@ var answerString = function (word, numFriends) {
         m = last.length;
     return last.substring(0, Math.min(m, n - numFriends + 1));
 };
-var lastSubstring = function (s) {
+
+function lastSubstring(s) {
     let i = 0,
         j = 1,
         n = s.length;
