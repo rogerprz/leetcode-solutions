@@ -3,19 +3,16 @@
  * @param {number} numFriends
  * @return {string}
  */
-var answerString = function(word, numFriends) {
-    if (numFriends === 1) return word;
-
-    let N = word.length;
-    let res = '';
-
-    for (let i = 0; i < N; i++) {
-
-        const maxLenOfSubStr = Math.min(i + N - numFriends + 1, N)
-        const subStr = word.substring(i, maxLenOfSubStr)
-
-        if (subStr > res) {
-            res = subStr
+var answerString = function (word, numFriends) {
+    if (numFriends === 1) {
+        return word;
+    }
+    let n = word.length;
+    let res = "";
+    for (let i = 0; i < n; i++) {
+        let s = word.substring(i, Math.min(i + n - numFriends + 1, n));
+        if (s > res) {
+            res = s;
         }
     }
     return res;
