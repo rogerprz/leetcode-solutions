@@ -5,21 +5,21 @@
 var merge = function(intervals) {
     
     intervals.sort((a,b) => a[0] - b[0])
-    const res = []
     let prev = intervals[0]
-    res.push(prev)
+    let arr = [prev]
+    //          p 
+    // [[1,6], [8,10], ]
+    // [[1,3],[2,6],[8,10],[15,18]]
+    //               i
+    for (let i = 1; i < intervals.length;i++) {
+        const [start, end] = intervals[i]
 
-    for (let i = 0; i < intervals.length;i++) {
-        const interval = intervals[i];
-        const [start, end] = interval;
-        // [[1, 3],[2,6],[8, 10],[15,18]]
-        //                pS pE  
         if (start <= prev[1]) {
-            prev[1] = Math.max(end, prev[1])
+            prev[1] = Math.max(prev[1], end)
         } else {
-            res.push(interval)
-            prev = interval
+            arr.push(intervals[i])
+            prev = intervals[i]
         }
     }
-    return res
+    return arr
 };
