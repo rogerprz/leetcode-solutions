@@ -8,7 +8,6 @@ var insert = function(intervals, newInterval) {
     intervals.sort((a,b)=> a[0] - b[0])
     let prev = intervals[0]
     const arr = [prev];
-    console.log("I:", intervals)
     //  [3,8]
     //  [[1,2]]       
     // [[1,2],[3,5],[4,8][6,7],[8,10],[12,16]]
