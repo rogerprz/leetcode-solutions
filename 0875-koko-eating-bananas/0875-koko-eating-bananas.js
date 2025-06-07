@@ -1,31 +1,24 @@
 var minEatingSpeed = function(piles, h) {
-    // Initalize the left and right boundaries 
-    let left = 1, right = 1;
-    for (const pile of piles) {
-        right = Math.max(right, pile);
-    }
-
-    while (left < right) {
-        // Get the middle index between left and right boundary indexes.
+    let l = 1
+    let r = Math.max(...piles)
+    
+    while (l < r) {
+        // Get the mid index between l and r boundary indexes.
         // hourSpent stands for the total hour Koko spends.
-        let middle = Math.floor((left + right) / 2);
+        let mid = Math.floor((l + r) / 2);
         let hourSpent = 0;
 
         // Iterate over the piles and calculate hourSpent.
-        // We increase the hourSpent by ceil(pile / middle)
+        // We increase the hourSpent by ceil(pile / mid)
         for (const pile of piles) {
-            hourSpent += Math.ceil(pile / middle);
+            hourSpent += Math.ceil(pile / mid);
         }
 
-        // Check if middle is a workable speed, and cut the search space by half.
         if (hourSpent <= h) {
-            right = middle;
+            r = mid;
         } else {
-            left = middle + 1;
+            l = mid + 1;
         }
     }
-
-    // Once the left and right boundaries coincide, we find the target value,
-    // that is, the minimum workable eating speed.
-    return left;
+    return l;
 }
