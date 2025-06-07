@@ -4,14 +4,15 @@
  * @return {number[][]}
  */
 var insert = function(intervals, newInterval) {
-    intervals.push(newInterval)
-    intervals.sort((a,b)=> a[0] - b[0])
+    let ans = [];
+    let index = 0;
+    while (index < intervals.length && intervals[index][0] < newInterval[0]) {
+        index++;
+    }
+    intervals.splice(index, 0, newInterval);
     let prev = intervals[0]
     const arr = [prev];
-    //  [3,8]
-    //  [[1,2]]       
-    // [[1,2],[3,5],[4,8][6,7],[8,10],[12,16]]
-    //         i 
+
     for (let i = 1;i < intervals.length;i++) {
         const interval = intervals[i]
         const [start, end] = interval
