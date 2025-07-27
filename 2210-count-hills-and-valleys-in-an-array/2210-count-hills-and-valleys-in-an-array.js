@@ -22,7 +22,7 @@ var countHillValley = function(nums) {
             }
         }
         let right = 0;
-        for (let j = i + 1; j < N; ++j) {
+        for (let j = i + 1; j < N;j++) {
             if (nums[j] > nums[i]) {
                 right = 1;
                 break;
