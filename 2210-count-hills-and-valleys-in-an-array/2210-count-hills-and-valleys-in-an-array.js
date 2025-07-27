@@ -33,7 +33,7 @@ var countHillValley = function(nums) {
         }
         if (left === right && left !== 0) {
             // at this time, index i is part of a peak or valley.
-            ++res;
+            res++
         }
     }
     return res
