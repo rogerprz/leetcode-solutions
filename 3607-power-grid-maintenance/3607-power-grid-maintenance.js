@@ -1,14 +1,14 @@
 class UnionFind {
     constructor(size) {
         this.size = size;
-        this.uf = Array.from(Array(size), (_, idx) => idx);
+        this.parent = Array.from(Array(size), (_, idx) => idx);
     }
     find(a) {
-        if (a !== this.uf[a]) this.uf[a] = this.find(this.uf[a]);
-        return this.uf[a];
+        if (a !== this.parent[a]) this.parent[a] = this.find(this.parent[a]);
+        return this.parent[a];
     }
     union(a, b) {
-        this.uf[this.find(a)] = this.find(b);
+        this.parent[this.find(a)] = this.find(b);
     }
 }
 
