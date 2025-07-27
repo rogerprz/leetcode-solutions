@@ -4,7 +4,9 @@ class UnionFind {
         this.parent = Array.from(Array(size), (_, idx) => idx);
     }
     find(a) {
-        if (a !== this.parent[a]) this.parent[a] = this.find(this.parent[a]);
+        if (a !== this.parent[a]) {
+            this.parent[a] = this.find(this.parent[a]);
+        }
         return this.parent[a];
     }
     union(a, b) {
