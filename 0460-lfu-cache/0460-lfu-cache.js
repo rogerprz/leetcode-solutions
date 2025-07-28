@@ -1,54 +1,54 @@
-class Node{
+class Node {
     constructor(key, value) {
         this.key = key;
-        this.val = value;
-        this.next = this.prev = null;
+        this.value = value;
         this.freq = 1;
+        this.prev = null;
+        this.next = null;
     }
 }
 
-class DoublyLinkedList {
+class DoublyLL {
     constructor() {
-        this.head = new Node(null,null);
-        this.tail = new Node(null,null);
+        this.head = new Node(null, null);
+        this.tail = new Node(null, null);
         this.head.next = this.tail;
         this.tail.prev = this.head;
+        this.size = 0;
     }
 
-    insertHead(node) {
-        node.prev = this.head;
+    addToHead(node) {
         node.next = this.head.next;
+        node.prev = this.head;
         this.head.next.prev = node;
         this.head.next = node;
+        this.size++;
     }
 
     removeNode(node) {
-        let prev = node.prev;
-        let next = node.next;
-        prev.next = next;
-        next.prev = prev;
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        this.size--;
     }
 
     removeTail() {
-        let node = this.tail.prev;
+        if (this.size === 0) return null;
+        const node = this.tail.prev;
         this.removeNode(node);
-        return node.key;
+        return node;
     }
 
-    isEmpty() {
-        return this.head.next.val == null;
-    }
 }
 
 /**
  * @param {number} capacity
  */
 var LFUCache = function(capacity) {
-    this.capacity = capacity;
-    this.currentSize = 0;
-    this.leastFreq = 0;
-    this.nodeHash = new Map();
-    this.freqHash = new Map();
+    this.cap = capacity
+    this.keyToNode = new Map()
+    this.freqToList = new Map()
+    this.minFreq = 0
+    this.size = 0
 };
 
 /** 
@@ -56,15 +56,10 @@ var LFUCache = function(capacity) {
  * @return {number}
  */
 LFUCache.prototype.get = function(key) {
-    let node = this.nodeHash.get(key);
-    if (!node) return -1;
-    this.freqHash.get(node.freq).removeNode(node);
-    if (node.freq==this.leastFreq && this.freqHash.get(node.freq).isEmpty()) this.leastFreq++
-    node.freq++;
-    // freqHash housekeeping
-    if (this.freqHash.get(node.freq)==null) this.freqHash.set(node.freq, new DoublyLinkedList())
-    this.freqHash.get(node.freq).insertHead(node);
-    return node.val;
+    if(!this.keyToNode.has(key)) return -1
+    const node = this.keyToNode.get(key)
+    this.updateFreq(node)
+    return node.value
 };
 
 /** 
@@ -73,30 +68,48 @@ LFUCache.prototype.get = function(key) {
  * @return {void}
  */
 LFUCache.prototype.put = function(key, value) {
-    if (this.capacity == 0) return;
-    let node = this.nodeHash.get(key);
-    if (!node) { // new node
-        this.currentSize++;
-        if (this.currentSize > this.capacity) {
-            let tailKey = this.freqHash.get(this.leastFreq).removeTail();
-            this.nodeHash.delete(tailKey);
-            this.currentSize--;
+    if (this.capacity === 0) return;
+    if(this.keyToNode.has(key)){
+        const node = this.keyToNode.get(key)
+        node.value = value
+        this.updateFreq(node)
+    }else {
+        if (this.size === this.cap) {
+            const dll = this.freqToList.get(this.minFreq);
+            const nodeToRemove = dll.removeTail();
+            this.keyToNode.delete(nodeToRemove.key);
+            this.size--;
         }
-        let newNode = new Node(key, value);
-        // freqHash housekeeping
-        if (this.freqHash.get(1)==null) this.freqHash.set(1, new DoublyLinkedList())
-        this.freqHash.get(1).insertHead(newNode);
-
-        this.nodeHash.set(key, newNode);
-        this.leastFreq = 1;
-
-    } else { // existed node
-        node.val = value;
-        this.freqHash.get(node.freq).removeNode(node);
-        if (node.freq == this.leastFreq && this.freqHash.get(node.freq).isEmpty()) this.leastFreq++;
-        node.freq++;
-        // freqHash housekeeping
-        if (this.freqHash.get(node.freq)==null) this.freqHash.set(node.freq, new DoublyLinkedList())
-        this.freqHash.get(node.freq).insertHead(node);
+        const newNode = new Node(key, value)
+        this.keyToNode.set(key, newNode)
+        if (!this.freqToList.has(1)) {
+            this.freqToList.set(1, new DoublyLL());
+        }
+        this.freqToList.get(1).addToHead(newNode);
+        this.minFreq = 1;
+        this.size++;
     }
 };
+
+LFUCache.prototype.updateFreq = function(node) {
+    const freq = node.freq
+    const dll = this.freqToList.get(freq)
+    dll.removeNode(node)
+
+    if(freq == this.minFreq && dll.size == 0){
+        this.minFreq++
+    }
+
+    node.freq++
+    if (!this.freqToList.has(node.freq)) {
+        this.freqToList.set(node.freq, new DoublyLL());
+    }
+    this.freqToList.get(node.freq).addToHead(node);
+}
+
+/** 
+ * Your LFUCache object will be instantiated and called as such:
+ * var obj = new LFUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
