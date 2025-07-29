@@ -50,6 +50,7 @@ var minCost = function(n, edges, k) {
     let low = 0;
     let high = 1_000_001;
     let ans = high;
+    edges.sort((a, b) => b[2] - a[2]);
 
     while (low <= high) {
         const mid = Math.floor((low + high) / 2);
