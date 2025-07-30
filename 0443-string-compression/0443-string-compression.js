@@ -5,7 +5,7 @@
 var compress = function(chars) {
     
     const stack = []; // [{s: b, c: 1}]
-    const res = []    // [a, 2, ]
+    let res = ''    // [a, 2, ]
     for (let i = 0; i < chars.length;i++) {
         const char = chars[i]
     // ["a","a","b","b","c","c","c"]
@@ -18,15 +18,15 @@ var compress = function(chars) {
             if (top.char === char) {
                 top.count++
             } else {
-                res.push(top.char)
+                res += (top.char)
                 if (top.count !== 1) {
                     if (top.count >= 10) {
                         const nums = top.count.toString()
                         nums.split("").forEach((num)=> {
-                            res.push(num)
+                            res += (num)
                         })
                     } else {
-                        res.push(top.count.toString())
+                        res += (top.count.toString())
                     }
                 }
                 stack.pop()
@@ -36,15 +36,15 @@ var compress = function(chars) {
      }
      if (stack.length > 0) {
         const top = stack.pop()
-         res.push(top.char)
+         res += (top.char)
          if (top.count !== 1) {
             if (top.count >= 10) {
                 const nums = top.count.toString()
                 nums.split("").forEach((num)=> {
-                    res.push(num)
+                    res += (num)
                 })
             } else {
-                res.push(top.count.toString())
+                res += (top.count.toString())
             }
         }
      }
