@@ -3,28 +3,28 @@
  * @return {number}
  */
 var compress = function(chars) {
-    let l = 0;
+    let l = 0; 
     let r = 0;
-
-    while(l < chars.length){
-        const char = chars[l];
-        let count = 0;
-
-        while(l < chars.length && chars[l] === char){
-            l++;
-            count++;
+    // ["a","a","b","b","c","c","c"]
+    //.         l.   r 
+    //   cn
+    // count=2
+    while (r < chars.length) {
+        let count = 0; 
+        const char = chars[r];
+        while (r < chars.length && char === chars[r]) {
+            count++
+            r++
         }
-
-        chars[r++] = char;
-
-        if(count > 1){
-            const countStr = count.toString();
-
-            for(let digit of countStr){
-                chars[r++] = digit;
+        chars[l++] = char
+        if (count > 1) {
+            const countStr = count.toString()
+            for (const num of countStr) {
+                chars[l] = num;
+                l++
             }
         }
     }
 
-    return r;
+    return l
 };
