@@ -5,62 +5,58 @@
  * @return {number}
  */
 
-class DisjointSetUnion {
-    constructor(n) {
-       this.parent = Array.from({ length: n }, (_, i) => i);
-        this.components = n;
+class UnionFind {
+  constructor(n) {
+    this.parent = Array(n).fill().map((_, i) => i);
+    this.size = Array(n).fill(1);
+  }
+
+  find(a) {
+    if (this.parent[a] === a) {
+      return a;
     }
+    const res = this.find(this.parent[a]);
+    this.parent[a] = res;
+    return res;
+  }
 
-    find(x) {
-        if (this.parent[x] !== x) {
-            this.parent[x] = this.find(this.parent[x]);
-        }
-        return this.parent[x];
+
+  union(x, y) {
+    const rootX = this.find(x);
+    const rootY = this.find(y);
+
+    if (rootX === rootY) return false;
+
+    if (this.size[rootX] > this.size[rootY]) {
+      this.parent[rootY] = rootX;
+      this.size[rootX] += this.size[rootY];
+    } else {
+      this.parent[rootX] = rootY;
+      this.size[rootY] += this.size[rootX];
     }
-
-    unite(x,y) {
-        let rootX = this.find(x);
-        let rootY = this.find(y);
-
-        if (rootX !== rootY) {
-            this.parent[rootX] = rootY;
-            this.components--
-        }
-
-    }
-
-    getComponents(){
-        return this.components;
-    }
+    return true;
+  }
 }
 
-function isPossible(n, edges, k, maxCost) {
-    const dsu = new DisjointSetUnion(n);
-
-    for (const [u,v,weight] of edges) {
-        if (weight <= maxCost) {
-            dsu.unite(u,v)
-        }
-    }
-
-    return dsu.getComponents() <= k;
-}
 
 var minCost = function(n, edges, k) {
-    let low = 0;
-    let high = 1_000_001;
-    let ans = high;
+    // [[0,1,4],[1,2,3],[1,3,2],[3,4,6]]
+    // [[3,4,6],[0,1,4],[1,2,3],[1,3,2]]
     edges.sort((a, b) => b[2] - a[2]);
 
-    while (low <= high) {
-        const mid = Math.floor((low + high) / 2);
+    const uf = new UnionFind(n);
+    let components = n
+    let res = 0;
 
-        if (isPossible(n, edges, k, mid)) {
-            ans = mid;
-            high = mid - 1;
-        } else {
-            low = mid + 1;
-        }
+    while (edges.length > 0 && components > k) {
+    const [u, v, w] = edges.pop();
+
+    if (uf.union(u, v)) {
+        components--;
     }
-    return ans
+
+    res = w;
+    }
+
+    return res;
 };
