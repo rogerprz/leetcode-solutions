@@ -12,17 +12,16 @@ var compress = function(chars) {
     while (r < chars.length) {
         let count = 0; 
         const char = chars[r];
-        while (r < chars.length && char === chars[r]) {
+        while (char === chars[r]) {
             count++
             r++
         }
         chars[l++] = char
-        if (count > 1) {
-            const countStr = count.toString()
-            for (const num of countStr) {
-                chars[l] = num;
-                l++
-            }
+        if (count <= 1) continue 
+        const countStr = count.toString()
+        for (const num of countStr) {
+            chars[l] = num;
+            l++
         }
     }
 
