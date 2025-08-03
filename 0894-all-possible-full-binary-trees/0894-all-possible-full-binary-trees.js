@@ -11,42 +11,47 @@
  * @return {TreeNode[]}
  */
 var allPossibleFBT = function(n) {
-    if (n % 2 == 0) return []
-    const memo = {}
-    
-    return buildFBT(n,  memo)
-}
+    if (n % 2 === 0) return []
 
-function buildFBT(n, memo) {
-    // n = 7
+    const memo = {}
+
+    return buildTrees(n, memo)
+};
+
+function buildTrees(n, memo) {
     if (n === 1) {
         return [new TreeNode(0)]
     }
-    /* 
-        memo = {}
 
-    */
-    if (memo[n]) {
+    if (n in memo) {
         return memo[n]
     }
-    /**
-    
-     */
-    const trees = [];
-
+    const trees = []
+/**
+    n = 5
+    memo = {}
+    trees
+    bTree: lT = [0] 
+                    [0]
+    bTree: rT =     [0]
+ */
     for (let left = 1; left < n; left +=2) {
-        let right = n - left - 1;
-        const leftTrees = buildFBT(left, memo)
-        const rightTrees = buildFBT(right, memo)
+        // right = 3
+        const right = n - left - 1
+        // lT = [0]
+        const leftTrees = buildTrees(left, memo)
+        // rT = 
+        const rightTrees = buildTrees(right, memo)
 
-        for (const l of leftTrees) {
+        for (let l of leftTrees) {
             for (const r of rightTrees) {
                 const root = new TreeNode(0, l, r)
                 trees.push(root)
             }
         }
-    }
 
+    }
     memo[n] = trees;
+
     return trees
 }
