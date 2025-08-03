@@ -8,7 +8,10 @@ const longestSubarray = nums => {
 		streak = 0
 	for (let i = 0; i < nums.length; i++) {
 		if (nums[i] === maxVal) {
-            (streak++, streak > maxStreak && (maxStreak = streak))
+            streak++
+            if (streak > maxStreak) {
+                maxStreak = streak
+            }
         } else {
             streak = 0
         }
