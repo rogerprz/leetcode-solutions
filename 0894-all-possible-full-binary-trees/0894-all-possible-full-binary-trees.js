@@ -22,25 +22,13 @@ function buildTrees(n, memo) {
     if (n === 1) {
         return [new TreeNode(0)]
     }
-
-    if (n in memo) {
-        return memo[n]
-    }
+    if (n in memo)  return memo[n]
+    
     const trees = []
-/**
-    n = 5
-    memo = {}
-    trees
-    bTree: lT = [0] 
-                    [0]
-    bTree: rT =     [0]
- */
+
     for (let left = 1; left < n; left +=2) {
-        // right = 3
         const right = n - left - 1
-        // lT = [0]
         const leftTrees = buildTrees(left, memo)
-        // rT = 
         const rightTrees = buildTrees(right, memo)
 
         for (let l of leftTrees) {
