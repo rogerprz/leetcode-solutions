@@ -3,20 +3,19 @@
  * @return {number[][]}
  */
 var generate = function(numRows) {
-     const triangle = [];
+    const list = []
+    if (numRows < 1)  return list
 
     for (let rowNum = 0; rowNum < numRows; rowNum++) {
-        // The first and last row elements are always 1.
-        const row = Array(rowNum + 1).fill(null);
-        row[0] = 1;
-        row[row.length - 1] = 1;
+        const row = new Array(rowNum + 1).fill(1)
 
         for (let j = 1; j < row.length - 1; j++) {
-            row[j] = triangle[rowNum - 1][j - 1] + triangle[rowNum - 1][j];
+            const prevRow = rowNum - 1;
+            const prevIdx = j - 1;
+            const prevNumLeft = list[prevRow][prevIdx]
+            row[j] = prevNumLeft + list[prevRow][j]
         }
-
-        triangle.push(row);
+        list.push(row)
     }
-
-    return triangle;
+    return list
 };
