@@ -3,38 +3,35 @@
  * @return {number}
  */
 var deleteAndEarn = function(nums) {
+    const set = new Set()
     const freq = {}
-    const set = new Set();
+
     for (const num of nums) {
-        if (!(num in freq)) {
+        if (!(set.has(num))) {
             freq[num] = 0
             set.add(num)
         }
         freq[num] += num
     }
-    const unique = [...set].sort((a,b) => a-b)
-    let take = 0     // 0 -> 4 -> 9 -> 13
-    let skip = 0;    // 0 -> 0 -> 4 -> 9
-    let prev = null; // n -> 2 -> 3
-    // 2: 4
-    // 3: 9
-    // 4: 4
-    // [2,2,3,3,3,4]
-    // uniq: 2,3,4
-    for (const num of unique) {
-        const currPoints = freq[num] // 2:4, 3:9, 4:4
-                            // maxPrev: 0 -> 4 -> 9
-        const maxPrev = Math.max(take, skip)
-        // f, t, 
+
+    const uniq = [...set].sort((a,b) => a - b);
+    let take = 0;
+    let skip = 0
+    let prev = null;
+    for (const num of uniq) {
+        const currPoints = freq[num];
+
+        const maxPrev = Math.max(skip, take)
+
         if (prev === num - 1) {
-            take = currPoints + skip;
-            skip = maxPrev
+            take = currPoints + skip 
+            skip = maxPrev;
         } else {
             take = currPoints + maxPrev;
             skip = maxPrev
         }
-        prev = num;
+        prev = num
     }
 
-    return Math.max(take, skip)
+    return Math.max(skip, take)
 };
