@@ -6,6 +6,7 @@
 var solveQueries = function(nums, queries) {
     const last = {}
     const close = new Array(nums.length * 2).fill(nums.length)
+    
     for (let i = 0; i < close.length; ++i) {
         const pos = i % nums.length
         const num = nums[pos]
