@@ -8,7 +8,7 @@ var longestSubarray = function(nums) {
     let count = 0;
     let ans = 0
     for (const num of nums) {
-        if (num < maxNum) {
+        if (num != maxNum) {
             ans = Math.max(count,ans)
             count = 0;
             continue
