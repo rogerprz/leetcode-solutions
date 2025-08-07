@@ -5,14 +5,19 @@
  */
 var solveQueries = function(nums, queries) {
     const last = {}
+
     const close = new Array(nums.length * 2).fill(nums.length)
-    
+
     for (let i = 0; i < close.length; ++i) {
-        const pos = i % nums.length
-        const num = nums[pos]
+        // i = 4
+        const pos = i % nums.length // 0
+        const num = nums[pos] // 1
+        // last[num] = 3
         if (num in last) {
-            close[i] = i - last[num]
-            if (close[last[num]] > close[i]) {
+            // curr distance
+            close[i] = i - last[num]  // 3 - 0 = 0
+            const prevDist = close[last[num]]
+            if (prevDist > close[i]) {
                 close[last[num]] = close[i]
             }
         }
