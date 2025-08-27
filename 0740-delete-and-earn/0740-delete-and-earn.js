@@ -22,15 +22,15 @@ var deleteAndEarn = function(nums) {
     let prev = 0;
 
     for (const currNum of uniq) {
-        const maxPoints = map.get(currNum)
-        const prevMax = Math.max(skip, take)
+        const currPoints = map.get(currNum)
+        const prevPoints = Math.max(skip, take)
 
         if (currNum - 1 === prev) {
-            take = maxPoints + skip 
-            skip = prevMax
+            take = currPoints + skip 
+            skip = prevPoints
         } else {
-            take = prevMax + maxPoints
-            skip = prevMax
+            take = currPoints +  prevPoints 
+            skip = prevPoints
         }
         prev = currNum
     }
