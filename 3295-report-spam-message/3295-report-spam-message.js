@@ -4,13 +4,16 @@
  * @return {boolean}
  */
 var reportSpam = function(message, bannedWords) {
+    const set = new Set(bannedWords)
     let count = 0;
-    const set = new Set([...bannedWords])
-    message.forEach((word) =>{
+
+    for (const word of message) {
         if (set.has(word)) {
             count++
         }
-    })
-
-    return count >= 2 ? true : false
+        if (count === 2) {
+           return true
+        }
+    }
+    return false
 };
