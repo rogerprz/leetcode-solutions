@@ -10,7 +10,9 @@ class UnionFind {
         return this.parent[a];
     }
     union(a, b) {
-        this.parent[this.find(a)] = this.find(b);
+        const aRep = this.find(a);
+        const bRep = this.find(b)
+        this.parent[aRep] = bRep;
     }
 }
 
