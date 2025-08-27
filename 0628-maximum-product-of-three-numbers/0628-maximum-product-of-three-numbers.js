@@ -3,12 +3,28 @@
  * @return {number}
  */
 var maximumProduct = function(nums) {
-    if (nums.length < 3) return 0;
+    let min1 = Infinity, min2 = Infinity
+    let max1 = -Infinity, max2 = -Infinity, max3 = -Infinity;
 
-    nums.sort((a,b) => a-b)
-    const len = nums.length - 1
-    const posProd = nums[len] * nums[len -1] * nums[len -2]
-    const negProd = nums[0] * nums[1] * nums[len]
+    for (const num of nums) {
+        // get the first two min nums
+        if (num < min1) {
+            min2 = min1
+            min1 = num;
+        } else if (num < min2) {
+            min2 = num
+        }
 
-    return Math.max(posProd, negProd)
+        if (num > max1) {
+            max3 = max2
+            max2 = max1
+            max1 = num;
+        } else if (num > max2) {
+            max3 = max2
+            max2 = num;
+        } else if (num > max3) {
+            max3 = num
+        }
+    }
+    return Math.max(min1 * min2 * max1, max1 * max2 * max3)
 };
