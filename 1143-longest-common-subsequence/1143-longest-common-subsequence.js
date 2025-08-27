@@ -3,28 +3,21 @@
  * @param {string} text2
  * @return {number}
  */
-var longestCommonSubsequence = function(t1, t2) {
-    const l1 = t1.length
-    const l2 = t2.length;
-
-    const dp = new Array(l1 + 1)
-            .fill()
-            .map(()=> new Array(l2 +1)
-            .fill(0))
-           
-    console.log('DP:', dp)
-    for (let row = 1; row <= l1;row++) {
-        const firstChar = t1[row-1]
-        for (let col = 1; col<=l2;col++) {
-            const secChar = t2[col-1]
-
-            if (firstChar === secChar) {
-                dp[row][col] = dp[row-1][col-1] + 1
-            } else {
-                dp[row][col] = Math.max(dp[row-1][col], dp[row][col-1])
+var longestCommonSubsequence = function(text1, text2) {
+    const dp = new Array(text1.length).fill(0)
+    let max = 0;
+    for (const topChar of text2) {
+        let currMax = 0;
+        for (let i = 0; i < text1.length;i++) {
+            const currChar = text1[i]
+            if (currMax < dp[i]) {
+                currMax = dp[i]
             }
+            else if (topChar === currChar) {
+                dp[i] = currMax+ 1
+                max = Math.max(max, dp[i])
+            } 
         }
     }
-    console.log('DP:', dp)
-    return dp[l1][l2]
+    return max
 };
