@@ -27,11 +27,10 @@ var deleteAndEarn = function(nums) {
 
         if (currNum - 1 === prev) {
             take = currPoints + skip 
-            skip = prevPoints
         } else {
             take = currPoints +  prevPoints 
-            skip = prevPoints
         }
+        skip = prevPoints
         prev = currNum
     }
 
