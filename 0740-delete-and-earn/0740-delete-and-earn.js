@@ -4,37 +4,34 @@
  */
 var deleteAndEarn = function(nums) {
     const set = new Set();
-    const map = new Map()
+    const map = new Map();
 
-    for (let i = 0; i < nums.length;i++) {
-        const num = nums[i]
+    for (const num of nums) {
         if (!set.has(num)) {
-            map.set(num, 0)
             set.add(num)
+            map.set(num,  0)
         }
-        const prevNum = map.get(num) + num
-        map.set(num, prevNum)
+        map.set(num, map.get(num) + num)
     }
 
-    const uniq = [...set].sort((a,b) => a - b);
-    let take = 0;    // 3
-    let skip = 0;    // 2
-    let prev = null; // 3
-    // [2,3,4]
+    const uniq = [...set].sort((a,b) => a - b)
 
-    for (const num of uniq) {
-        const currPoints = map.get(num) // 4
-        const maxPrev = Math.max(take, skip) // 3
+    let take = 0;
+    let skip = 0;
+    let prev = null;
+    
+    for (const currNum of uniq) {
+        const currPoints = map.get(currNum);
+        const maxPrev = Math.max(take, skip)
 
-        if (prev === num - 1) {
-            take = currPoints + skip;
+        if (prev === currNum - 1) {
+            take = currPoints + skip
             skip = maxPrev;
         } else {
             take = currPoints + maxPrev;
-            skip = maxPrev;
+            skip = maxPrev
         }
-        prev = num;
+        prev = currNum
     }
-
     return Math.max(take, skip)
 };
