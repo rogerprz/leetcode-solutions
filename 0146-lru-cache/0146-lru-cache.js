@@ -2,22 +2,22 @@
  * @param {number} capacity
  */
 var LRUCache = function(capacity) {
-    this.cache = new Map()
-    this.limit = capacity
+    this.cache = new Map();
+    this.capacity = capacity
 };
 
 /** 
-
  * @param {number} key
  * @return {number}
  */
 LRUCache.prototype.get = function(key) {
-    if (!this.cache.has(key)) return -1
+    if (!this.cache.has(key)) return -1;
 
-    const val = this.cache.get(key)
-    this.cache.delete(key);
-    this.cache.set(key, val);
-    return this.cache.get(key);
+    const value = this.cache.get(key)
+    this.cache.delete(key)
+    this.cache.set(key, value)
+
+    return value
 };
 
 /** 
@@ -29,10 +29,13 @@ LRUCache.prototype.put = function(key, value) {
     if (this.cache.has(key)) {
         this.cache.delete(key)
     }
+
     this.cache.set(key, value)
 
-    if (this.cache.size > this.limit) {
-        this.cache.delete(this.cache.keys().next().value)
+    if (this.cache.size > this.capacity) {
+        const foundKey = this.cache.keys().next().value;
+        this.cache.delete(foundKey)
+
     }
 };
 
