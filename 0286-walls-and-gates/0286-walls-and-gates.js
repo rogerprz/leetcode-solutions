@@ -3,34 +3,37 @@
  * @return {void} Do not return anything, modify rooms in-place instead.
  */
 var wallsAndGates = function(rooms) {
-    // let output = Array.from({ length: rooms.length }, () => Array(rooms[0].length).fill(0))
+    const GATE = 0;
+    const ROOM = 2147483647;
 
-    function dfs(i, j, distance) {
-        if (i<0 || j<0 || i==rooms[0].length || j==rooms.length) {
-            return 
-        }
-        let room = rooms[j][i]
-        if (room <= 0) {
-            return
-        }
-        if (room > distance) {
-            rooms[j][i] = distance
-            dfs(i+1, j, distance + 1)
-            dfs(i-1, j, distance + 1)
-            dfs(i, j+1, distance + 1)
-            dfs(i, j-1, distance + 1)
-        }
-    }
-
-    for (let j=0; j<rooms.length; j++) {
-        for (let i=0; i<rooms[0].length; i++) {
-            if (rooms[j][i]==0) {
-                dfs(i-1, j, 1)
-                dfs(i+1, j, 1)
-                dfs(i, j-1, 1)
-                dfs(i, j+1, 1)
+    let queue = [];
+    for (let row = 0; row < rooms.length; row++) {
+        for (let col = 0; col < rooms[0].length; col++) {
+            const curr = rooms[row][col]
+            if (curr === GATE) {
+                queue.push({row, col, pos: 0})
             }
         }
+    }
+    const deltas = [[0,1], [0,-1],[1,0],[-1,0]]
+    while (queue.length > 0) {
+        let {row, col, pos} = queue.shift()
+        pos++
+        for (const [r, c] of deltas) {
+            const currRow = row + r
+            const currCol = col + c
+            const rowInbounds = currRow >= 0 && currRow < rooms.length;
+            const colInbounds = currCol >= 0 && currCol < rooms[0].length;
+            if (!rowInbounds || !colInbounds) {
+                continue
+            }
+            const currRoom = rooms[currRow][currCol]
+            if (currRoom === ROOM) {
+                rooms[currRow][currCol] = pos
+                queue.push({row: currRow, col: currCol, pos})
+            }
+        }
+       
     }
     return rooms
 };
