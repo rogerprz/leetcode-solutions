@@ -3,10 +3,6 @@
  * @return {boolean}
  */
 var isValidSudoku = function(board) {
-    // we need to create a set to find if row has repeating value
-    // we need to create a set to save column values
-    // we need to get a set so we can detect box. 
-
     // loop through first array
     for (let i = 0; i< board.length;i++) {
         const row = new Set();
@@ -16,10 +12,10 @@ var isValidSudoku = function(board) {
         for (let j = 0; j < board[i].length; j++) {
             const currRow = board[i][j]
             const currCol = board[j][i]
-
-            const xIdx = 3 * Math.floor(i / 3) + Math.floor(j / 3)
+            
+            const xIdx = 3 * Math.floor(i/3) + Math.floor(j / 3)
             const yIdx = ((i * 3) % 9) + (j % 3)
-            const currBox = board[xIdx][yIdx]
+            const currBox =  board[xIdx][yIdx]
 
             if (row.has(currRow)) return false 
             if (col.has(currCol)) return false 
