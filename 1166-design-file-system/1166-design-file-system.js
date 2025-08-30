@@ -24,7 +24,6 @@ FileSystem.prototype.createPath = function(path, value) {
         this.paths.set(path, value)
 
         return true;
-
     }
     return false
 };
