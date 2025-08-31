@@ -23,11 +23,7 @@ FileSystem.prototype.createPath = function(path, value) {
  * @return {number}
  */
 FileSystem.prototype.get = function(path) {
-    if (this.paths.has(path)) {
-        return this.paths.get(path)
-    }
-
-    return -1
+    return this.paths.has(path) ? this.paths.get(path) : -1
 };
 
 /** 
