@@ -1,12 +1,3 @@
- /**
-    "FileSystem",[]             -> null
-    "createPath",["/leet",1]    -> true
-    "createPath",["/leet/code",2]-> true 
-    "get", ["/leet/code"]       -> 2
-    "createPath",["/c/d",1]     -> false 
-    "get", ["/c"]               -> -1
-
-*/
 var FileSystem = function() {
     this.paths = new Map();
 };
@@ -17,14 +8,13 @@ var FileSystem = function() {
  * @return {boolean}
  */
 FileSystem.prototype.createPath = function(path, value) {
-    if (path === "" && path === "/") return false
-    let parent = path.slice(0, path.lastIndexOf("/"))
+    if (path === "" && path === "/") return false;
+    const parent = path.slice(0, path.lastIndexOf('/'))
 
-    if (!this.paths.has(path) && (this.paths.has(parent) || parent === "")) {
-        this.paths.set(path, value)
-
-        return true;
+    if (!this.paths.has(path) && (this.paths.has(parent) || parent === "" )) {
+        return !!this.paths.set(path, value)
     }
+
     return false
 };
 
@@ -36,6 +26,7 @@ FileSystem.prototype.get = function(path) {
     if (this.paths.has(path)) {
         return this.paths.get(path)
     }
+
     return -1
 };
 
