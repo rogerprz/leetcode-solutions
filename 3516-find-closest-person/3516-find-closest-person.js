@@ -5,8 +5,8 @@
  * @return {number}
  */
 var findClosest = function(x, y, z) {
-    const first = Math.abs(z - x) // 2
-    const second = Math.abs(z - y) // 3
+    const first = Math.abs(z - x)
+    const second = Math.abs(z - y)
     if (first === second) return 0;
     return first > second ? 2 : 1
 };
