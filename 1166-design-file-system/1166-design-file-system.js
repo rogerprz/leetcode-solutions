@@ -1,5 +1,6 @@
+
 var FileSystem = function() {
-    this.paths = new Map();
+    this.paths = new Map
 };
 
 /** 
@@ -8,11 +9,13 @@ var FileSystem = function() {
  * @return {boolean}
  */
 FileSystem.prototype.createPath = function(path, value) {
-    if (path === "" && path === "/") return false;
+    if (path === "" || path === "/") return false;
+
     const parent = path.slice(0, path.lastIndexOf('/'))
 
-    if (!this.paths.has(path) && (this.paths.has(parent) || parent === "" )) {
-        return !!this.paths.set(path, value)
+    if (!(this.paths.has(path)) && (parent === "" || this.paths.has(parent))) {
+        this.paths.set(path, value)
+        return true;
     }
 
     return false
@@ -23,7 +26,8 @@ FileSystem.prototype.createPath = function(path, value) {
  * @return {number}
  */
 FileSystem.prototype.get = function(path) {
-    return this.paths.has(path) ? this.paths.get(path) : -1
+    if (this.paths.has(path)) return this.paths.get(path)
+    return -1;
 };
 
 /** 
