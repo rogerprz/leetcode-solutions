@@ -32,7 +32,6 @@ var largestIsland = function(grid) {
             if (grid[r][c] === 1) {
                 const islandArea = dfsLabel(r, c, islandId);
                 area.set(islandId, islandArea)
-                // area[islandId] = islandArea;
                 maxArea = Math.max(maxArea, islandArea);
                 islandId++;
             }
@@ -44,9 +43,11 @@ var largestIsland = function(grid) {
             if (grid[r][c] === 0) {
                 let neighbors = new Set();
                 for (const [dr, dc] of deltas) {
-                    const nr = r + dr, nc = c + dc;
-                    if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] > 1) {
-                        neighbors.add(grid[nr][nc]);
+                    const newRow = r + dr, newCol = c + dc;
+                    const rowInbounds = newRow < 0 || newRow >= n
+                    const colInbounds =  newCol < 0 || newCol >= n 
+                    if (!rowInbounds && !colInbounds && grid[newRow][newCol] > 1) {
+                        neighbors.add(grid[newRow][newCol]);
                     }
                 }
                 let sum = 1; // The 0 itself is flipped to 1
