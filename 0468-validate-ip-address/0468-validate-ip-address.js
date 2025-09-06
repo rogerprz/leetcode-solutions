@@ -20,11 +20,11 @@ function verifyIp4Address(queryIP) {
         if (numLen !== ip.length) {
             return "Neither"
         }
-        if (ip.startsWith("0")){
-            if (num.toString() != ip) {
-                return "Neither"
-            }
-        }
+        // if (ip.startsWith("0")){
+        //     if (num.toString() != ip) {
+        //         return "Neither"
+        //     }
+        // }
         if (num < 0 || num > 255) {
             return "Neither"
         }
