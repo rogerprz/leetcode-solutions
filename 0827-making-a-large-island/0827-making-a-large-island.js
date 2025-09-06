@@ -38,10 +38,12 @@ var largestIsland = function(grid) {
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[0].length; col++) {
             const curr = grid[row][col]
-            if (curr === 1) {
+            const pos = `${row},${col}`
+            if (curr === 1 && !visited.has(pos)) {
                 size++
                 map.set(size, 0)
                 stack.push([row,col])
+                visited.add(pos);
                 explore()
             } else if (curr === 0) {
                 zeros.push([row,col])
