@@ -3,102 +3,61 @@
  * @return {number}
  */
 var largestIsland = function(grid) {
-    let map = new Map()
-    let size = 1;
-    let zeros = []
-    const visited = new Set();
-    const deltas = [[0,1],[0,-1], [1,0], [-1,0]]
-    const stack = []
-    const explore = () => {
-        
-        while (stack.length > 0) {
-            const [row,col] = stack.pop();
-            map.set(size, map.get(size) + 1)
-            grid[row][col] = size;
-            for (const [rd, cd] of deltas) {
-                const nextRow = row + rd;
-                const nextCol = col + cd;
-                const rowInbounds = nextRow >= 0 && nextRow < grid.length;
-                const colInbounds = nextCol >= 0 && nextCol < grid[0].length;
+    const n = grid.length;
+    const area = {}; // key: islandId, value: area of that island
+    const directions = [[1,0],[-1,0],[0,1],[0,-1]];
+    let islandId = 2; // Start at 2 since 0/1 are used on grid
+    let maxArea = 0;
 
-                if (!rowInbounds || !colInbounds) {
-                    continue;
-                }
-                const pos = `${nextRow},${nextCol}`
-                const curr = grid[nextRow][nextCol]
-                if (visited.has(pos)) continue
-                visited.add(pos)
-                if (curr === 1) {
-                    stack.push([nextRow, nextCol])
-                }
+    // DFS to label islands and calculate their area
+    function dfsLabel(row, col, label) {
+        const stack = [[row, col]];
+        let total = 0;
+
+        while (stack.length) {
+            const [r, c] = stack.pop();
+            if (r < 0 || r >= n || c < 0 || c >= n || grid[r][c] !== 1) continue;
+            grid[r][c] = label;
+            total++;
+            for (const [dr, dc] of directions) {
+                stack.push([r + dr, c + dc]);
             }
-
         }
+        return total;
     }
-    for (let row = 0; row < grid.length; row++) {
-        for (let col = 0; col < grid[0].length; col++) {
-            const curr = grid[row][col]
-            const pos = `${row},${col}`
-            if (curr === 1 && !visited.has(pos)) {
-                size++
-                map.set(size, 0)
-                stack.push([row,col])
-                visited.add(pos);
-                explore()
-            } else if (curr === 0) {
-                zeros.push([row,col])
+
+    // 1st Pass: Label islands and compute their area
+    for (let r = 0; r < n; ++r) {
+        for (let c = 0; c < n; ++c) {
+            if (grid[r][c] === 1) {
+                const currArea = dfsLabel(r, c, islandId);
+                area[islandId] = currArea;
+                maxArea = Math.max(maxArea, currArea);
+                islandId++;
             }
         }
     }
-    let max = 0;
-    const exploreZeros = () => {
-        const visited = new Set()
-        let least = Infinity;
-        let count = 0;
-        while (stack.length > 0) {
-            const [row, col] = stack.shift();
-            let tempMax = 0;
-            for (const [rd, cd] of deltas) {
-                const nextRow = row + rd;
-                const nextCol = col + cd;
-                const rowInbounds = nextRow >= 0 && nextRow < grid.length;
-                const colInbounds = nextCol >= 0 && nextCol < grid[0].length;
-               
-                if (!rowInbounds || !colInbounds) {
-                    continue;
-                }
-                const key = grid[nextRow][nextCol]
-                if (visited.has(key) || key === 0) continue
 
-                const maxSize = map.get(key)
-                visited.add(key)
-                if (count === 0) {
-                    tempMax += maxSize 
-                    least = maxSize 
-                    isSecond = true;
-                } else if (count === 1) {
-                    if (maxSize < least) {
-                        least = maxSize
+    // 2nd Pass: Try flipping each zero and see the area
+    for (let r = 0; r < n; ++r) {
+        for (let c = 0; c < n; ++c) {
+            if (grid[r][c] === 0) {
+                let neighbors = new Set();
+                for (const [dr, dc] of directions) {
+                    const nr = r + dr, nc = c + dc;
+                    if (nr >= 0 && nr < n && nc >= 0 && nc < n && grid[nr][nc] > 1) {
+                        neighbors.add(grid[nr][nc]);
                     }
-                    tempMax += maxSize
-                } else {
-                    if (maxSize > least) {
-                        tempMax -= least 
-                        least = maxSize 
-                        tempMax += maxSize
-                    } 
                 }
+                let sum = 1; // The 0 itself is flipped to 1
+                for (const nid of neighbors) {
+                    sum += area[nid];
+                }
+                maxArea = Math.max(maxArea, sum);
             }
-            max = Math.max(max, tempMax + 1)
         }
     }
-    if (zeros.length === 0) {
-        return map.get(2)
-    }
-    for (const [r, c] of zeros) {
-        stack.push([r,c])
-        exploreZeros()
-    }
 
-    return max
+    // If there are no zeros, the grid is already one big island
+    return maxArea === 0 ? n * n : maxArea;
 };
