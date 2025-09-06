@@ -47,7 +47,7 @@ var boundaryOfBinaryTree = function(root) {
     }
 
 
-    if (!(!root.left && !root.right)) res.push(root.val)
+    if (root.left || root.right) res.push(root.val)
 
     leftBorder(root.left)
     bottomBorder(root)
