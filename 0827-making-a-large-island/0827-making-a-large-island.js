@@ -4,7 +4,7 @@
  */
 var largestIsland = function(grid) {
     const n = grid.length;
-    const area = {}; // key: islandId, value: area of that island
+    const area = new Map; // key: islandId, value: area of that island
     const deltas = [[1,0],[-1,0],[0,1],[0,-1]];
     let islandId = 2;
     let maxArea = 0;
@@ -13,7 +13,7 @@ var largestIsland = function(grid) {
         const stack = [[row, col]];
         let total = 0;
 
-        while (stack.length) {
+        while (stack.length > 0) {
             const [row, col] = stack.pop();
             const rowInbounds = row < 0 || row >= n
             const colInbounds =  col < 0 || col >= n 
@@ -30,9 +30,10 @@ var largestIsland = function(grid) {
     for (let r = 0; r < n; ++r) {
         for (let c = 0; c < n; ++c) {
             if (grid[r][c] === 1) {
-                const currArea = dfsLabel(r, c, islandId);
-                area[islandId] = currArea;
-                maxArea = Math.max(maxArea, currArea);
+                const islandArea = dfsLabel(r, c, islandId);
+                area.set(islandId, islandArea)
+                // area[islandId] = islandArea;
+                maxArea = Math.max(maxArea, islandArea);
                 islandId++;
             }
         }
@@ -50,7 +51,7 @@ var largestIsland = function(grid) {
                 }
                 let sum = 1; // The 0 itself is flipped to 1
                 for (const nid of neighbors) {
-                    sum += area[nid];
+                    sum += area.get(nid)
                 }
                 maxArea = Math.max(maxArea, sum);
             }
