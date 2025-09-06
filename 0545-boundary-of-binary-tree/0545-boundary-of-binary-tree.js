@@ -11,44 +11,49 @@
  * @return {number[]}
  */
 var boundaryOfBinaryTree = function(root) {
-    if (!root) return root 
-    const results = []
+    if (!root) return root;
 
-    const leftBorder = (node) => {
-        while (node) {
-            if (node.left || node.right) results.push(node.val)
-            node = node.left || node.right
-        }
-    }
-
-    const bottomBorder = (node) => {
-        if (!node) return node 
-
-        if (!node.left && !node.right) {
-            results.push(node.val)
-            return;
-        }
-        bottomBorder(node.left)
-        bottomBorder(node.right)
-    }
-
-    const rightBorder = (node) =>{
-        const stack = []
-
-        while (node) {
-            if (node.left || node.right) stack.push(node.val)
-            node = node.right || node.left
-        }
-        while (stack.length > 0) {
-            results.push(stack.pop())
-        }
-    }
-
-    if (root.left || root.right) results.push(root.val)
-
-    leftBorder(root.left)
-    bottomBorder(root)
-    rightBorder(root.right)
-
-    return results
+    const res = [];
+    if (root.left || root.right) res.push(root.val)
+    if (root.left) res.push(...leftBorder(root.left))
+    res.push(...bottomBorder(root))
+    if (root.right) res.push(...rightBorder(root.right))
+    return res
 };
+
+function leftBorder(node) {
+    const res = [];
+
+    while (node) {
+        if (node.left || node.right) {
+            res.push(node.val)
+        }
+        node = node.left || node.right
+    }
+
+    return res
+}
+
+function bottomBorder(node, res = []) {
+    if (!node) return node;
+
+    if (!node.left && !node.right) {
+        res.push(node.val)
+        return res
+    }
+    bottomBorder(node.left, res)
+    bottomBorder(node.right, res)
+
+    return res
+}
+
+function rightBorder(node) {
+    const stack = [];
+    while (node) {
+        if (node.left || node.right) {
+            stack.push(node.val)
+        }
+        node = node.right || node.left
+    }
+    return stack.reverse();
+}
