@@ -11,44 +11,46 @@
  * @return {number[]}
  */
 var boundaryOfBinaryTree = function(root) {
-    if (!root) return root 
-    const results = []
+    if (!root) return root;
+    let res = [];
 
     const leftBorder = (node) => {
         while (node) {
-            if (node.left || node.right) results.push(node.val)
+            if (node.left || node.right) {
+                res.push(node.val)
+            }
             node = node.left || node.right
         }
     }
-
     const bottomBorder = (node) => {
-        if (!node) return node 
+        if (!node) return node;
 
         if (!node.left && !node.right) {
-            results.push(node.val)
-            return;
+            res.push(node.val)
+            return
         }
         bottomBorder(node.left)
         bottomBorder(node.right)
     }
-
-    const rightBorder = (node) =>{
+    const rightBorder = (node) => {
         const stack = []
 
         while (node) {
-            if (node.left || node.right) stack.push(node.val)
-            node = node.right || node.left
+            if (node.left || node.right) {
+                stack.push(node.val)
+            }
+            node = node.right || node.left;
         }
         while (stack.length > 0) {
-            results.push(stack.pop())
+            res.push(stack.pop())
         }
     }
 
-    if (root.left || root.right) results.push(root.val)
+
+    if (!(!root.left && !root.right)) res.push(root.val)
 
     leftBorder(root.left)
     bottomBorder(root)
     rightBorder(root.right)
-
-    return results
+    return res
 };
