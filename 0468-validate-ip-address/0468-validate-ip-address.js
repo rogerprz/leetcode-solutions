@@ -13,21 +13,15 @@ var validIPAddress = function(queryIP) {
 function verifyIp4Address(queryIP) {
     const arr = queryIP.split(".")
     if (arr.length != 4) return "Neither"
-    const letters ="qwertyuiopasdfghjklzxcvbnm";
+
     for (const ip of arr) {
         const num  = parseInt(ip)
         const numLen = num.toString().length
         if (numLen !== ip.length) {
             return "Neither"
         }
-        // if (ip.startsWith("0")){
-        //     if (num.toString() != ip) {
-        //         return "Neither"
-        //     }
-        // }
-        if (num < 0 || num > 255) {
-            return "Neither"
-        }
+
+        if (num < 0 || num > 255) return "Neither"
     }
     return "IPv4"  
 }
