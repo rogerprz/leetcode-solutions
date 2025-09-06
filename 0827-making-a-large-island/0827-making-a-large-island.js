@@ -12,7 +12,7 @@ var largestIsland = function(grid) {
     const explore = () => {
         
         while (stack.length > 0) {
-            const [row,col] = stack.shift();
+            const [row,col] = stack.pop();
             map.set(size, map.get(size) + 1)
             grid[row][col] = size;
             for (const [rd, cd] of deltas) {
