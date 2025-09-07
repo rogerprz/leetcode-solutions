@@ -21,9 +21,9 @@ var maxPathSum = function(root) {
         const left = Math.max(0,dfs(node.left))
         const right = Math.max(0,dfs(node.right))
 
-        const both = left + right + node.val
+        const takeBoth = left + right + node.val
 
-        max = Math.max(max, both)
+        max = Math.max(max, takeBoth)
 
         return Math.max(left, right) + node.val
     }
