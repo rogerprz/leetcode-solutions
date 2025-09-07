@@ -22,18 +22,20 @@ var shortestDistance = function (grid) {
                 while (queue.length > 0) {
                     steps++;
                     for (let level = queue.length; level > 0; level--) {
-                        let cur = queue.shift();
+                        let [rd, cd] = queue.shift();
 
-                        deltas.forEach((dir) => {
-                            let nRow = cur[0] + dir[0];
-                            let nCol = cur[1] + dir[1];
+                        for (const [r,c] of deltas) {
+                            const nextRow = rd + r
+                            const nextCol = cd + c
 
-                            if (nRow >= 0 && nCol >= 0 && nRow < rows && nCol < cols && grid[nRow][nCol] == EMPTY) {
-                                grid[nRow][nCol]--;
-                                total[nRow][nCol] += steps;
-                                queue.push([nRow, nCol]);
+                            const rowInbounds = nextRow >= 0 && nextRow < rows
+                            const colInbounds = nextCol >= 0 && nextCol < cols
+                            if (rowInbounds && colInbounds && grid[nextRow][nextCol] === EMPTY) {
+                                grid[nextRow][nextCol]--;
+                                total[nextRow][nextCol] += steps;
+                                queue.push([nextRow, nextCol]);
                             }
-                        });
+                        }
                     }
                 }
                 EMPTY--;
