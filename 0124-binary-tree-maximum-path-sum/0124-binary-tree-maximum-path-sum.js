@@ -11,19 +11,22 @@
  * @return {number}
  */
 var maxPathSum = function(root) {
-    let res = root.val;
+    let max = root.val // 15
+
     const dfs = (node) => {
-        if (!node) return 0;
+        if (!node) {
+            return 0
+        }
 
-        const left = Math.max(0, dfs(node.left))
-        const right = Math.max(0, dfs(node.right))
+        const left = Math.max(0,dfs(node.left))
+        const right = Math.max(0,dfs(node.right))
 
-        const maxWithSplit = node.val + left + right;
-        res = Math.max(res, maxWithSplit)
+        const both = left + right + node.val
+
+        max = Math.max(max, both)
 
         return Math.max(left, right) + node.val
     }
     dfs(root)
-
-    return res
+    return max
 };
