@@ -9,11 +9,11 @@ var largestTriangleArea = function(points) {
     for (let i = 0; i < n - 2; i++) {
         for (let j = i + 1; j < n - 1; j++) {
             for (let k = j + 1; k < n; k++) {
-                const area = 0.5 * Math.abs(
+                const area = Math.abs(
                     points[i][0] * (points[j][1] - points[k][1]) +
                     points[j][0] * (points[k][1] - points[i][1]) +
                     points[k][0] * (points[i][1] - points[j][1])
-                );
+                )/2
                 maxArea = Math.max(maxArea, area)
             }
         }
