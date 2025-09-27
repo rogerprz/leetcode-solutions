@@ -13,7 +13,11 @@ var largestTriangleArea = function(points) {
 
             for (let k = j + 1; k < n; ++k) {
                 const [xK, yK] = points[k];
-                const area = 0.5 * Math.abs(xI*(yJ - yK) + xJ*(yK - yI) + xK*(yI - yJ));
+                const area = 0.5 * Math.abs(
+                    xI*(yJ - yK) + 
+                    xJ*(yK - yI) + 
+                    xK*(yI - yJ)
+                    );
                 maxArea = Math.max(maxArea, area);
             }
         }
