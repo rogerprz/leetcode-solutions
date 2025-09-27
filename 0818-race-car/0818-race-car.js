@@ -16,10 +16,10 @@ var racecar = function(target) {
         moves++
         const nextPos = pos + speed
         const nextSpeed = speed * 2
-        arr.push({moves, pos: nextPos ,speed: nextSpeed});
+        arr.push({moves, pos: nextPos, speed: nextSpeed});
 
-        if ((nextPos > target && nextSpeed>0) || 
-            (nextPos < target && nextSpeed<0)) {
+        if ((nextPos > target && nextSpeed > 0) || 
+            (nextPos < target && nextSpeed < 0)) {
             const resetSpeed = speed > 0 ? -1 : 1
             arr.push({moves, pos, speed: resetSpeed});
         }
