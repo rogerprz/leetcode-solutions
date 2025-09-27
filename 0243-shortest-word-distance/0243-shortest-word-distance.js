@@ -18,8 +18,6 @@ var shortestDistance = function(wordsDict, word1, word2) {
     }
 
     let min = Infinity;
-    // 1, 4 
-    // 3
     for (const topWord of hash[word1]) { 
         for (const botWord of hash[word2]) {
             min = Math.min (Math.abs(topWord - botWord), min)
