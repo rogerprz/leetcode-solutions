@@ -2,41 +2,38 @@
  * @param {character[][]} grid
  * @return {number}
  */
+ const directions = [[0,1], [0,-1], [1,0], [-1,0]]
 var numIslands = function(grid) {
-    let count = 0;
-    const visited = new Set();
+    if (grid.length === 0) return 0;
 
-    const explore = (row, col, visited) => {
-        const rowInbounds = row >= 0 && row < grid.length;
-        const colInbounds = col >= 0 && col < grid[0].length;
+    let islandCount = 0;
+    const dfs = (row, col) => {
+        const rowInbounds = row >= 0 && row < grid.length; 
+        const colInbounds = col >= 0 && col < grid[0].length; 
 
-        if (!rowInbounds || !colInbounds || grid[row][col] === "0") {
-            return false;
+        if (!rowInbounds || !colInbounds || grid[row][col] == 0) {
+            return
         }
-        const pos = `${row},${col}`
+        grid[row][col] = 0 
 
-        if (visited.has(pos)) {
-            return false
+        for (const [rd, cd] of directions) {
+            const nRow = row + rd;
+            const nCol = col + cd; 
+
+            dfs(nRow, nCol)
         }
-        visited.add(pos)
-
-        explore(row + 1, col, visited)
-        explore(row - 1, col, visited)
-        explore(row, col + 1, visited)
-        explore(row, col - 1, visited)
-        
-        return true;
-    }
+        return 1;
+    } 
 
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[0].length; col++) {
-            if (grid[row][col] === "1") {
-                if (explore(row, col, visited)) {
-                    count++
-                }
+            if (grid[row][col] == 1) {
+                console.log('HERE:',grid[row][col] )
+                dfs(row, col)
+                islandCount++
             }
         }
     }
 
-    return count
+    return islandCount
 };
