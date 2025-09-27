@@ -32,21 +32,21 @@ var accountsMerge = function(accounts) {
     const visited = new Set()
 
     const dfs = (key, data) => {
-        if (visited.has(key)) {
-            return []
-        }
         data.push(key)
         visited.add(key)
         const neighbors = hash[key]
         for (const neighbor of neighbors) {
-            dfs(neighbor, data)
+            if (!visited.has(neighbor)) {
+                dfs(neighbor, data)
+            }
         }
         return data
     }
 
     Object.keys(hash).forEach((key) => {
         if (!visited.has(key)){
-            const emails = dfs(key, [])
+            const emails = []
+             dfs(key, emails)
             const name = emailToName.get(key)
             results.push([name, ...emails.sort()])
         }
