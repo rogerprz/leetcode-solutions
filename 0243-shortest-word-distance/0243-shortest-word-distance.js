@@ -5,9 +5,6 @@
  * @return {number}
  */
 var shortestDistance = function(wordsDict, word1, word2) {
-    // wordsDict = ["practice", "makes", "perfect", "coding", "makes"], 
-    // word1 = "coding", 
-    // word2 = "practice"
     const hash = {}
 
     for (let i = 0; i < wordsDict.length; i++) {
