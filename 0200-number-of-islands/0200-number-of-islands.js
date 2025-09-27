@@ -28,7 +28,6 @@ var numIslands = function(grid) {
     for (let row = 0; row < grid.length; row++) {
         for (let col = 0; col < grid[0].length; col++) {
             if (grid[row][col] == 1) {
-                console.log('HERE:',grid[row][col] )
                 dfs(row, col)
                 islandCount++
             }
