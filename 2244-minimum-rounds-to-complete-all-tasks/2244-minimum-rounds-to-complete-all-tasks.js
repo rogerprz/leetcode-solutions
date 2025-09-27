@@ -20,16 +20,14 @@ var minimumRounds = function(tasks) {
     }
 
     let rounds = 0; // 3
-
-    nums.forEach((num) => {
-        if (rounds !== -1){
-             
+    for (const num of [...nums]) {
+        
         while (freq[num] > 0) {
             const count = freq[num]
 
             if (count === 1) {
                 rounds = -1
-                break;
+                return -1
             }
             const isOdd = count % 2 === 1
             if (isOdd || count > 5 ) {
@@ -40,7 +38,6 @@ var minimumRounds = function(tasks) {
             rounds++
         }
     }
-        
-    })
+    
     return rounds;
 };
