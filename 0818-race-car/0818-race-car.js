@@ -14,11 +14,14 @@ var racecar = function(target) {
         if (moves >= best) continue
         
         moves++
-        arr.push({moves, pos: pos+speed, speed: 2*speed});
+        const nextPos = pos + speed
+        const nextSpeed = speed * 2
+        arr.push({moves, pos: nextPos ,speed: nextSpeed});
 
-        if ((pos+speed>target && speed>0) || 
-            (pos+speed<target && speed<0)) {
-            arr.push({moves, pos, speed: speed > 0 ? -1 : 1});
+        if ((nextPos > target && nextSpeed>0) || 
+            (nextPos < target && nextSpeed<0)) {
+            const resetSpeed = speed > 0 ? -1 : 1
+            arr.push({moves, pos, speed: resetSpeed});
         }
     }
 
