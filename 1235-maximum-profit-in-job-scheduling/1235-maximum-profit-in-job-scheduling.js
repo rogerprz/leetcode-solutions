@@ -38,3 +38,6 @@ var jobScheduling = function(startTime, endTime, profit) {
     }
     return dp[N]
 };
+
+
+    // [ 3, 1, 50 ], [ 4, 2, 10 ], [ 5, 3, 40 ], [ 6, 3, 70 ]
