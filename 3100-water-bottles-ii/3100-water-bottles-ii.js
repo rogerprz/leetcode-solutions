@@ -9,9 +9,7 @@ var maxBottlesDrunk = function(numBottles, numExchange) {
     // numBottles = 13, 
     // numExchange = 6
     while (numBottles > 0) {
-        count--
-        const drinkMore = Math.floor(numBottles / numExchange) // 7 / 7
-        //  1
+        const drinkMore = Math.floor(numBottles / numExchange)
         if (drinkMore === 0){
             result += numBottles
             break;
