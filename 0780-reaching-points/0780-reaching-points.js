@@ -1,27 +1,26 @@
 /**
- * @param {number} sx
- * @param {number} sy
- * @param {number} tx
- * @param {number} ty
+ * @param {number} x1
+ * @param {number} y1
+ * @param {number} x2
+ * @param {number} y2
  * @return {boolean}
  */
-var reachingPoints = function(sx, sy, tx, ty) {
-    // (x, x + y)
-    // (x + y, y)
-    // sx = 1, sy = 1
-    // tx = 2, ty = 2
-    // (1, 1) → (2, 1) → (2, 3) → (5, 3) etc.
-    while (tx >= sx && ty >= sy) {
-        if (tx === ty) break;
-        // sx = 1, sy = 1
-        // tx = 2, ty = 0
-        if (tx > ty) {
-            if (ty > sy) tx = tx % ty;
-            else return (tx - sx) % ty === 0;
+var reachingPoints = function(x1, y1, x2, y2) {
+    // x1 = 1, y1 = 1, 
+    // x2 = 3, y2 = 5
+    // (x, x + y) or (x + y, y)
+
+    while (x2 >= x1 && y2 >=y1) {
+        if (x2 === y2) break;
+        if (x2 > y2) {
+            if (y2 > y1) {
+                x2 %= y2
+            } else return (x2 - x1) % y2 === 0
         } else {
-            if (tx > sx) ty = ty % tx;
-            else return (ty - sy) % tx === 0;
+            if (x2 > x1) y2 %= x2;
+            else return (y2 - y1) % x2 === 0
         }
     }
-    return (tx === sx && ty === sy);
+
+    return x2 === x1 && y1 === y2
 };
