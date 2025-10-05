@@ -2,62 +2,69 @@
  * @param {number[][]} grid
  * @return {number}
  */
+const directions = [[0,1],[0,-1],[1,0],[-1,0]]
 var largestIsland = function(grid) {
-    const n = grid.length;
-    const area = new Map; // key: islandId, value: area of that island
-    const deltas = [[1,0],[-1,0],[0,1],[0,-1]];
-    let islandId = 2;
-    let maxArea = 0;
-
-    function dfsLabel(row, col, label) {
-        const stack = [[row, col]];
-        let total = 0;
-
-        while (stack.length > 0) {
-            const [row, col] = stack.pop();
-            const rowInbounds = row < 0 || row >= n
-            const colInbounds =  col < 0 || col >= n 
-            if (rowInbounds || colInbounds || grid[row][col] !== 1) continue;
-            grid[row][col] = label;
-            total++;
-            for (const [dr, dc] of deltas) {
-                stack.push([row + dr, col + dc]);
+    let max = 0;
+    let map = new Map();
+    const N = grid.length;
+    const dfs = (r, c, islandId) => {
+        const queue = [[r, c]];
+        let count = 0;
+        while (queue.length) {
+            const [row, col] = queue.shift();
+            if (grid[row][col] !== 1) continue;
+            grid[row][col] = islandId;
+            count++;
+            for (const [dr, dc] of directions) {
+            const nextRow = row + dr
+            const nextCol = col + dc;
+            if (nextRow < 0 || nextRow >= N || nextCol < 0 || nextCol >= N) continue;
+            if (grid[nextRow][nextCol] === 1) queue.push([nextRow, nextCol]);
             }
         }
-        return total;
-    }
-
-    for (let r = 0; r < n; ++r) {
-        for (let c = 0; c < n; ++c) {
-            if (grid[r][c] === 1) {
-                const islandArea = dfsLabel(r, c, islandId);
-                area.set(islandId, islandArea)
-                maxArea = Math.max(maxArea, islandArea);
-                islandId++;
+        map.set(islandId, count);
+    };
+    let islandIdx = 1
+    for (let row = 0; row < grid.length;row++) {
+        for (let col = 0; col < grid[0].length;col++) {
+            if (grid[row][col] === 1) {
+                islandIdx++
+                dfs(row, col, islandIdx)
             }
-        }
+        }    
     }
-
-    for (let r = 0; r < n; r++) {
-        for (let c = 0; c < n; c++) {
-            if (grid[r][c] === 0) {
-                let neighbors = new Set();
-                for (const [dr, dc] of deltas) {
-                    const newRow = r + dr, newCol = c + dc;
-                    const rowInbounds = newRow < 0 || newRow >= n
-                    const colInbounds =  newCol < 0 || newCol >= n 
-                    if (!rowInbounds && !colInbounds && grid[newRow][newCol] > 1) {
-                        neighbors.add(grid[newRow][newCol]);
-                    }
+    const zeroIsland = (r, c) => {
+        let maxIsland = 1
+        let visited = new Set()
+        for (const [rd, cd] of directions) {
+            const nextRow = r + rd;
+            const nextCol = c + cd;
+            if (
+                nextRow >= 0 && nextRow < grid.length &&
+                nextCol >= 0 && nextCol < grid[0].length
+            ) {
+                const neighborId = grid[nextRow][nextCol];
+                if (neighborId > 1 && !visited.has(neighborId)) {
+                    visited.add(neighborId);
+                    maxIsland += map.get(neighborId);
                 }
-                let sum = 1; // The 0 itself is flipped to 1
-                for (const nid of neighbors) {
-                    sum += area.get(nid)
-                }
-                maxArea = Math.max(maxArea, sum);
             }
         }
+        return maxIsland
     }
-
-    return maxArea === 0 ? n * n : maxArea;
+    /**
+    [2,2,0],
+    [0,0,3],
+    [0,0,3]
+    2: 2
+    3:1
+     */
+    for (let row = 0; row < grid.length;row++) {
+        for (let col = 0; col < grid[0].length;col++) {
+            if (grid[row][col] === 0) {
+                max = Math.max(max, zeroIsland(row, col))
+            }
+        }    
+    }
+    return max === 0 ? N * N : max
 };
