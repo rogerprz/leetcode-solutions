@@ -19,7 +19,7 @@ var hitBricks = function(grid, hits) {
         const [row, col] = hits[i]
         // if there was an empty space then skip the counting
         // of restored bricks else count how many bricks it has restored
-        if (grid[row][col]  === -1 ) continue;
+        if (grid[row][col] === -1 ) continue;
         
         grid[row][col] = 1 // restored brick
         
@@ -33,17 +33,17 @@ var hitBricks = function(grid, hits) {
     return output;
 }
 const directions = [[0,1],[1,0],[-1,0],[0,-1]]
-// it traverse the grid and mark bricks connected witj top as 2
+// it traverse the grid and mark bricks connected with top as 2
 // and also gives back the number of added brick when restoring a hit
 function markAndCount (row, col, grid) {
-    // in this if condition the last grid[i][j] != 1 check is important
+    // in this if condition the last grid[row][col] != 1 check is important
     // because with this we are disregarding the previously counted nodes
     // and empty spaces
     const rowInbounds =  row >= 0 && row < grid.length  
     const colInbounds =  col >= 0 && col < grid[0].length
     if (!rowInbounds ||  !colInbounds || grid[row][col] != 1) {
-            return 0;
-        }
+        return 0;
+    }
     let restored = 1;
     // marking the visited cell as 2
     grid[row][col] = 2
@@ -55,12 +55,14 @@ function markAndCount (row, col, grid) {
     return restored
 }
 
-function isConnectedToTop (i,j, grid) {
-    if ( i == 0 ||
-        (grid[i-1] && grid[i-1][j] == 2) ||
-        (grid[i+1] && grid[i+1][j] == 2) ||
-        grid[i][j-1] == 2 ||
-        grid[i][j+1] == 2) return true;
+function isConnectedToTop (row,col, grid) {
+    const prevRow = grid[row - 1] && grid[row - 1][col]
+    const nextRow = grid[row + 1] && grid[row + 1][col]
+    const prevCol = grid[row][col-1]
+    const nextCol = grid[row][col+1]
+    if (row == 0 || prevRow == 2 || nextRow == 2 || prevCol == 2 || nextCol == 2) {
+        return true;
+    }
         
     return false
 }
