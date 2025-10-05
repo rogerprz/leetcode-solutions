@@ -18,7 +18,6 @@ var hitBricks = function(grid, hits) {
         if (grid[row][col] === -1 ) continue; // skip empty space
         
         grid[row][col] = 1 // restored brick
-        
         // if the restored brick is not connected to previously marked bricks
         // which are not falling then it will not restore new bricks;
         if (isConnectedToTop(row, col, grid)) {
@@ -64,5 +63,12 @@ function isConnectedToTop (row,col, grid) {
             return true;
         } 
     }
+    return false
+}
+
+function inBounds(row, col) {
+    const rowInbounds = row >= 0 && row < grid.length
+    const colInbounds = col >= 0 || col < grid[0].length
+    if (!rowInbounds || !colInbounds)  true;
     return false
 }
