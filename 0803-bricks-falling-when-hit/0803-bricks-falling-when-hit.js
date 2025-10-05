@@ -1,21 +1,14 @@
 var hitBricks = function(grid, hits) {
-    
     const output = new Array(hits.length).fill(0);
-    
-    
     // removing bricks from hits
     // if it is an empty space then marking it as -1 
     // so that we can differentiate later on whether it was an empty space or brick
     for (let i = 0; i < hits.length; i++) {
-        
-        if (grid[hits[i][0]][hits[i][1]] == 1) {
-            
-            grid[hits[i][0]][hits[i][1]] = 0
-            
+        const [row,col] = hits[i]
+        if (grid[row][col] == 1) {
+            grid[row][col] = 0
         } else {
-            
-            grid[hits[i][0]][hits[i][1]] = -1
-            
+            grid[row][col] = -1
         }
     }
     
@@ -48,32 +41,29 @@ var hitBricks = function(grid, hits) {
     
     
 }
-
-
 // it traverse the grid and mark bricks connected witj top as 2
 // and also gives back the number of added brick when restoring a hit
+const directions = [[0,1],[1,0],[-1,0],[0,-1]]
 
-function markAndCount (i, j, grid) {
-   
+function markAndCount (row, col, grid) {
     // in this if condition the last grid[i][j] != 1 check is important
     // because with this we are disregarding the previously counted nodes
     // and empty spaces
-    if (i >= grid.length || 
-        j >= grid[0].length || 
-        i < 0 || 
-        j < 0 || 
-        grid[i][j] != 1) return 0;
+    const rowInbounds =  row >= 0 && row < grid.length  
+    const colInbounds =  col >= 0 && col < grid[0].length
+    if (!rowInbounds ||  !colInbounds || grid[row][col] != 1) {
+            return 0;
+        }
     
     let restored = 1;
     
     // marking the visited cell as 2
-    grid[i][j] = 2
-    
-    restored += markAndCount(i+1, j, grid);
-    restored += markAndCount(i-1, j, grid);
-    restored += markAndCount(i, j+1, grid);
-    restored += markAndCount(i, j-1, grid);
-    
+    grid[row][col] = 2
+
+    for (const [rd, cd] of directions) {
+        restored += markAndCount(row + rd, col + cd, grid);
+    }
+  
     return restored
     
 }
