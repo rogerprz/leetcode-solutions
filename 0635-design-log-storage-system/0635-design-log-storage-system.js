@@ -1,6 +1,14 @@
 
 var LogSystem = function() {
     this.logs = [];
+    this.timePos = {
+      Year: 1,
+      Month: 2,
+      Day: 3,
+      Hour: 4,
+      Minute: 5,
+      Second: 6
+    }
 };
 
 /** 
@@ -35,16 +43,7 @@ LogSystem.prototype.retrieve = function(start, end, granularity) {
 };
 
 LogSystem.prototype.parse = function(timestamp, granularity) {
-    const map = {
-      Year: 1,
-      Month: 2,
-      Day: 3,
-      Hour: 4,
-      Minute: 5,
-      Second: 6
-    }
-
-    const depth = map[granularity]
+    const depth = this.timePos[granularity]
 
     return timestamp.split(':').slice(0, depth).join(':')
   }
