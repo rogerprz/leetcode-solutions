@@ -56,10 +56,14 @@ function markAndCount (row, col, grid) {
 }
 
 function isConnectedToTop (row,col, grid) {
+    // const rowOutBounds = row - 1 < 0 || row + 1 > grid.length
+    // const colOutBounds = col - 1 < 0 || col + 1 > grid[0].length
+    // if (rowOutBounds || colOutBounds) return false
     const prevRow = grid[row - 1] && grid[row - 1][col]
     const nextRow = grid[row + 1] && grid[row + 1][col]
     const prevCol = grid[row][col-1]
     const nextCol = grid[row][col+1]
+
     if (row == 0 || prevRow == 2 || nextRow == 2 || prevCol == 2 || nextCol == 2) {
         return true;
     }
