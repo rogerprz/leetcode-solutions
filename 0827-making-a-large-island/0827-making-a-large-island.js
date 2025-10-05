@@ -35,8 +35,6 @@ var largestIsland = function(grid) {
             if (grid[row][col] === 1) {
                 islandId++
                 dfs(row, col, islandId)
-            } else if (grid[row][col] === 0) {
-                zeroQueue.push([row,col])
             }
         }
     }
