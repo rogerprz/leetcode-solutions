@@ -58,7 +58,7 @@ function isConnectedToTop (row,col, grid) {
         const rowInbounds = nextRow >= 0 && nextRow < grid.length
         const colInbounds = nextCol >= 0 && nextCol < grid[0].length
         
-        if (!rowInbounds || !colInbounds)  continue
+        if (inBounds(nextRow, nextCol, grid))  continue
         if (grid[nextRow][nextCol] === 2) {
             return true;
         } 
@@ -66,9 +66,9 @@ function isConnectedToTop (row,col, grid) {
     return false
 }
 
-function inBounds(row, col) {
+function inBounds(row, col, grid) {
     const rowInbounds = row >= 0 && row < grid.length
-    const colInbounds = col >= 0 || col < grid[0].length
-    if (!rowInbounds || !colInbounds)  true;
+    const colInbounds = col >= 0 && col < grid[0].length
+    if (!rowInbounds || !colInbounds)  return true;
     return false
 }
