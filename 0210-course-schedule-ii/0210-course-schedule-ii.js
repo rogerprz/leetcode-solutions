@@ -3,8 +3,17 @@
  * @param {number[][]} prerequisites
  * @return {number[]}
  */
+/**
+[[1,0],[2,0],[3,1],[3,2]]
+// Courses = 4
+ 0 -> 1, 2 
+ 1 -> 3
+ 2 -> 3
+
+ */
 var findOrder = function(numCourses, prerequisites) {
     const graph = {}
+    // [0,0,0,0]
     const inDegree = new Array(numCourses).fill(0)
 
     for (const [course, pre] of prerequisites) {
@@ -14,7 +23,7 @@ var findOrder = function(numCourses, prerequisites) {
     }
 
     let res = []
-    let queue = []
+    let queue = [] // parentCourse, no prereqs
 
     for (let i = 0; i < numCourses; i++) {
         if (inDegree[i] === 0) queue.push(i)
