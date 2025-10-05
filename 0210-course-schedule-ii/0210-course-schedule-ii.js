@@ -3,43 +3,43 @@
  * @param {number[][]} prerequisites
  * @return {number[]}
  */
-/**
-[[1,0],[2,0],[3,1],[3,2]]
-// Courses = 4
- 0 -> 1, 2 
- 1 -> 3
- 2 -> 3
-
- */
 var findOrder = function(numCourses, prerequisites) {
-    const graph = {}
-    // [0,0,0,0]
+  
     const inDegree = new Array(numCourses).fill(0)
+    const graph = {}
 
-    for (const [course, pre] of prerequisites) {
-        if (!(pre in graph)) graph[pre] = []
-        graph[pre].push(course)
+    for (const [course, preReq] of prerequisites) {
+        if (!(preReq in graph)) {
+            graph[preReq] = []
+        }
+        graph[preReq].push(course)
         inDegree[course]++
     }
 
-    let res = []
-    let queue = [] // parentCourse, no prereqs
+    const res = []
+    const queue = []
 
-    for (let i = 0; i < numCourses; i++) {
+    for (let i = 0; i < inDegree.length; i++) {
         if (inDegree[i] === 0) queue.push(i)
     }
+  /**
+    [[1,0],[2,0],[3,1],[3,2]]
+    0: 1, 2
+    1: 3
+    3: 3
+     */
+    //  in = [0,1,1,2]
 
     while (queue.length > 0) {
-        const curr = queue.shift()
+        let preNum = queue.shift();
+        //  1, 2
+        res.push(preNum)
+        if (!(preNum in graph)) continue
 
-        res.push(curr)
-
-        if (!(curr in graph)) continue
-
-        for (const neighbor of graph[curr]) {
-            inDegree[neighbor]--
-            if (inDegree[neighbor] === 0) queue.push(neighbor)
+        for (const course of graph[preNum]) {
+            inDegree[course]--
+            if (inDegree[course] === 0) queue.push(course)
         }
     }
-    return res.length === numCourses ? res : []
+    return res.length === numCourses ? res : [];
 };
