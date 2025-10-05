@@ -34,9 +34,7 @@ function markAndCount (row, col, grid) {
     // in this if condition the last grid[row][col] != 1 check is important
     // because with this we are disregarding the previously counted nodes
     // and empty spaces
-    const rowInbounds =  row >= 0 && row < grid.length  
-    const colInbounds =  col >= 0 && col < grid[0].length
-    if (!rowInbounds ||  !colInbounds || grid[row][col] != 1) {
+    if (inBounds(row, col, grid) || grid[row][col] != 1) {
         return 0;
     }
     let restored = 1;
@@ -55,8 +53,6 @@ function isConnectedToTop (row,col, grid) {
     for (const [rd, cd] of directions) {
         const nextRow = row + rd;
         const nextCol = col + cd;
-        const rowInbounds = nextRow >= 0 && nextRow < grid.length
-        const colInbounds = nextCol >= 0 && nextCol < grid[0].length
         
         if (inBounds(nextRow, nextCol, grid))  continue
         if (grid[nextRow][nextCol] === 2) {
