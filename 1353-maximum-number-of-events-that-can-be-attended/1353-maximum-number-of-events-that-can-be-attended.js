@@ -1,26 +1,23 @@
-const maxEvents = events => {
-    events.sort((a, b) => a[1] - b[1]);
+/**
+ * @param {number[][]} events
+ * @return {number}
+ */
+var maxEvents = function (events) {
+    let map = new Map();
+    events.sort((a, b) => a[1] - b[1] || a[0] - b[0]);
 
-    const maxDay = events.at(-1)[1];
-    const nextDay = new Array(maxDay + 2).fill(0).map((_, i) => i);
-
-    const search = day => {
-        if (nextDay[day] !== day)
-            nextDay[day] = search(nextDay[day]);
-        return nextDay[day];
-    };
-
+    function find(day) {
+        if (!map.has(day)) map.set(day, day);
+        if (map.get(day) !== day) map.set(day, find(map.get(day)));
+        return map.get(day);
+    }
     let count = 0;
-
-    for (const evt of events) {
-        const start = evt[0];
-        const end = evt[1];
-        const day = search(start);
+    for (let [start, end] of events) {
+        let day = find(start);
         if (day <= end) {
             count++;
-            nextDay[day] = search(day + 1);
+            map.set(day, day + 1);
         }
     }
-
     return count;
 };
