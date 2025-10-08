@@ -1,13 +1,14 @@
+
 function maxEvents(events) {
   events.sort((a, b) => a[1] - b[1]);
 
   const parent = new Map();
   let count = 0;
 
-  function find(x) {
-    if (!parent.has(x)) return x;
-    const next = find(parent.get(x));
-    parent.set(x, next);
+  function find(day) {
+    if (!parent.has(day)) return day;
+    const next = find(parent.get(day));
+    parent.set(day, next);
     return next;
   }
 
