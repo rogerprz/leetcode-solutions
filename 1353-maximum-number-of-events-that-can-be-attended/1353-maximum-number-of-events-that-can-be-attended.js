@@ -2,22 +2,28 @@
  * @param {number[][]} events
  * @return {number}
  */
-var maxEvents = function (events) {
-    let map = new Map();
-    events.sort((a, b) => a[1] - b[1] || a[0] - b[0]);
+var maxEvents = function(events) {
+  events.sort((a,b) => a[1] - b[1]);
+  const maxDay = events.at(-1)[1];
+  const days = new Array(maxDay + 1).fill(0).map((_, i) => i);
 
-    function find(day) {
-        if (!map.has(day)) map.set(day, day);
-        if (map.get(day) !== day) map.set(day, find(map.get(day)));
-        return map.get(day);
+  const search = (index) => {
+    if (days[index] !== index) {
+      days[index] = search(days[index]);
     }
-    let count = 0;
-    for (let [start, end] of events) {
-        let day = find(start);
-        if (day <= end) {
-            count++;
-            map.set(day, day + 1);
-        }
+    return days[index];
+  }
+
+  let count = 0;
+  for(const [start, end] of events) {
+    const day = search(start);
+    if (day <= end) {
+      count += 1;
+      days[day] = search(day + 1);
     }
-    return count;
+  }
+  return count;
+
+
+    
 };
