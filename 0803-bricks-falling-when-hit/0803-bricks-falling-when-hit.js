@@ -8,7 +8,6 @@ var hitBricks = function(grid, hits) {
         if (grid[row][col] == 1) grid[row][col] = 0 // valid hit
         else grid[row][col] = -1 // empty hit
     }
-    // Mark top row as 2 + neighbors
     for (let col = 0; col < grid[0].length; col++) {
         markAndCount(0, col, grid)
     }
@@ -31,12 +30,12 @@ var hitBricks = function(grid, hits) {
 // it traverse the grid and mark bricks connected with top as 2
 // and also gives back the number of added brick when restoring a hit
 function markAndCount (row, col, grid) {
+     const rowInbounds = row >= 0 && row < grid.length
+    const colInbounds = col >= 0 && col < grid[0].length
+    if (!rowInbounds || !colInbounds || grid[row][col] != 1)  return 0;
     // in this if condition the last grid[row][col] != 1 check is important
     // because with this we are disregarding the previously counted nodes
     // and empty spaces
-    if (inBounds(row, col, grid) || grid[row][col] != 1) {
-        return 0;
-    }
     let restored = 1;
     // marking the visited cell as 2
     grid[row][col] = 2
