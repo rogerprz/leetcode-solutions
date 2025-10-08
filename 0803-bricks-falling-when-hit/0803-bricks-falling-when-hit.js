@@ -2,13 +2,14 @@ const directions = [[0,1],[1,0],[-1,0],[0,-1]]
 
 var hitBricks = function(grid, hits) {
     const H = hits.length;
+    const ColLen = grid[0].length
     const result = new Array(H).fill(0);
     for (let i = 0; i < H; i++) {
         const [row,col] = hits[i]
         if (grid[row][col] == 1) grid[row][col] = 0 // valid hit
         else grid[row][col] = -1 // empty hit
     }
-    for (let col = 0; col < grid[0].length; col++) {
+    for (let col = 0; col < ColLen; col++) {
         markAndCount(0, col, grid)
     }
     // loop over hits array backwards and restoring bricks
@@ -30,7 +31,7 @@ var hitBricks = function(grid, hits) {
 // it traverse the grid and mark bricks connected with top as 2
 // and also gives back the number of added brick when restoring a hit
 function markAndCount (row, col, grid) {
-     const rowInbounds = row >= 0 && row < grid.length
+    const rowInbounds = row >= 0 && row < grid.length
     const colInbounds = col >= 0 && col < grid[0].length
     if (!rowInbounds || !colInbounds || grid[row][col] != 1)  return 0;
     // in this if condition the last grid[row][col] != 1 check is important
