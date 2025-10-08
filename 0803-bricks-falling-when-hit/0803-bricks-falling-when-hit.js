@@ -2,7 +2,7 @@ const directions = [[0,1],[1,0],[-1,0],[0,-1]]
 
 var hitBricks = function(grid, hits) {
     const H = hits.length;
-    const result = []
+    const result = new Array(H).fill(0);
     for (let i = 0; i < H; i++) {
         const [row,col] = hits[i]
         if (grid[row][col] == 1) grid[row][col] = 0 // valid hit
@@ -22,7 +22,7 @@ var hitBricks = function(grid, hits) {
         // which are not falling then it will not restore new bricks;
         if (isConnectedToTop(row, col, grid)) {
             // saving the number of restored bricks
-            result.push(markAndCount(row, col, grid) - 1)
+            result[i] = markAndCount(row, col, grid) - 1
         }
     }
     
