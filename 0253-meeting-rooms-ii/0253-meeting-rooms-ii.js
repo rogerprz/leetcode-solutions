@@ -5,8 +5,6 @@
 var minMeetingRooms = function(intervals) {
     let startTimes = intervals.map((([start,_end]) => start)).sort((a,b) => a - b)
     let endTimes = intervals.map((([_start,end]) => end)).sort((a,b) => a - b)
-    console.log("S:", startTimes)
-    console.log("E:", endTimes)
 
     let count = 0; // 2
     let start = 0;
