@@ -5,32 +5,28 @@
 var racecar = function(target) {
     const stack = [{moves: 0, pos: 0, speed: 1}]
 
-    let lowMoves = Infinity;
-    // target = 3
-    // stack = [{}]
-    // Output: 2
+    let least = Infinity
+
     while (stack.length > 0) {
-        let { moves, pos, speed } = stack.pop()
-        // pos = 0
-        // moves = 0
-        // speed = 1
-        if (pos === target) {
-            lowMoves = Math.min(lowMoves, moves)
-        }
-        if (moves < lowMoves) {
-            moves++
-            const nextPos = pos + speed;
+        let {moves, pos, speed} = stack.pop()
+
+        if (pos === target) least = Math.min(least, moves)
+
+        if (moves < least) {
+            moves++ 
             const nextSpeed = speed * 2;
+            const nextPos = pos + speed;
 
             stack.push({moves, pos: nextPos, speed: nextSpeed})
 
-            const weOvershot = nextPos > target && speed > 0
-            const weRevOvershot = nextPos < target && speed < 0
-            if (weOvershot ||  weRevOvershot) {
-                const resetSpeed = speed > 0 ? -1 : 1
-                stack.push({moves, pos, speed: resetSpeed })
+            const wentOver = nextPos > target && speed > 0;
+            const revWentOver = nextPos < target && speed < 0;
+            if (wentOver || revWentOver) {
+                const resetSpeed = speed > 0 ? -1 : 1;
+                stack.push({ moves, pos, speed: resetSpeed })
             }
         }
     }
-    return lowMoves
+    
+    return least
 };
