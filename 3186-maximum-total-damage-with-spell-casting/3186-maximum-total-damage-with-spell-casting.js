@@ -21,15 +21,17 @@ var maximumTotalDamage = function(power) {
 
 
     for (let i = 1; i < N; i++) {
-        let take = freq[keys[i]]
+        const powerKey = keys[i]
+        let maxPower = freq[powerKey]
         let l = 0 ;
         let r = i - 1;
         let ans = -1;
-
+        // [1, 3,4]
+        //  l    r
         while (l <= r) {
             const mid = Math.floor((l + r) / 2);
 
-            if (keys[mid] <= keys[i] - 3) {
+            if (keys[mid] <= powerKey - 3) {
                 ans = mid;
                 l = mid + 1;
             } else {
@@ -37,9 +39,9 @@ var maximumTotalDamage = function(power) {
             }
         }
         if (ans >= 0) {
-            take += dp[ans]
+            maxPower += dp[ans]
         }
-        dp[i] = Math.max(dp[i - 1], take)
+        dp[i] = Math.max(dp[i - 1], maxPower)
     }
     return dp[N - 1]
 };
