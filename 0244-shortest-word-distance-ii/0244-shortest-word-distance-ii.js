@@ -25,10 +25,16 @@ WordDistance.prototype.shortest = function(word1, word2) {
     const l1 = this.list.get(word1)
     const l2 = this.list.get(word2)
 
-    for (const topIdx of l1) {
-        for (const idx of l2) {
-            min = Math.min(min, Math.abs(topIdx - idx))
-        }
+    let p1 = 0;
+    let p2 = 0;
+
+    while (p1 < l1.length && p2 < l2.length) {
+        const w1 = l1[p1]
+        const w2 = l2[p2]
+        min = Math.min(min, Math.abs(w1-w2))
+
+        if (w1 < w2) p1++
+        else p2++
     }
     return min
 };
