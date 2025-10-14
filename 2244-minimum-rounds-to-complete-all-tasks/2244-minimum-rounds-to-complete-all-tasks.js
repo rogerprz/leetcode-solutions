@@ -25,28 +25,10 @@ var minimumRounds = function(tasks) {
 
     let rounds = 0; // 3
 
-    for (const key of keys.values()) {
-        if (rounds == -1){
-            break;
-        }
-            while (freq[key] > 0) {
-                let count = freq[key]
-
-                if (count === 1) {
-                    rounds = -1;
-                    break;
-                }
-                const isOdd = count % 2 === 1
-
-                if (isOdd || count > 5) {
-                    freq[key] -= 3
-                } else {
-                    freq[key] -= 2
-                }
-                rounds++
-            }
-        
-        
-    }
+   for (const key in freq) {
+    const count = freq[key];
+    if (count === 1) return -1; // cannot complete
+    rounds += Math.ceil(count / 3);
+  }
     return rounds;
 };
