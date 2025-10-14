@@ -4,16 +4,14 @@
  */
 var minimumRounds = function(tasks) {
     const freq = new Map
-    const nums = new Set()
-
     for (const task of tasks) {
          freq.set(task, (freq.get(task) || 0) + 1)
     }
 
     let rounds = 0; // 3
-    for (const val of freq.values()) {
-        if (val === 1) return -1
-        rounds += Math.floor((val + 2) / 3)
+    for (const taskCount of freq.values()) {
+        if (taskCount === 1) return -1
+        rounds += Math.floor((taskCount + 2) / 3)
     }
     
     return rounds;
