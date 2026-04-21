@@ -10,12 +10,9 @@ class Solution:
             interval = intervals[i]
             start= interval[0]
             end = interval[1]
-            print("Start",prev, interval)
             if start <= prev[1]:
-                print("if")
                 prev[1] = max(end, prev[1])
             else:
-                print("ELSE:", prev, interval)
                 prev = interval
                 res.append(interval)
         
