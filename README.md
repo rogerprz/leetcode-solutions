@@ -41,18 +41,29 @@
 | ------- | ------- |
 | [0235-lowest-common-ancestor-of-a-binary-search-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0235-lowest-common-ancestor-of-a-binary-search-tree/) | Medium |
 | [0236-lowest-common-ancestor-of-a-binary-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0236-lowest-common-ancestor-of-a-binary-tree/) | Medium |
+| [1123-lowest-common-ancestor-of-deepest-leaves](https://github.com/rogerprz/leetcode-solutions/tree/main/1123-lowest-common-ancestor-of-deepest-leaves/) | Medium |
 ## Depth-First Search
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0235-lowest-common-ancestor-of-a-binary-search-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0235-lowest-common-ancestor-of-a-binary-search-tree/) | Medium |
 | [0236-lowest-common-ancestor-of-a-binary-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0236-lowest-common-ancestor-of-a-binary-tree/) | Medium |
+| [1123-lowest-common-ancestor-of-deepest-leaves](https://github.com/rogerprz/leetcode-solutions/tree/main/1123-lowest-common-ancestor-of-deepest-leaves/) | Medium |
 ## Binary Tree
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0235-lowest-common-ancestor-of-a-binary-search-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0235-lowest-common-ancestor-of-a-binary-search-tree/) | Medium |
 | [0236-lowest-common-ancestor-of-a-binary-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0236-lowest-common-ancestor-of-a-binary-tree/) | Medium |
+| [1123-lowest-common-ancestor-of-deepest-leaves](https://github.com/rogerprz/leetcode-solutions/tree/main/1123-lowest-common-ancestor-of-deepest-leaves/) | Medium |
 ## Binary Search Tree
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0235-lowest-common-ancestor-of-a-binary-search-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0235-lowest-common-ancestor-of-a-binary-search-tree/) | Medium |
+## Hash Table
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [1123-lowest-common-ancestor-of-deepest-leaves](https://github.com/rogerprz/leetcode-solutions/tree/main/1123-lowest-common-ancestor-of-deepest-leaves/) | Medium |
+## Breadth-First Search
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [1123-lowest-common-ancestor-of-deepest-leaves](https://github.com/rogerprz/leetcode-solutions/tree/main/1123-lowest-common-ancestor-of-deepest-leaves/) | Medium |
 <!---LeetCode Topics End-->
