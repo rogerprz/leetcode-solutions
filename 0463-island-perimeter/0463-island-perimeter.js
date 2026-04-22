@@ -13,7 +13,7 @@ var islandPerimeter = function(grid) {
                 // Assume 4 edges
                 perimeter += 4;
                 // If there's land above, subtract the shared edge (from both cells)
-                if (0 < r && grid[r - 1][c] === 1) {
+                if (r > 0 && grid[r - 1][c] === 1) {
                     perimeter -= 2;
                 }
                 // If there's land to the left, subtract the shared edge (from both cells)
