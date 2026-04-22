@@ -13,14 +13,12 @@ var longestPalindrome = function(s) {
         return str.slice(i + 1, j);
     }
     for (let i = 0; i < s.length; i++) {
-        // palindrome can center around 1 or 2 letters
-        const current1 = findLongestPalindrome(s, i, i);
-        const current2 = findLongestPalindrome(s, i, i + 1);
-        const longerPalindrome = 
-              current1.length > current2.length ? current1 : current2;
-        if (longerPalindrome.length > longest.length) {
-            longest = longerPalindrome;
-        } 
+        const currOdd = findLongestPalindrome(s, i, i);
+        const currEven = findLongestPalindrome(s, i, i + 1);
+        const currLongest = 
+              currOdd.length > currEven.length ? currOdd : currEven;
+        
+        if (currLongest.length > longest.length) longest = currLongest;
     }
     return longest;
 };
