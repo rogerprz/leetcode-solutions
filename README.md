@@ -81,6 +81,7 @@
 ## String
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0005-longest-palindromic-substring](https://github.com/rogerprz/leetcode-solutions/tree/main/0005-longest-palindromic-substring/) | Medium |
 | [0208-implement-trie-prefix-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0208-implement-trie-prefix-tree/) | Medium |
 ## Design
 | Problem Name | Difficulty |
@@ -101,4 +102,12 @@
 | [0200-number-of-islands](https://github.com/rogerprz/leetcode-solutions/tree/main/0200-number-of-islands/) | Medium |
 | [0463-island-perimeter](https://github.com/rogerprz/leetcode-solutions/tree/main/0463-island-perimeter/) | Easy |
 | [0695-max-area-of-island](https://github.com/rogerprz/leetcode-solutions/tree/main/0695-max-area-of-island/) | Medium |
+## Two Pointers
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0005-longest-palindromic-substring](https://github.com/rogerprz/leetcode-solutions/tree/main/0005-longest-palindromic-substring/) | Medium |
+## Dynamic Programming
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0005-longest-palindromic-substring](https://github.com/rogerprz/leetcode-solutions/tree/main/0005-longest-palindromic-substring/) | Medium |
 <!---LeetCode Topics End-->
