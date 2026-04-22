@@ -61,9 +61,22 @@
 ## Hash Table
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0208-implement-trie-prefix-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0208-implement-trie-prefix-tree/) | Medium |
 | [1123-lowest-common-ancestor-of-deepest-leaves](https://github.com/rogerprz/leetcode-solutions/tree/main/1123-lowest-common-ancestor-of-deepest-leaves/) | Medium |
 ## Breadth-First Search
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [1123-lowest-common-ancestor-of-deepest-leaves](https://github.com/rogerprz/leetcode-solutions/tree/main/1123-lowest-common-ancestor-of-deepest-leaves/) | Medium |
+## String
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0208-implement-trie-prefix-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0208-implement-trie-prefix-tree/) | Medium |
+## Design
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0208-implement-trie-prefix-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0208-implement-trie-prefix-tree/) | Medium |
+## Trie
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0208-implement-trie-prefix-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0208-implement-trie-prefix-tree/) | Medium |
 <!---LeetCode Topics End-->
