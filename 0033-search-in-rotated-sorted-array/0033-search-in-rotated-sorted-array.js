@@ -7,7 +7,7 @@ var search = function(nums, target) { // 0
     let l = 0;
     let r = nums.length - 1;
 
-    while (l < r) {
+    while (l <= r) {
         const m = Math.floor((l+r)/ 2)
         const low = nums[l]
         const mid = nums[m]
@@ -17,7 +17,7 @@ var search = function(nums, target) { // 0
     //  l     m     r
     //     
         if (mid === target) return m
-        
+
         if (low <= mid) {
             if (low <= target && target <= mid) {
                 r = m - 1
