@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves">1123. Lowest Common Ancestor of Deepest Leaves</a></h2><h3>Medium</h3><hr><p>Given the <code>root</code> of a binary tree, return <em>the lowest common ancestor of its deepest leaves</em>.</p>
+<h2><a href="https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/">1123. Lowest Common Ancestor of Deepest Leaves</a></h2><h3>Medium</h3><hr><p>Given the <code>root</code> of a binary tree, return <em>the lowest common ancestor of its deepest leaves</em>.</p>
 
 <p>Recall that:</p>
 
