@@ -14,21 +14,21 @@ var lcaDeepestLeaves = function(root) {
     if (!root) return root
     let lca = null;
     let maxDepth = 0
-    const traverse =(node, depth) => {
+    const traverse = (node, depth) => {
         if (!node) return depth
 
-            depth++
-            const leftDepth = traverse(node.left, depth)
-            const rightDepth = traverse(node.right, depth)
+        depth++
+        const leftDepth = traverse(node.left, depth)
+        const rightDepth = traverse(node.right, depth)
 
-            maxDepth = Math.max(maxDepth, depth)
+        maxDepth = Math.max(depth, maxDepth)
 
-            if (leftDepth === rightDepth && leftDepth === maxDepth) {
-                lca = node
-            }
-            return Math.max(leftDepth, rightDepth)
+        if (leftDepth === rightDepth && leftDepth === maxDepth) {
+            lca = node
+        }
+
+        return Math.max(leftDepth, rightDepth)
     }
-
     traverse(root, 0)
     return lca
 };
