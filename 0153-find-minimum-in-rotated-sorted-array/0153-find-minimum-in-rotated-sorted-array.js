@@ -16,7 +16,7 @@ var findMin = function(nums) {
         if (mid > high) {
             l = m +1
         } else {
-            r = m
+            r = m - 1
         }
     }
 
