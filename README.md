@@ -7,6 +7,7 @@
 | ------- | ------- |
 | [0033-search-in-rotated-sorted-array](https://github.com/rogerprz/leetcode-solutions/tree/main/0033-search-in-rotated-sorted-array/) | Medium |
 | [0056-merge-intervals](https://github.com/rogerprz/leetcode-solutions/tree/main/0056-merge-intervals/) | Medium |
+| [0153-find-minimum-in-rotated-sorted-array](https://github.com/rogerprz/leetcode-solutions/tree/main/0153-find-minimum-in-rotated-sorted-array/) | Medium |
 | [0200-number-of-islands](https://github.com/rogerprz/leetcode-solutions/tree/main/0200-number-of-islands/) | Medium |
 | [0463-island-perimeter](https://github.com/rogerprz/leetcode-solutions/tree/main/0463-island-perimeter/) | Easy |
 | [0695-max-area-of-island](https://github.com/rogerprz/leetcode-solutions/tree/main/0695-max-area-of-island/) | Medium |
@@ -65,6 +66,7 @@
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0033-search-in-rotated-sorted-array](https://github.com/rogerprz/leetcode-solutions/tree/main/0033-search-in-rotated-sorted-array/) | Medium |
+| [0153-find-minimum-in-rotated-sorted-array](https://github.com/rogerprz/leetcode-solutions/tree/main/0153-find-minimum-in-rotated-sorted-array/) | Medium |
 | [0235-lowest-common-ancestor-of-a-binary-search-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0235-lowest-common-ancestor-of-a-binary-search-tree/) | Medium |
 ## Hash Table
 | Problem Name | Difficulty |
