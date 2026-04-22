@@ -5,6 +5,7 @@
 ## Array
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0033-search-in-rotated-sorted-array](https://github.com/rogerprz/leetcode-solutions/tree/main/0033-search-in-rotated-sorted-array/) | Medium |
 | [0056-merge-intervals](https://github.com/rogerprz/leetcode-solutions/tree/main/0056-merge-intervals/) | Medium |
 | [2078-two-furthest-houses-with-different-colors](https://github.com/rogerprz/leetcode-solutions/tree/main/2078-two-furthest-houses-with-different-colors/) | Easy |
 ## Greedy
@@ -57,6 +58,7 @@
 ## Binary Search Tree
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0033-search-in-rotated-sorted-array](https://github.com/rogerprz/leetcode-solutions/tree/main/0033-search-in-rotated-sorted-array/) | Medium |
 | [0235-lowest-common-ancestor-of-a-binary-search-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0235-lowest-common-ancestor-of-a-binary-search-tree/) | Medium |
 ## Hash Table
 | Problem Name | Difficulty |
