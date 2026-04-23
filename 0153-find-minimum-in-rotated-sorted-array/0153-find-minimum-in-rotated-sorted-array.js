@@ -11,10 +11,10 @@ var findMin = function(nums) {
         const low = nums[l]
         const mid = nums[m]
         const high = nums[r]
-        if (mid > high) {
-            l = m +1
-        } else {
+        if (mid < high) {
             r = m
+        } else {
+            l = m +1
         }
     }
 
