@@ -86,6 +86,7 @@
 | ------- | ------- |
 | [0005-longest-palindromic-substring](https://github.com/rogerprz/leetcode-solutions/tree/main/0005-longest-palindromic-substring/) | Medium |
 | [0208-implement-trie-prefix-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0208-implement-trie-prefix-tree/) | Medium |
+| [3863-minimum-operations-to-sort-a-string](https://github.com/rogerprz/leetcode-solutions/tree/main/3863-minimum-operations-to-sort-a-string/) | Medium |
 ## Design
 | Problem Name | Difficulty |
 | ------- | ------- |
