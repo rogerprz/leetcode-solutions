@@ -86,6 +86,7 @@
 | ------- | ------- |
 | [0005-longest-palindromic-substring](https://github.com/rogerprz/leetcode-solutions/tree/main/0005-longest-palindromic-substring/) | Medium |
 | [0208-implement-trie-prefix-tree](https://github.com/rogerprz/leetcode-solutions/tree/main/0208-implement-trie-prefix-tree/) | Medium |
+| [2409-count-days-spent-together](https://github.com/rogerprz/leetcode-solutions/tree/main/2409-count-days-spent-together/) | Easy |
 | [3863-minimum-operations-to-sort-a-string](https://github.com/rogerprz/leetcode-solutions/tree/main/3863-minimum-operations-to-sort-a-string/) | Medium |
 ## Design
 | Problem Name | Difficulty |
@@ -124,4 +125,8 @@
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0042-trapping-rain-water](https://github.com/rogerprz/leetcode-solutions/tree/main/0042-trapping-rain-water/) | Hard |
+## Math
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [2409-count-days-spent-together](https://github.com/rogerprz/leetcode-solutions/tree/main/2409-count-days-spent-together/) | Easy |
 <!---LeetCode Topics End-->
