@@ -1,5 +1,6 @@
 class Solution:
     def minOperations(self, s: str) -> int:
+        # roger
         n = len(s)
         max_char, min_char = max(s), min(s)
         
